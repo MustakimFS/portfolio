@@ -74,7 +74,7 @@ export const PROJECTS = [
     ],
     tags: ['Python', 'TensorFlow', 'Keras', 'U-Net', 'DeepLabV3+', 'CV'],
     github: 'https://github.com/MustakimFS/pixeldrive-segmentation',
-    demo: null,
+    demo: 'https://huggingface.co/spaces/mustakimfs/pixelDrive',
     paper: '/papers/pixeldrive.pdf',
     featured: false,
     category: 'Computer Vision',
