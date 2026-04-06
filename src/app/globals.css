@@ -1,0 +1,196 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gold: #c8a96e;
+  --gold-dim: #8a7050;
+  --gold-bright: #e8c98e;
+  --gold-subtle: rgba(200, 169, 110, 0.08);
+  --gold-border: rgba(200, 169, 110, 0.15);
+  --bg-primary: #080b10;
+  --bg-secondary: #0d1117;
+  --bg-card: #111722;
+  --text-primary: #e2e8f0;
+  --text-secondary: #9ca3af;
+  --text-dim: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* Selection */
+::selection { background: rgba(200, 169, 110, 0.2); color: var(--gold-bright); }
+
+/* Gold shimmer text */
+.gold-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--gold-dim) 0%,
+    var(--gold-bright) 25%,
+    var(--gold) 50%,
+    var(--gold-bright) 75%,
+    var(--gold-dim) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+@keyframes shimmer {
+  from { background-position: -200% 0; }
+  to { background-position: 200% 0; }
+}
+
+/* Grid noise texture */
+.noise-bg::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Card glass effect */
+.glass-card {
+  background: var(--bg-card);
+  border: 1px solid var(--gold-border);
+  border-radius: 12px;
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(200, 169, 110, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(200, 169, 110, 0.06);
+}
+
+/* Section fade-in on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Dot grid background */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(200,169,110,0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Tag pill */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: rgba(200, 169, 110, 0.08);
+  color: var(--gold);
+  border: 1px solid rgba(200, 169, 110, 0.15);
+  white-space: nowrap;
+}
+
+/* Nav link */
+.nav-link {
+  position: relative;
+  color: var(--text-secondary);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--gold);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* Button primary */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  background: rgba(200, 169, 110, 0.1);
+  border: 1px solid rgba(200, 169, 110, 0.3);
+  border-radius: 8px;
+  color: var(--gold);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: rgba(200, 169, 110, 0.18);
+  border-color: rgba(200, 169, 110, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Button ghost */
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px;
+  border: 1px solid rgba(200, 169, 110, 0.15);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-ghost:hover {
+  border-color: rgba(200, 169, 110, 0.3);
+  color: var(--gold);
+}
