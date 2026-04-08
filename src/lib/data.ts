@@ -119,8 +119,8 @@ export const SKILLS = [
   {
     category: 'Languages',
     items: [
-      { name: 'Java', level: 90 },
-      { name: 'Python', level: 92 },
+      { name: 'Java', level: 92 },
+      { name: 'Python', level: 85 },
       { name: 'TypeScript', level: 82 },
       { name: 'C++', level: 70 },
       { name: 'SQL', level: 78 },
