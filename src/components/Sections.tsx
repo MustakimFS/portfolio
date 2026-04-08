@@ -136,7 +136,7 @@ export function Research() {
       {/* Secondary papers */}
       <div className="mt-8">
         <h3 className="text-sm font-mono uppercase tracking-widest mb-4" style={{ color: 'var(--text-dim)' }}>
-          Additional Papers
+          Additional Technical Reports
         </h3>
         <div className="flex flex-col gap-3">
           {[
