@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { PERSONAL } from '@/lib/data'
+import Link from 'next/link'
+import { Terminal } from 'lucide-react'
 
 const links = [
   { href: '#about', label: 'About' },
@@ -22,58 +24,67 @@ export default function Nav() {
 
   return (
     <nav
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-      style={{
-        background: scrolled ? 'rgba(8,11,16,0.92)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(12px)' : 'none',
-        borderBottom: scrolled ? '1px solid rgba(200,169,110,0.08)' : '1px solid transparent',
-      }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-mono ${
+        scrolled ? 'bg-[#080b10]/95 backdrop-blur-md border-b border-border/50 shadow-sm' : 'bg-[#080b10] border-b border-transparent'
+      }`}
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <a href="#" className="flex items-center gap-1 group" style={{ textDecoration: 'none' }}>
-          <span
-            className="gold-shimmer text-xl font-bold tracking-tight"
-            style={{ letterSpacing: '-0.03em' }}
-          >
-            MS
+        <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
+          <Terminal className="w-5 h-5 text-foreground" />
+          <span className="text-sm font-bold text-foreground">
+            ~/mustakim
           </span>
-          <span
-            className="text-xs font-mono transition-colors duration-200"
-            style={{ color: 'var(--text-dim)' }}
-          >
-            .dev
-          </span>
-        </a>
+          <span className="animate-pulse text-muted-foreground">_</span>
+        </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {links.map(l => (
-            <a key={l.href} href={l.href} className="nav-link">{l.label}</a>
+            <Link key={l.href} href={l.href} className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+              {l.label}
+            </Link>
           ))}
-          <a href={PERSONAL.resume} target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ padding: '7px 18px', fontSize: '12px' }}>
+          <a 
+            href={PERSONAL.resume} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-xs px-4 py-2 border border-border/50 text-foreground hover:bg-secondary/50 hover:border-border transition-all rounded-md"
+          >
             Resume
           </a>
         </div>
 
         {/* Mobile toggle */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden flex flex-col gap-1.5 p-2 text-muted-foreground hover:text-foreground transition-colors"
           onClick={() => setOpen(!open)}
           aria-label="Menu"
         >
-          <span className="block w-5 h-px transition-all" style={{ background: open ? 'var(--gold)' : 'var(--text-secondary)', transform: open ? 'rotate(45deg) translateY(3px)' : 'none' }} />
-          <span className="block w-5 h-px transition-all" style={{ background: 'var(--text-secondary)', opacity: open ? 0 : 1 }} />
-          <span className="block w-5 h-px transition-all" style={{ background: open ? 'var(--gold)' : 'var(--text-secondary)', transform: open ? 'rotate(-45deg) translateY(-3px)' : 'none' }} />
+          <span className={`block w-5 h-px bg-current transition-all ${open ? 'rotate-45 translate-y-[7px]' : ''}`} />
+          <span className={`block w-5 h-px bg-current transition-all ${open ? 'opacity-0' : ''}`} />
+          <span className={`block w-5 h-px bg-current transition-all ${open ? '-rotate-45 -translate-y-[7px]' : ''}`} />
         </button>
       </div>
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden px-6 pb-6 flex flex-col gap-4" style={{ background: 'rgba(8,11,16,0.97)' }}>
+        <div className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 bg-[#080b10] border-b border-border/50">
           {links.map(l => (
-            <a key={l.href} href={l.href} className="nav-link text-base" onClick={() => setOpen(false)}>{l.label}</a>
+            <Link 
+              key={l.href} 
+              href={l.href} 
+              className="text-sm text-muted-foreground hover:text-foreground py-2 border-b border-border/20" 
+              onClick={() => setOpen(false)}
+            >
+              {l.label}
+            </Link>
           ))}
-          <a href={PERSONAL.resume} className="btn-primary w-fit">Resume</a>
+          <a 
+            href={PERSONAL.resume} 
+            className="text-sm px-4 py-2 mt-2 border border-border/50 text-foreground hover:bg-secondary/50 transition-all rounded-md w-fit"
+          >
+            Resume
+          </a>
         </div>
       )}
     </nav>
