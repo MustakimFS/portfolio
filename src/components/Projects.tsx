@@ -37,7 +37,6 @@ export default function Projects() {
       <div className="w-full max-w-7xl mx-auto px-6 sm:px-12 lg:px-20">
 
         {/* ── Terminal header ── */}
-        <AnimateIn>
         <div className="mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-t-lg bg-card/40 border border-b-0 border-border/50">
             <span className="font-mono text-xs text-muted-foreground">~/projects</span>
@@ -70,7 +69,6 @@ export default function Projects() {
             </div>
           </div>
         </div>
-        </AnimateIn>
 
         {/* ── Grid ── */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

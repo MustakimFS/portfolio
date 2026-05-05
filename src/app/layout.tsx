@@ -26,8 +26,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className="noise-bg">{children}</body>
+    <html lang="en" style={{ height: '100%', overflow: 'hidden', background: '#060810' }}>
+      <body style={{ height: '100%', overflow: 'hidden', background: '#060810', margin: 0, padding: 0 }}>
+        {children}
+      </body>
     </html>
   )
 }
