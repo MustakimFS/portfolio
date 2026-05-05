@@ -7,7 +7,7 @@ function timeAgo(dateString: string) {
   const date = new Date(dateString)
   const now = new Date()
   const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
-  
+
   let interval = Math.floor(seconds / 31536000)
   if (interval >= 1) return `${interval}y ago`
   interval = Math.floor(seconds / 2592000)
@@ -25,9 +25,10 @@ function timeAgo(dateString: string) {
 interface WindowState {
   id: string
   title: string
-  type: "terminal" | "about" | "projects" | "skills" | "research" | "contact"
+  type: "terminal" | "about" | "projects" | "skills" | "research" | "contact" | "leetcode"
   isOpen: boolean
   isMinimized: boolean
+  isMaximized?: boolean
   x: number
   y: number
   width: number
@@ -184,7 +185,7 @@ export default function PortfolioOS() {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [expandedProject, setExpandedProject] = useState<string | null>(null)
   const [isRecruiter, setIsRecruiter] = useState(false)
-  const [leetcodeData, setLeetcodeData] = useState({ total: "815", hard: "126" })
+  const [leetcodeData, setLeetcodeData] = useState({ total: "815", hard: "126", lastSubmission: new Date().toISOString() })
   const [githubData, setGithubData] = useState({ repo: "distributed-kv-store", message: "feat: quorum reads", time: new Date().toISOString() })
 
   useEffect(() => {
@@ -200,6 +201,16 @@ export default function PortfolioOS() {
   useEffect(() => {
     const interval = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(interval)
+  }, [])
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        restoreWindow("terminal")
+      }
+    }
+    window.addEventListener("keydown", handleGlobalKeyDown)
+    return () => window.removeEventListener("keydown", handleGlobalKeyDown)
   }, [])
 
   // Boot sequence
@@ -225,10 +236,10 @@ export default function PortfolioOS() {
       type: "terminal",
       isOpen: true,
       isMinimized: false,
-      x: Math.max(50, (typeof window !== "undefined" ? window.innerWidth : 1200) / 2 - 300),
-      y: Math.max(50, (typeof window !== "undefined" ? window.innerHeight : 800) / 2 - 200),
-      width: 600,
-      height: 400,
+      x: Math.max(50, (typeof window !== "undefined" ? window.innerWidth : 1200) / 2 - Math.min(950, typeof window !== "undefined" ? window.innerWidth * 0.9 : 950) / 2),
+      y: Math.max(50, (typeof window !== "undefined" ? window.innerHeight : 800) / 2 - 310),
+      width: Math.min(950, typeof window !== "undefined" ? window.innerWidth * 0.9 : 950),
+      height: 620,
       zIndex: 100,
     }
     setWindows([terminalWindow])
@@ -288,6 +299,29 @@ export default function PortfolioOS() {
     setWindows((prev) => prev.map((w) => (w.id === windowId ? { ...w, zIndex: newZ } : w)))
   }
 
+  const toggleMaximize = (windowId: string) => {
+    bringToFront(windowId)
+    setWindows((prev) =>
+      prev.map((w) => {
+        if (w.id !== windowId) return w
+        if (w.isMaximized) {
+          const isTerm = w.type === "terminal"
+          const defaultW = isTerm ? Math.min(950, typeof window !== "undefined" ? window.innerWidth * 0.9 : 950) : 860
+          const defaultH = isTerm ? 620 : 580
+          const defaultX = Math.max(50, (typeof window !== "undefined" ? window.innerWidth : 1200) / 2 - defaultW / 2)
+          const defaultY = Math.max(50, (typeof window !== "undefined" ? window.innerHeight : 800) / 2 - defaultH / 2)
+          return { ...w, isMaximized: false, width: defaultW, height: defaultH, x: defaultX, y: defaultY }
+        } else {
+          const maxW = typeof window !== "undefined" ? window.innerWidth * 0.95 : 1200
+          const maxH = typeof window !== "undefined" ? window.innerHeight * 0.9 : 800
+          const maxX = typeof window !== "undefined" ? (window.innerWidth - maxW) / 2 : 50
+          const maxY = typeof window !== "undefined" ? (window.innerHeight - maxH) / 2 : 50
+          return { ...w, isMaximized: true, width: maxW, height: maxH, x: maxX, y: maxY }
+        }
+      })
+    )
+  }
+
   const openWindow = (type: WindowState["type"], title: string) => {
     const existingWindow = windows.find((w) => w.type === type)
     if (existingWindow) {
@@ -305,10 +339,10 @@ export default function PortfolioOS() {
       type,
       isOpen: true,
       isMinimized: false,
-      x: Math.max(50, (typeof window !== "undefined" ? window.innerWidth : 1200) / 2 - 260 + offset),
-      y: Math.max(50, (typeof window !== "undefined" ? window.innerHeight : 800) / 2 - 210 + offset),
-      width: type === "terminal" ? 600 : 520,
-      height: type === "terminal" ? 400 : 420,
+      x: Math.max(50, (typeof window !== "undefined" ? window.innerWidth : 1200) / 2 - (type === "terminal" ? Math.min(950, (typeof window !== "undefined" ? window.innerWidth * 0.9 : 950)) : 860) / 2 + offset),
+      y: Math.max(50, (typeof window !== "undefined" ? window.innerHeight : 800) / 2 - (type === "terminal" ? 310 : 290) + offset),
+      width: type === "terminal" ? Math.min(950, (typeof window !== "undefined" ? window.innerWidth * 0.9 : 950)) : 860,
+      height: type === "terminal" ? 620 : 580,
       zIndex: zIndexCounter + 1,
     }
     setZIndexCounter((z) => z + 1)
@@ -346,7 +380,7 @@ export default function PortfolioOS() {
         "  cat [section]   print section inline",
         "  resume          download resume",
         "  clear           clear terminal",
-        "  easter          👀"
+        "// 💡 there are easter eggs hidden in this portfolio"
       )
     } else if (trimmed === "whoami") {
       output.push(
@@ -357,7 +391,7 @@ export default function PortfolioOS() {
         "gpa       3.75 / 4.0",
         "location  Tempe, Arizona",
         "status    seeking full-time SDE roles",
-        `leetcode  ${leetcodeData.total} solved`,
+        `leetcode  ${leetcodeData.total} solved · ${leetcodeData.hard} hard · last: ${timeAgo(leetcodeData.lastSubmission)}`,
         "",
         "currently: Technical Architecture Lead @ METY Legal",
         "building:  distributed systems · ml pipelines · rag",
@@ -370,7 +404,7 @@ export default function PortfolioOS() {
       output.push(
         "// system status",
         "─────────────────────────────",
-        `leetcode    ${leetcodeData.total} solved · ${leetcodeData.hard} hard`,
+        `leetcode    ${leetcodeData.total} solved · ${leetcodeData.hard} hard · last: ${timeAgo(leetcodeData.lastSubmission)}`,
         `github      ${githubData.repo} · ${githubData.message}`,
         `location    Tempe, AZ · ${new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", timeZone: "America/Phoenix" })}`,
         `uptime      ${daysUptime} days`,
@@ -392,7 +426,8 @@ export default function PortfolioOS() {
         "drwxr-xr-x  research/",
         "-rw-r--r--  resume.pdf",
         "-rw-r--r--  contact.txt",
-        "-rw-r--r--  ieee-paper.pdf"
+        "-rw-r--r--  ieee-paper.pdf",
+        "-rw-r--r--  leetcode.profile"
       )
     } else if (trimmed.startsWith("open ")) {
       const target = trimmed.replace("open ", "")
@@ -406,6 +441,9 @@ export default function PortfolioOS() {
       } else {
         output.push(`open: ${target}: No such file or directory`)
       }
+    } else if (trimmed === "open leetcode") {
+      openWindow("leetcode", "~/leetcode")
+      output.push("opening ~/leetcode...")
     } else if (trimmed === "connect") {
       openWindow("contact", "~/contact")
       output.push("opening ~/contact...")
@@ -533,6 +571,9 @@ export default function PortfolioOS() {
         </a>
         <a href="mailto:shikalgar.mustakim@gmail.com" className="block text-blue-400 hover:underline">
           → shikalgar.mustakim@gmail.com
+        </a>
+        <a href="https://leetcode.com/u/Mustakim_Shikalgar/" target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline">
+          → leetcode.com/u/Mustakim_Shikalgar/
         </a>
       </div>
     </div>
@@ -720,6 +761,27 @@ export default function PortfolioOS() {
     </div>
   )
 
+  const renderLeetcode = () => (
+    <div className="p-4 font-mono text-sm text-gray-300 space-y-4">
+      <div className="text-gray-500">{"// mustakim @ leetcode"}</div>
+      <div className="text-gray-400">─────────────────────────────────────</div>
+      <div className="grid grid-cols-[100px_1fr] gap-1">
+        <div className="text-gray-500">solved</div>
+        <div className="text-green-400">{leetcodeData.total} problems</div>
+        <div className="text-gray-500">hard</div>
+        <div className="text-green-400">{leetcodeData.hard} solved</div>
+        <div className="text-gray-500">last seen</div>
+        <div className="text-gray-400">{timeAgo(leetcodeData.lastSubmission)}</div>
+        <div className="text-gray-500">rank</div>
+        <div className="text-yellow-400">top 15% globally</div>
+      </div>
+      <div className="text-gray-400">─────────────────────────────────────</div>
+      <a href="https://leetcode.com/u/Mustakim_Shikalgar/" target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline mt-4">
+        → leetcode.com/u/Mustakim_Shikalgar/
+      </a>
+    </div>
+  )
+
   const renderWindowContent = (win: WindowState) => {
     switch (win.type) {
       case "terminal":
@@ -734,6 +796,8 @@ export default function PortfolioOS() {
         return renderResearch()
       case "contact":
         return renderContact()
+      case "leetcode":
+        return renderLeetcode()
       default:
         return null
     }
@@ -746,6 +810,11 @@ export default function PortfolioOS() {
         backgroundColor: "#060810",
         backgroundImage: `radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px)`,
         backgroundSize: "24px 24px",
+      }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          restoreWindow("terminal")
+        }
       }}
     >
       {/* Raft Background Animation */}
@@ -769,25 +838,43 @@ export default function PortfolioOS() {
           >
             {/* Title bar */}
             <div
-              className="h-8 bg-[#1a1d24] flex items-center px-3 cursor-move"
+              className="h-8 bg-[#1a1d24] flex items-center px-3 cursor-default"
               onMouseDown={(e) => startDrag(win.id, e)}
             >
               <div className="flex gap-2 mr-4">
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation()
-                    closeWindow(win.id)
-                  }}
-                  className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400"
-                />
+                {win.type !== "terminal" ? (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      closeWindow(win.id)
+                    }}
+                    className="w-3 h-3 rounded-full bg-red-500 hover:bg-red-400 cursor-pointer relative group/btn"
+                  >
+                    <span className="opacity-0 group-hover/btn:opacity-100 bg-gray-900 text-gray-300 text-[10px] font-mono px-2 py-0.5 rounded absolute top-6 left-0 whitespace-nowrap z-50 transition-opacity">close</span>
+                  </button>
+                ) : (
+                  <div className="w-3 h-3 rounded-full bg-red-500/30 cursor-not-allowed relative group/btn">
+                    <span className="opacity-0 group-hover/btn:opacity-100 bg-gray-900 text-gray-300 text-[10px] font-mono px-2 py-0.5 rounded absolute top-6 left-0 whitespace-nowrap z-50 transition-opacity">protected</span>
+                  </div>
+                )}
                 <button
                   onClick={(e) => {
                     e.stopPropagation()
                     minimizeWindow(win.id)
                   }}
-                  className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400"
-                />
-                <div className="w-3 h-3 rounded-full bg-green-500" />
+                  className="w-3 h-3 rounded-full bg-yellow-500 hover:bg-yellow-400 cursor-pointer relative group/btn"
+                >
+                  <span className="opacity-0 group-hover/btn:opacity-100 bg-gray-900 text-gray-300 text-[10px] font-mono px-2 py-0.5 rounded absolute top-6 left-0 whitespace-nowrap z-50 transition-opacity">minimize</span>
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    toggleMaximize(win.id)
+                  }}
+                  className="w-3 h-3 rounded-full bg-green-500 hover:bg-green-400 cursor-pointer relative group/btn"
+                >
+                  <span className="opacity-0 group-hover/btn:opacity-100 bg-gray-900 text-gray-300 text-[10px] font-mono px-2 py-0.5 rounded absolute top-6 left-0 whitespace-nowrap z-50 transition-opacity">maximize</span>
+                </button>
               </div>
               <span className="text-gray-400 text-sm font-mono">{win.title}</span>
             </div>
@@ -806,11 +893,10 @@ export default function PortfolioOS() {
               <button
                 key={win.id}
                 onClick={() => (win.isMinimized ? restoreWindow(win.id) : bringToFront(win.id))}
-                className={`px-3 py-1 text-sm font-mono rounded transition-colors ${
-                  win.isMinimized
+                className={`px-3 py-1 text-sm font-mono rounded transition-colors ${win.isMinimized
                     ? "bg-gray-800/50 text-gray-500 hover:bg-gray-700/50"
                     : "bg-gray-700/50 text-gray-300 hover:bg-gray-600/50"
-                }`}
+                  }`}
               >
                 {win.title}
               </button>
