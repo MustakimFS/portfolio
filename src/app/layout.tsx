@@ -26,10 +26,8 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" style={{ height: '100%', background: '#060810' }} className="md:overflow-hidden">
-      <body style={{ height: '100%', background: '#060810', margin: 0, padding: 0 }} className="md:overflow-hidden">
-        {children}
-      </body>
+    <html lang="en" className="scroll-smooth">
+      <body className="noise-bg">{children}</body>
     </html>
   )
 }

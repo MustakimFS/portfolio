@@ -1,122 +1,310 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import PortfolioOS from "@/components/PortfolioOS"
-import { PERSONAL, PROJECTS } from "@/lib/data"
-import { Github, Linkedin, Mail, ExternalLink, FileText } from "lucide-react"
+import { useEffect, useRef, useState } from 'react'
+import Nav from '@/components/Nav'
+import Hero from '@/components/Hero'
+import About from '@/components/About'
+import Projects from '@/components/Projects'
+import Skills from '@/components/Skills'
+import Research from '@/components/Research'
+import Contact from '@/components/Contact'
+import RaftBackground from '@/components/RaftBackground'
+import { setEasterHash, getEasterHash } from '@/lib/easterHash'
+import { PERSONAL } from '@/lib/data'
+
+// ── Easter utilities ──────────────────────────────────────────────────────
+
+const SECRET_WORDS = ['phantom', 'ghost', 'cipher', 'void', 'glitch', 'specter', 'echo', 'flux']
+
+function rot13(s: string) {
+  return s.replace(/[a-zA-Z]/g, c => {
+    const base = c >= 'a' ? 97 : 65
+    return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base)
+  })
+}
+
+const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
+
+// ── Component ─────────────────────────────────────────────────────────────
 
 export default function Page() {
-  const [isMobile, setIsMobile] = useState<boolean | null>(null)
+  const [chaosMode, setChaosMode] = useState(false)
+  const [termOpen, setTermOpen] = useState(false)
+  const [termLines, setTermLines] = useState<string[]>([
+    'mustakim@portfolio ~ $ type "help" for commands',
+    'mustakim@portfolio ~ $',
+  ])
+  const [termInput, setTermInput] = useState('')
+  const [history, setHistory] = useState<string[]>([])
+  const [histIdx, setHistIdx] = useState(-1)
 
+  const secretWordRef = useRef<string>(SECRET_WORDS[0])
+  const termEndRef = useRef<HTMLDivElement>(null)
+  const termInputRef = useRef<HTMLInputElement>(null)
+  const konamiRef = useRef<string[]>([])
+
+  // Init session hash
   useEffect(() => {
-    const checkWidth = () => setIsMobile(window.innerWidth < 768)
-    checkWidth()
-    window.addEventListener("resize", checkWidth)
-    return () => window.removeEventListener("resize", checkWidth)
+    const word = SECRET_WORDS[Math.floor(Math.random() * SECRET_WORDS.length)]
+    secretWordRef.current = word
+    setEasterHash('[' + rot13(word) + ']')
   }, [])
 
-  if (isMobile === null) {
-    return <div className="h-screen w-screen bg-[#060810]" />
+  // Backtick toggle + konami
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === '`' && !['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
+        e.preventDefault()
+        setTermOpen(v => !v)
+      }
+      if (e.key === 'Escape') setTermOpen(false)
+
+      konamiRef.current = [...konamiRef.current, e.key].slice(-KONAMI.length)
+      if (konamiRef.current.join(',') === KONAMI.join(',')) {
+        setChaosMode(v => !v)
+        konamiRef.current = []
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+
+  // Scroll terminal to bottom
+  useEffect(() => {
+    termEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  }, [termLines])
+
+  // Focus input when terminal opens
+  useEffect(() => {
+    if (termOpen) setTimeout(() => termInputRef.current?.focus(), 50)
+  }, [termOpen])
+
+  function addLines(...lines: string[]) {
+    setTermLines(prev => [...prev, ...lines, 'mustakim@portfolio ~ $'])
   }
 
-  if (!isMobile) {
-    return <PortfolioOS />
+  function scrollToSection(id: string) {
+    document.querySelector(`#${id}`)?.scrollIntoView({ behavior: 'smooth' })
   }
 
-  // Mobile fallback
+  function executeCommand(raw: string) {
+    const cmd = raw.trim().toLowerCase()
+    const echo = `mustakim@portfolio ~ $ ${raw}`
+
+    if (cmd === '') {
+      setTermLines(prev => [...prev, echo])
+      return
+    }
+
+    setHistory(h => [raw, ...h])
+    setHistIdx(-1)
+
+    if (cmd === 'clear') {
+      setTermLines(['mustakim@portfolio ~ $'])
+      return
+    }
+
+    if (cmd === 'exit') {
+      setTermLines(prev => [...prev, echo, '// terminal closed'])
+      setTermOpen(false)
+      return
+    }
+
+    if (cmd === 'help') {
+      setTermLines(prev => [
+        ...prev, echo,
+        'available commands:',
+        '  whoami              who is mustakim',
+        '  ls                  list sections',
+        '  open [section]      scroll to section',
+        '  sudo hire-me        ;)',
+        '  clear               clear terminal',
+        '  exit                close terminal',
+        '// 💡 secrets exist. some are hidden in plain sight.',
+        'mustakim@portfolio ~ $',
+      ])
+      return
+    }
+
+    if (cmd === 'whoami') {
+      addLines(
+        echo,
+        PERSONAL.name,
+        '──────────────────────────────',
+        `role      ${PERSONAL.title}`,
+        'degree    MS Software Engineering @ ASU',
+        'gpa       3.75 / 4.0',
+        `location  ${PERSONAL.location}`,
+        'status    seeking full-time SDE roles',
+      )
+      return
+    }
+
+    if (cmd === 'ls') {
+      addLines(
+        echo,
+        'drwxr-xr-x  about/',
+        'drwxr-xr-x  projects/',
+        'drwxr-xr-x  skills/',
+        'drwxr-xr-x  research/',
+        '-rw-r--r--  contact.txt',
+        '-rw-r--r--  resume.pdf',
+      )
+      return
+    }
+
+    if (cmd.startsWith('open ')) {
+      const target = cmd.replace('open ', '').trim()
+      const valid = ['about', 'projects', 'skills', 'research', 'contact', 'hero']
+      if (valid.includes(target)) {
+        scrollToSection(target)
+        addLines(echo, `// scrolling to ~/${target}`)
+      } else {
+        addLines(echo, `open: ${target}: No such section`)
+      }
+      return
+    }
+
+    if (cmd === 'sudo hire-me') {
+      setTermLines(prev => [
+        ...prev, echo,
+        '[sudo] password for recruiter:',
+        'authenticating...',
+        'access granted.',
+        '',
+        `opening: ${PERSONAL.email}`,
+        'mustakim@portfolio ~ $',
+      ])
+      setTimeout(() => { window.location.href = `mailto:${PERSONAL.email}` }, 800)
+      return
+    }
+
+    // Secret word — triggers easter mode
+    if (cmd === secretWordRef.current) {
+      const newWord = SECRET_WORDS.filter(w => w !== secretWordRef.current)[
+        Math.floor(Math.random() * (SECRET_WORDS.length - 1))
+      ]
+      secretWordRef.current = newWord
+      setEasterHash('[' + rot13(newWord) + ']')
+
+      setTermLines(prev => [
+        ...prev, echo,
+        '',
+        '// access granted',
+        '// you found the signal',
+        '',
+        '// chaos mode: ACTIVATED',
+        '// the system has shifted. a new signal exists.',
+        '// look for it.',
+        '',
+        'mustakim@portfolio ~ $',
+      ])
+      setChaosMode(true)
+      setTimeout(() => setChaosMode(false), 8000)
+      return
+    }
+
+    // Rot13 hint
+    if (cmd === rot13(secretWordRef.current)) {
+      addLines(
+        echo,
+        '// this input appears to be encoded',
+        '// hint: rot13 · try rot13.com',
+      )
+      return
+    }
+
+    addLines(echo, `command not found: ${raw}`, "try 'help' for available commands")
+  }
+
   return (
-    <div className="min-h-screen bg-[#060810] text-gray-300 font-mono p-6 selection:bg-green-500/30 selection:text-green-200 overflow-y-auto">
-      <div className="bg-green-400/10 border border-green-400/30 rounded-lg p-3 mb-8 mt-2">
-        <p className="text-green-400 font-mono text-xs text-center">
-          ↑ desktop version available — open on PC for full OS experience
-        </p>
+    <main className="relative min-h-screen bg-[#060810]">
+      <RaftBackground chaosMode={chaosMode} />
+      <div className="relative z-10">
+        <Nav />
+        <Hero />
+        <About />
+        <Projects />
+        <Skills />
+        <Research />
+        <Contact />
       </div>
-      <header className="mb-12 pt-8">
-        <h1 className="text-2xl font-bold text-green-400 mb-2">{PERSONAL.name}</h1>
-        <p className="text-gray-400 mb-4">{PERSONAL.title}</p>
-        <p className="text-sm text-gray-500 leading-relaxed mb-6">
-          {PERSONAL.bio}
-        </p>
 
-        <div className="flex flex-col gap-3 text-sm">
-          <a href={PERSONAL.github} className="flex items-center gap-2 text-blue-400">
-            <Github className="w-4 h-4" /> GitHub
-          </a>
-          <a href={PERSONAL.linkedin} className="flex items-center gap-2 text-blue-400">
-            <Linkedin className="w-4 h-4" /> LinkedIn
-          </a>
-          <a href={`mailto:${PERSONAL.email}`} className="flex items-center gap-2 text-blue-400">
-            <Mail className="w-4 h-4" /> Email
-          </a>
-          <a href={PERSONAL.resume} className="flex items-center gap-2 text-yellow-400">
-            <FileText className="w-4 h-4" /> Resume
-          </a>
-        </div>
-      </header>
+      {/* Hint dot */}
+      <div
+        className="fixed bottom-4 right-4 z-50 w-2 h-2 rounded-full bg-green-400/40 animate-pulse cursor-pointer"
+        onClick={() => setTermOpen(v => !v)}
+        title="Press ` to open terminal"
+      />
 
-      <section className="mb-12">
-        <h2 className="text-gray-500 mb-4">{"// projects"}</h2>
-        <div className="space-y-6">
-          {PROJECTS.map((project) => (
-            <div key={project.id} className="p-4 border border-gray-800 rounded bg-[#0a0c10]">
-              <h3 className="text-green-400 font-bold mb-1">{project.title}</h3>
-              <p className="text-xs text-gray-500 mb-3">{project.category}</p>
-              <p className="text-sm mb-4">{project.description}</p>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.metrics.map(m => (
-                  <span key={m.label} className="text-xs bg-gray-900 px-2 py-1 rounded text-gray-400 border border-gray-800">
-                    <span className="text-gray-500">{m.label}:</span> <span className="text-green-400">{m.value}</span>
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-2 mb-4">
-                {project.tags.map((tag) => (
-                  <span key={tag} className="text-[10px] px-1.5 py-0.5 bg-gray-800 rounded-sm text-gray-400 border border-gray-700">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <div className="flex flex-wrap gap-4 mt-2">
-                {project.github && (
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-400 flex items-center gap-1 hover:text-blue-300">
-                    <ExternalLink className="w-3 h-3" /> GitHub
-                  </a>
-                )}
-                {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-xs text-green-400 flex items-center gap-1 hover:text-green-300">
-                    <ExternalLink className="w-3 h-3" /> Demo
-                  </a>
-                )}
-                {project.paper && (
-                  <a href={project.paper} target="_blank" rel="noopener noreferrer" className="text-xs text-yellow-400 flex items-center gap-1 hover:text-yellow-300">
-                    <ExternalLink className="w-3 h-3" /> Paper
-                  </a>
-                )}
-                {project.ieee && (
-                  <a href={project.ieee} target="_blank" rel="noopener noreferrer" className="text-xs text-purple-400 flex items-center gap-1 hover:text-purple-300">
-                    <ExternalLink className="w-3 h-3" /> IEEE
-                  </a>
-                )}
-                {project.note && (
-                  <span className="text-xs text-gray-600 italic">
-                    {project.note}
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      {/* Terminal overlay */}
+      {termOpen && (
+        <div
+          className="fixed bottom-8 right-8 z-[100] w-96 h-72 bg-[#060810] border border-gray-700 rounded-lg shadow-2xl shadow-black/60 flex flex-col font-mono text-xs overflow-hidden"
+          onClick={() => termInputRef.current?.focus()}
+        >
+          {/* Title bar */}
+          <div className="flex items-center gap-1.5 px-3 py-2 bg-[#0a0c10] border-b border-gray-800 shrink-0">
+            <button
+              onClick={e => { e.stopPropagation(); setTermOpen(false) }}
+              className="w-2.5 h-2.5 rounded-full bg-red-500/80 hover:bg-red-500 transition-colors"
+            />
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+            <span className="ml-2 text-gray-500">~/portfolio</span>
+          </div>
 
-      <footer className="pt-8 border-t border-gray-800 pb-12">
-        <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4 mb-6">
-          <p className="text-green-400 font-mono text-xs mb-1">// better on desktop</p>
-          <p className="text-gray-400 text-sm">
-            This portfolio runs a full terminal OS experience on desktop — draggable windows, live Raft consensus visualization, hidden easter eggs, and interactive commands.
-          </p>
-          <p className="text-gray-500 text-xs mt-2">Open on a PC or laptop for the full experience.</p>
+          {/* Output */}
+          <div className="flex-1 overflow-y-auto px-3 py-2 space-y-0.5">
+            {termLines.map((line, i) => (
+              <div
+                key={i}
+                className={
+                  line.startsWith('mustakim@portfolio') ? 'text-green-400' :
+                  line.startsWith('//') ? 'text-gray-600' :
+                  line.startsWith('[') ? 'text-amber-400' :
+                  'text-gray-300'
+                }
+              >
+                {line || ' '}
+              </div>
+            ))}
+            <div ref={termEndRef} />
+          </div>
+
+          {/* Input */}
+          <div className="flex items-center px-3 py-2 border-t border-gray-800 shrink-0">
+            <span className="text-green-400 mr-2">$</span>
+            <input
+              ref={termInputRef}
+              value={termInput}
+              onChange={e => setTermInput(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === 'Enter') {
+                  executeCommand(termInput)
+                  setTermInput('')
+                } else if (e.key === 'ArrowUp') {
+                  e.preventDefault()
+                  const newIdx = Math.min(histIdx + 1, history.length - 1)
+                  setHistIdx(newIdx)
+                  setTermInput(history[newIdx] ?? '')
+                } else if (e.key === 'ArrowDown') {
+                  e.preventDefault()
+                  const newIdx = Math.max(histIdx - 1, -1)
+                  setHistIdx(newIdx)
+                  setTermInput(newIdx === -1 ? '' : history[newIdx] ?? '')
+                } else if (e.key === 'Escape') {
+                  setTermOpen(false)
+                }
+              }}
+              className="flex-1 bg-transparent text-gray-200 outline-none caret-green-400"
+              placeholder="type a command..."
+              autoComplete="off"
+              spellCheck={false}
+            />
+          </div>
         </div>
-      </footer>
-    </div>
+      )}
+    </main>
   )
 }

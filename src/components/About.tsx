@@ -1,62 +1,91 @@
-"use client"
+'use client'
 
-import { PERSONAL } from "@/lib/data"
-import { MapPin, Briefcase, GraduationCap } from "lucide-react"
-import { SectionHeading } from "@/components/SectionHeading"
-import { SectionWrapper } from "@/components/SectionWrapper"
+import { PERSONAL } from '@/lib/data'
+import { useInView } from '@/hooks/useInView'
 
-export function About() {
+const LINKS = [
+  { label: 'github', value: PERSONAL.github, href: PERSONAL.github },
+  { label: 'linkedin', value: PERSONAL.linkedin, href: PERSONAL.linkedin },
+  { label: 'leetcode', value: PERSONAL.leetcode, href: PERSONAL.leetcode },
+  { label: 'email', value: PERSONAL.email, href: `mailto:${PERSONAL.email}` },
+]
+
+export default function About() {
+  const [sectionRef, isInView] = useInView({ threshold: 0.1 })
+
   return (
-    <SectionWrapper id="about">
-      <div className="w-full max-w-4xl mx-auto px-6 sm:px-12 lg:px-20 py-20 sm:py-28">
-        <div className="mb-10 sm:mb-14">
-          <SectionHeading label="~/about" />
+    <section
+      id="about"
+      ref={sectionRef as React.RefObject<HTMLElement>}
+      className="relative py-24"
+    >
+      {/* Sweep line */}
+      <div
+        className="absolute top-0 left-0 h-px bg-green-400/40 transition-all duration-[400ms] ease-out"
+        style={{ width: isInView ? '100%' : '0%' }}
+      />
+
+      <div className="max-w-4xl mx-auto px-6">
+        {/* Terminal header */}
+        <div
+          className="flex items-center gap-2 mb-10 transition-all duration-500"
+          style={{ opacity: isInView ? 1 : 0, transform: isInView ? 'none' : 'translateY(24px)', transitionDelay: '400ms' }}
+        >
+          <div className="flex gap-1.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+            <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+          </div>
+          <span className="font-mono text-sm text-gray-500 ml-2">~/about</span>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-10 lg:gap-16">
-          <div className="flex-1 space-y-6 text-base sm:text-lg leading-relaxed text-foreground/90 font-mono">
-            <p>
-              Hi, I&apos;m {PERSONAL.name.split(' ')[0]}. I&apos;m currently studying for my MS in Software Engineering at Arizona State University.
-            </p>
-            <p>
-              Beyond academia, I&apos;m the Technical Architecture Lead at METY Legal, where I lead a 6-person engineering team building AI legal assistants. I enjoy the challenge of designing distributed systems that are both resilient and efficient, and I love bridging the gap between theoretical machine learning and practical, user-facing applications.
-            </p>
-            <p>
-              When I&apos;m not writing code or reading research papers, you can usually find me tackling difficult LeetCode problems or exploring how to make distributed consensus algorithms just a little bit faster.
-            </p>
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* Left: bio */}
+          <div
+            className="space-y-6 transition-all duration-500"
+            style={{ opacity: isInView ? 1 : 0, transform: isInView ? 'none' : 'translateY(24px)', transitionDelay: '480ms' }}
+          >
+            <p className="text-gray-300 leading-relaxed">{PERSONAL.bio}</p>
+
+            {/* Education block */}
+            <div className="border border-gray-800 rounded-lg p-4 bg-[#0a0c10] font-mono text-sm space-y-1">
+              <div className="text-gray-500">// education</div>
+              <div className="text-green-400">Arizona State University</div>
+              <div className="text-gray-300">MS Software Engineering</div>
+              <div className="text-gray-500">GPA: <span className="text-white">3.75</span> · Graduating <span className="text-white">May 2026</span></div>
+            </div>
+
+            {/* Current role */}
+            <div className="border border-gray-800 rounded-lg p-4 bg-[#0a0c10] font-mono text-sm space-y-1">
+              <div className="text-gray-500">// current_role</div>
+              <div className="text-green-400">Technical Architecture Lead</div>
+              <div className="text-gray-300">METY Legal</div>
+              <div className="text-gray-500">Leading <span className="text-white">6-person</span> cross-functional team</div>
+            </div>
           </div>
 
-          <div className="w-full md:w-72 space-y-6">
-            <div className="p-5 rounded-xl border border-border/50 bg-card/30 backdrop-blur-sm">
-              <h3 className="font-mono text-sm text-muted-foreground mb-4">{"// "} current_status</h3>
-              <ul className="space-y-4 font-mono text-sm">
-                <li className="flex items-start gap-3">
-                  <Briefcase className="w-4 h-4 text-emerald-400 mt-1" />
-                  <div>
-                    <span className="block text-foreground">Technical Architecture Lead</span>
-                    <span className="block text-muted-foreground/80">METY Legal · Leading team of 6</span>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <GraduationCap className="w-4 h-4 text-blue-400 mt-1" />
-                  <div>
-                    <span className="block text-foreground">MS Software Engineering</span>
-                    <span className="block text-muted-foreground/80">Arizona State Univ. · GPA 3.75</span>
-                    <span className="block text-muted-foreground/80">Graduating May 2026</span>
-                  </div>
-                </li>
-                <li className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-rose-400 mt-1" />
-                  <div>
-                    <span className="block text-foreground">Location</span>
-                    <span className="block text-muted-foreground/80">{PERSONAL.location}</span>
-                  </div>
-                </li>
-              </ul>
-            </div>
+          {/* Right: links */}
+          <div
+            className="space-y-3 transition-all duration-500"
+            style={{ opacity: isInView ? 1 : 0, transform: isInView ? 'none' : 'translateY(24px)', transitionDelay: '560ms' }}
+          >
+            <div className="font-mono text-sm text-gray-500 mb-4">// links</div>
+            {LINKS.map(({ label, value, href }) => (
+              <div key={label} className="flex items-start gap-3 font-mono text-sm border-b border-gray-800/50 pb-3">
+                <span className="text-gray-600 w-20 shrink-0">{label}</span>
+                <a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-400 hover:text-blue-300 transition-colors break-all"
+                >
+                  {value}
+                </a>
+              </div>
+            ))}
           </div>
         </div>
       </div>
-    </SectionWrapper>
+    </section>
   )
 }
