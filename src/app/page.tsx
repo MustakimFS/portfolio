@@ -25,14 +25,19 @@ export default function Page() {
 
   // Mobile fallback
   return (
-    <div className="min-h-screen bg-[#060810] text-gray-300 font-mono p-6 selection:bg-green-500/30 selection:text-green-200">
+    <div className="min-h-screen bg-[#060810] text-gray-300 font-mono p-6 selection:bg-green-500/30 selection:text-green-200 overflow-y-auto">
+      <div className="bg-green-400/10 border border-green-400/30 rounded-lg p-3 mb-8 mt-2">
+        <p className="text-green-400 font-mono text-xs text-center">
+          ↑ desktop version available — open on PC for full OS experience
+        </p>
+      </div>
       <header className="mb-12 pt-8">
         <h1 className="text-2xl font-bold text-green-400 mb-2">{PERSONAL.name}</h1>
         <p className="text-gray-400 mb-4">{PERSONAL.title}</p>
         <p className="text-sm text-gray-500 leading-relaxed mb-6">
           {PERSONAL.bio}
         </p>
-        
+
         <div className="flex flex-col gap-3 text-sm">
           <a href={PERSONAL.github} className="flex items-center gap-2 text-blue-400">
             <Github className="w-4 h-4" /> GitHub
@@ -104,9 +109,13 @@ export default function Page() {
       </section>
 
       <footer className="pt-8 border-t border-gray-800 pb-12">
-        <p className="text-xs text-gray-600 text-center">
-          For the full interactive OS experience, please visit on a desktop device.
-        </p>
+        <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4 mb-6">
+          <p className="text-green-400 font-mono text-xs mb-1">// better on desktop</p>
+          <p className="text-gray-400 text-sm">
+            This portfolio runs a full terminal OS experience on desktop — draggable windows, live Raft consensus visualization, hidden easter eggs, and interactive commands.
+          </p>
+          <p className="text-gray-500 text-xs mt-2">Open on a PC or laptop for the full experience.</p>
+        </div>
       </footer>
     </div>
   )
