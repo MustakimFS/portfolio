@@ -17,18 +17,19 @@ export const PROJECTS = [
     id: 'mety-legal',
     title: 'METY Legal Chatbot',
     subtitle: 'LangGraph · Django · React · FastAPI',
-    description: 'AI legal assistant (industry capstone, contract) with two user modes, guided learning and direct help. Rebuilt the LangGraph pipeline from 6 nodes to 5, cutting LLM calls per message from 2 to 1. Implemented FSPR knowledge profiling, lawyer-style probing behavior, and rolling conversation summarization for coherent long-session context retention.',
+    description: 'AI legal assistant (industry capstone, contract) with three distinct user modes — guided learning, direct help, and legal document generation — on a unified Django + React + FastAPI + LangGraph + MongoDB stack. Led a 6-person cross-functional team as Technical Architecture Lead. Designed a dynamic FSPR (Facts, Strategies, Procedures, Rationales) knowledge profiling system that builds user knowledge profiles implicitly through async background inference on every message. Rebuilt the LangGraph pipeline from 6 nodes to 5 with unified context injection, reducing LLM calls per message from 2 to 1 and cutting cost by 85% to $0.0008/query. Engineered rolling conversation summarization with token-based triggers and async persistence for coherent long-session context retention. Implemented lawyer-style probing behavior replicating attorney intake, context-aware legal document generation with tailored clause inference, self-assessment across 4 legal knowledge dimensions, and a guided course system spanning 9 legal domains.',
     metrics: [
       { label: 'Cost per query', value: '$0.0008' },
       { label: 'Cost reduction', value: '85%' },
       { label: 'Legal domains', value: '9' },
+      { label: "User modes", value: "3" }
     ],
-    tags: ['LangGraph', 'Django', 'React', 'FastAPI', 'MongoDB', 'GPT-4o-mini'],
+    tags: ["LangGraph", "Django", "React", "FastAPI", "MongoDB", "GPT-4o", "GPT-4o-mini", "Python"],
     github: null,
     demo: null,
     featured: true,
     category: 'AI / Full Stack',
-    note: 'Private contract project — source code under NDA',
+    note: 'Industry capstone · Private contract · Source under NDA',
   },
   {
     id: 'distributed-kv',

@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef, useCallback } from "react"
+import { PROJECTS, SKILLS, PERSONAL, ACHIEVEMENTS } from '@/lib/data'
 import RaftBackground from "./RaftBackground"
 
 function timeAgo(dateString: string) {
@@ -36,132 +37,7 @@ interface WindowState {
   zIndex: number
 }
 
-interface Project {
-  id: string
-  title: string
-  category: string
-  subtitle: string
-  description: string
-  metrics: { label: string; value: string }[]
-  tags: string[]
-  github: string | null
-  demo?: string | null
-  paper?: string | null
-  ieee?: string | null
-  note?: string
-}
 
-// Data
-const PROJECTS: Project[] = [
-  {
-    id: "mety-legal",
-    title: "METY Legal Chatbot",
-    category: "AI / Full Stack",
-    subtitle: "LangGraph · Django · React · FastAPI",
-    description:
-      "AI legal assistant with two user modes. Rebuilt LangGraph pipeline from 6 nodes to 5, cutting LLM calls per message from 2 to 1. FSPR knowledge profiling, lawyer-style probing, rolling summarization.",
-    metrics: [
-      { label: "Cost per query", value: "$0.0008" },
-      { label: "Cost reduction", value: "85%" },
-      { label: "Legal domains", value: "9" },
-    ],
-    tags: ["LangGraph", "Django", "React", "FastAPI", "MongoDB", "GPT-4o-mini"],
-    github: null,
-    demo: null,
-    note: "Private — NDA",
-  },
-  {
-    id: "distributed-kv",
-    title: "Distributed Key-Value Store",
-    category: "Distributed Systems",
-    subtitle: "Raft Consensus · gRPC · Java · Docker",
-    description:
-      "Fault-tolerant KV store implementing Raft consensus for leader election and log replication across 5-node cluster. Tunable CP vs AP consistency.",
-    metrics: [
-      { label: "Cluster nodes", value: "5" },
-      { label: "Read latency", value: "<10ms" },
-      { label: "Consistency", value: "Strong" },
-    ],
-    tags: ["Java", "Raft", "gRPC", "Docker"],
-    github: "https://github.com/MustakimFS/distributed-kv-store",
-    demo: null,
-  },
-  {
-    id: "semiconductor",
-    title: "Semiconductor Yield Predictor",
-    category: "Machine Learning",
-    subtitle: "Random Forest · L1 Selection · Streamlit",
-    description:
-      "Binary classification for wafer pass/fail on severely imbalanced dataset. L1 regularization for dimensionality reduction then Random Forest with balanced class weighting.",
-    metrics: [
-      { label: "Recall", value: "76%" },
-      { label: "ROC-AUC", value: "0.81" },
-      { label: "Features", value: "590→113" },
-    ],
-    tags: ["Python", "scikit-learn", "Streamlit"],
-    github: "https://github.com/MustakimFS/semiconductor-yield-optimizer",
-    paper: "/papers/semiconductor-yield.pdf",
-  },
-  {
-    id: "pixeldrive",
-    title: "PixelDrive: Road Scene Segmentation",
-    category: "Computer Vision",
-    subtitle: "U-Net · SegNet · DeepLabV3+ · TensorFlow",
-    description:
-      "Semantic segmentation for autonomous driving. Compared U-Net, SegNet, DeepLabV3+ on 13-class Carla dataset. Fixed 7 critical bugs in original codebase.",
-    metrics: [
-      { label: "mIoU", value: "95.50%" },
-      { label: "Inference", value: "45 FPS" },
-      { label: "Classes", value: "13" },
-    ],
-    tags: ["Python", "TensorFlow", "Keras", "U-Net"],
-    github: "https://github.com/MustakimFS/pixeldrive-segmentation",
-    demo: "https://huggingface.co/spaces/mustakimfs/pixelDrive",
-    paper: "/papers/pixeldrive.pdf",
-  },
-  {
-    id: "missing-persons",
-    title: "Missing Persons Knowledge Graph",
-    category: "Research / Full Stack",
-    subtitle: "RDF · SPARQL · FastAPI · React",
-    description:
-      "Knowledge graph of 10K+ NamUs records. Replaced $50/month GraphDB with FastAPI + RDFLib achieving sub-100ms SPARQL queries at zero infra cost.",
-    metrics: [
-      { label: "Records", value: "10K+" },
-      { label: "Query latency", value: "<100ms" },
-      { label: "Infra cost", value: "$0" },
-    ],
-    tags: ["RDF", "SPARQL", "FastAPI", "React"],
-    github: "https://github.com/MustakimFS",
-    demo: "https://missing-persons-knowledge-graph.vercel.app/",
-    ieee: "https://ieeexplore.ieee.org/document/11126748",
-    paper: "/papers/missing-persons-kg.pdf",
-  },
-  {
-    id: "genome-assembler",
-    title: "De Bruijn Genome Assembler",
-    category: "Systems / Algorithms",
-    subtitle: "Java · Spring Boot · Graph Algorithms",
-    description:
-      "Genome assembler with 99.9% coverage on phiX174 using de Bruijn graphs and Eulerian cycle traversal. Error correction: tip removal and bubble detection.",
-    metrics: [
-      { label: "Coverage", value: "99.9%" },
-      { label: "Genome", value: "5,386bp" },
-      { label: "Dataset", value: "phiX174" },
-    ],
-    tags: ["Java", "Spring Boot", "Graph Algorithms"],
-    github: "https://github.com/MustakimFS",
-    demo: "https://debruijn-genome-assembler.vercel.app/",
-  },
-]
-
-const SKILLS = {
-  Languages: ["Java", "Python", "TypeScript", "C++", "SQL"],
-  "Backend & Systems": ["Spring Boot", "Django", "FastAPI", "gRPC", "Raft Consensus"],
-  "AI/ML": ["LangChain/LangGraph", "scikit-learn", "PyTorch", "RAG Pipelines", "Knowledge Graphs"],
-  Frontend: ["React", "Next.js", "Tailwind CSS", "Streamlit"],
-  "Data & Infra": ["MongoDB", "PostgreSQL", "Docker", "Redis", "Kafka"],
-}
 
 const BOOT_SEQUENCE = [
   "Initializing mustakim.dev...",
@@ -185,7 +61,7 @@ export default function PortfolioOS() {
   const [currentTime, setCurrentTime] = useState(new Date())
   const [expandedProject, setExpandedProject] = useState<string | null>(null)
   const [isRecruiter, setIsRecruiter] = useState(false)
-  const [leetcodeData, setLeetcodeData] = useState({ total: "815", hard: "126", lastSubmission: new Date().toISOString() })
+  const [leetcodeData, setLeetcodeData] = useState({ total: 815, hard: 126 })
   const [githubData, setGithubData] = useState({ repo: "distributed-kv-store", message: "feat: quorum reads", time: new Date().toISOString() })
 
   useEffect(() => {
@@ -384,14 +260,14 @@ export default function PortfolioOS() {
       )
     } else if (trimmed === "whoami") {
       output.push(
-        "mustakim shikalgar",
+        PERSONAL.name,
         "─────────────────────────────────────",
-        "role      Software Engineer",
+        `role      ${PERSONAL.title}`,
         "degree    MS Software Engineering @ ASU",
         "gpa       3.75 / 4.0",
-        "location  Tempe, Arizona",
+        `location  ${PERSONAL.location}`,
         "status    seeking full-time SDE roles",
-        `leetcode  ${leetcodeData.total} solved · ${leetcodeData.hard} hard · last: ${timeAgo(leetcodeData.lastSubmission)}`,
+        `leetcode  ${leetcodeData.total} solved · ${leetcodeData.hard} hard`,
         "",
         "currently: Technical Architecture Lead @ METY Legal",
         "building:  distributed systems · ml pipelines · rag",
@@ -404,7 +280,7 @@ export default function PortfolioOS() {
       output.push(
         "// system status",
         "─────────────────────────────",
-        `leetcode    ${leetcodeData.total} solved · ${leetcodeData.hard} hard · last: ${timeAgo(leetcodeData.lastSubmission)}`,
+        `leetcode    ${leetcodeData.total} solved · ${leetcodeData.hard} hard`,
         `github      ${githubData.repo} · ${githubData.message}`,
         `location    Tempe, AZ · ${new Date().toLocaleTimeString("en-US", { hour: "2-digit", minute: "2-digit", timeZone: "America/Phoenix" })}`,
         `uptime      ${daysUptime} days`,
@@ -450,7 +326,7 @@ export default function PortfolioOS() {
     } else if (trimmed === "resume") {
       output.push("downloading resume.pdf...")
       if (typeof window !== "undefined") {
-        window.open("/resume.pdf", "_blank")
+        window.open(PERSONAL.resume, "_blank")
       }
     } else if (trimmed === "clear") {
       setTerminalOutput(["mustakim@portfolio ~ $"])
@@ -473,11 +349,11 @@ export default function PortfolioOS() {
         "access granted.",
         "",
         "initiating hiring sequence...",
-        "opening: shikalgar.mustakim@gmail.com"
+        `opening: ${PERSONAL.email}`
       )
       setTimeout(() => {
         if (typeof window !== "undefined") {
-          window.location.href = "mailto:shikalgar.mustakim@gmail.com"
+          window.location.href = `mailto:${PERSONAL.email}`
         }
       }, 1000)
     } else if (trimmed.startsWith("cat ")) {
@@ -485,18 +361,15 @@ export default function PortfolioOS() {
       if (section === "about") {
         output.push(
           "// about.txt",
-          "name: Mustakim Shikalgar",
-          "role: Software Engineer",
+          `name: ${PERSONAL.name}`,
+          `role: ${PERSONAL.title}`,
           "education: MS Software Engineering @ ASU (GPA 3.75)",
           "current: Technical Architecture Lead @ METY Legal"
         )
       } else if (section === "skills") {
         output.push(
           "// skills.txt",
-          "Languages: Java, Python, TypeScript, C++, SQL",
-          "Backend: Spring Boot, Django, FastAPI, gRPC",
-          "AI/ML: LangChain, PyTorch, RAG, Knowledge Graphs",
-          "Frontend: React, Next.js, Tailwind CSS"
+          ...SKILLS.map(s => `${s.category}: ${s.items.map(i => i.name).join(", ")}`)
         )
       } else {
         output.push(`cat: ${section}: No such file or directory`)
@@ -541,11 +414,11 @@ export default function PortfolioOS() {
   const renderAbout = () => (
     <div className="p-4 font-mono text-sm text-gray-300 space-y-4">
       <div>
-        <div className="text-green-400 text-lg">Mustakim Shikalgar</div>
-        <div className="text-gray-500">Software Engineer</div>
+        <div className="text-green-400 text-lg">{PERSONAL.name}</div>
+        <div className="text-gray-500">{PERSONAL.title}</div>
       </div>
       <p className="text-gray-400 leading-relaxed">
-        I work at the intersection of distributed systems, machine learning, and full-stack engineering. Currently pursuing my MS in Software Engineering at Arizona State University while leading technical architecture at METY Legal.
+        {PERSONAL.bio}
       </p>
       <div className="border-t border-gray-700 pt-3 space-y-1">
         <div className="text-gray-500">{"// education"}</div>
@@ -563,78 +436,86 @@ export default function PortfolioOS() {
       </div>
       <div className="border-t border-gray-700 pt-3 space-y-2">
         <div className="text-gray-500">{"// links"}</div>
-        <a href="https://github.com/MustakimFS" target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline">
-          → github.com/MustakimFS
+        <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline">
+          → {PERSONAL.github.replace("https://", "")}
         </a>
-        <a href="https://www.linkedin.com/in/mustakim-shikalgar" target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline">
-          → linkedin.com/in/mustakim-shikalgar
+        <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline">
+          → {PERSONAL.linkedin.replace("https://www.", "")}
         </a>
-        <a href="mailto:shikalgar.mustakim@gmail.com" className="block text-blue-400 hover:underline">
-          → shikalgar.mustakim@gmail.com
+        <a href={`mailto:${PERSONAL.email}`} className="block text-blue-400 hover:underline">
+          → {PERSONAL.email}
         </a>
-        <a href="https://leetcode.com/u/Mustakim_Shikalgar/" target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline">
-          → leetcode.com/u/Mustakim_Shikalgar/
+        <a href={PERSONAL.leetcode} target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline">
+          → {PERSONAL.leetcode.replace("https://", "")}
         </a>
       </div>
     </div>
   )
 
   const renderProjects = () => (
-    <div className="p-4 font-mono text-sm text-gray-300 space-y-2 overflow-y-auto max-h-[340px]">
-      <div className="text-gray-500 mb-3">{"// select a project to expand"}</div>
+    <div className="p-6 font-mono text-sm text-gray-300 space-y-3 overflow-y-auto max-h-[calc(100%-2rem)]">
+      <div className="text-gray-500 mb-4 text-xs">// select a project to expand</div>
       {PROJECTS.map((project, idx) => (
-        <div key={project.id} className="border border-gray-700 rounded">
+        <div key={project.id} className="border border-gray-700 rounded-md overflow-hidden">
           <button
             onClick={() => setExpandedProject(expandedProject === project.id ? null : project.id)}
-            className="w-full text-left p-2 hover:bg-gray-800/50 transition-colors flex items-center gap-3"
+            className="w-full text-left px-4 py-3 hover:bg-gray-800/50 transition-colors flex items-center gap-4"
           >
-            <span className="text-gray-500 w-5">{idx}</span>
-            <span className="flex-1 text-green-400">{project.title}</span>
-            <span className="text-xs px-2 py-0.5 bg-gray-800 rounded text-gray-400">{project.category}</span>
-            <span className="text-yellow-400 text-xs">{project.metrics[0]?.value}</span>
+            <span className="text-gray-600 w-6 text-xs">{String(idx).padStart(2, '0')}</span>
+            <span className="flex-1 text-green-400 font-medium">{project.title}</span>
+            <span className="text-xs px-2 py-1 bg-gray-800 rounded text-gray-400 hidden sm:inline">{project.category}</span>
+            <span className="text-yellow-400 text-sm font-medium">{project.metrics[0]?.value}</span>
+            <span className="text-gray-600 text-xs ml-1">{expandedProject === project.id ? '▲' : '▼'}</span>
           </button>
           {expandedProject === project.id && (
-            <div className="p-3 border-t border-gray-700 bg-gray-900/50 space-y-3">
-              <div className="text-gray-400 text-xs">{project.subtitle}</div>
-              <p className="text-gray-300">{project.description}</p>
+            <div className="px-6 py-5 border-t border-gray-700 bg-gray-900/40 space-y-4">
+              <div className="text-gray-500 text-xs tracking-wide">{project.subtitle}</div>
+              <p className="text-gray-300 leading-relaxed text-sm">{project.description}</p>
               {!isRecruiter && (
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-3 gap-3">
                   {project.metrics.map((m) => (
-                    <span key={m.label} className="text-xs px-2 py-1 bg-gray-800 rounded">
-                      <span className="text-gray-500">{m.label}:</span> <span className="text-green-400">{m.value}</span>
-                    </span>
+                    <div key={m.label} className="bg-gray-800/60 rounded px-3 py-2">
+                      <div className="text-green-400 font-medium text-base">{m.value}</div>
+                      <div className="text-gray-500 text-xs mt-0.5">{m.label}</div>
+                    </div>
                   ))}
                 </div>
               )}
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
-                  <span key={tag} className="text-xs px-2 py-0.5 bg-gray-700 rounded text-gray-300">
+                  <span key={tag} className="text-xs px-2 py-1 bg-gray-800 rounded-sm text-gray-400 border border-gray-700">
                     {tag}
                   </span>
                 ))}
               </div>
-              <div className="flex gap-3 text-xs">
+              <div className="flex gap-4 text-xs pt-1 border-t border-gray-800">
                 {project.github && (
-                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    [GitHub]
+                  <a href={project.github} target="_blank" rel="noopener noreferrer"
+                    className="text-blue-400 hover:text-blue-300 transition-colors flex items-center gap-1">
+                    ↗ GitHub
                   </a>
                 )}
                 {project.demo && (
-                  <a href={project.demo} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    [Demo]
+                  <a href={project.demo} target="_blank" rel="noopener noreferrer"
+                    className="text-green-400 hover:text-green-300 transition-colors flex items-center gap-1">
+                    ↗ Live Demo
                   </a>
                 )}
                 {project.paper && (
-                  <a href={project.paper} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    [Paper]
+                  <a href={project.paper} target="_blank" rel="noopener noreferrer"
+                    className="text-yellow-400 hover:text-yellow-300 transition-colors flex items-center gap-1">
+                    ↗ Paper
                   </a>
                 )}
                 {project.ieee && (
-                  <a href={project.ieee} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-                    [IEEE]
+                  <a href={project.ieee} target="_blank" rel="noopener noreferrer"
+                    className="text-purple-400 hover:text-purple-300 transition-colors flex items-center gap-1">
+                    ↗ IEEE
                   </a>
                 )}
-                {project.note && <span className="text-gray-500">{project.note}</span>}
+                {project.note && (
+                  <span className="text-gray-600 italic">{project.note}</span>
+                )}
               </div>
             </div>
           )}
@@ -645,13 +526,13 @@ export default function PortfolioOS() {
 
   const renderSkills = () => (
     <div className="p-4 font-mono text-sm text-gray-300 space-y-4">
-      {Object.entries(SKILLS).map(([category, skills]) => (
-        <div key={category}>
-          <div className="text-gray-500 mb-2">{`// ${category}`}</div>
+      {SKILLS.map((skillGroup) => (
+        <div key={skillGroup.category}>
+          <div className="text-gray-500 mb-2">{`// ${skillGroup.category}`}</div>
           <div className="flex flex-wrap gap-2">
-            {skills.map((skill) => (
-              <span key={skill} className="px-2 py-1 bg-gray-800 border border-gray-700 rounded text-green-400 text-xs">
-                {skill}
+            {skillGroup.items.map((skill) => (
+              <span key={skill.name} className="px-2 py-1 bg-gray-800 border border-gray-700 rounded text-green-400 text-xs">
+                {skill.name}
               </span>
             ))}
           </div>
@@ -672,7 +553,7 @@ export default function PortfolioOS() {
         </div>
         <div className="text-gray-500 text-xs mb-2">Toronto, Canada</div>
         <a
-          href="https://ieeexplore.ieee.org/document/11126748"
+          href={PERSONAL.ieee}
           target="_blank"
           rel="noopener noreferrer"
           className="text-blue-400 hover:underline text-xs"
@@ -702,19 +583,19 @@ export default function PortfolioOS() {
     <div className="p-4 font-mono text-sm text-gray-300 space-y-3">
       <div className="text-gray-500">{"// reach out"}</div>
       <div className="space-y-2">
-        <a href="mailto:shikalgar.mustakim@gmail.com" className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
+        <a href={`mailto:${PERSONAL.email}`} className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
           <span className="text-gray-500">email</span>
-          <span className="text-green-400 group-hover:underline">shikalgar.mustakim@gmail.com</span>
+          <span className="text-green-400 group-hover:underline">{PERSONAL.email}</span>
         </a>
-        <a href="https://www.linkedin.com/in/mustakim-shikalgar" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
+        <a href={PERSONAL.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
           <span className="text-gray-500">linkedin</span>
-          <span className="text-blue-400 group-hover:underline">linkedin.com/in/mustakim-shikalgar</span>
+          <span className="text-blue-400 group-hover:underline">{PERSONAL.linkedin.replace("https://www.", "")}</span>
         </a>
-        <a href="https://github.com/MustakimFS" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
+        <a href={PERSONAL.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
           <span className="text-gray-500">github</span>
-          <span className="text-blue-400 group-hover:underline">github.com/MustakimFS</span>
+          <span className="text-blue-400 group-hover:underline">{PERSONAL.github.replace("https://", "")}</span>
         </a>
-        <a href="/resume.pdf" target="_blank" className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
+        <a href={PERSONAL.resume} target="_blank" className="flex items-center gap-3 p-2 border border-gray-700 rounded hover:bg-gray-800/50 group">
           <span className="text-gray-500">resume</span>
           <span className="text-yellow-400 group-hover:underline">download resume.pdf</span>
         </a>
@@ -770,14 +651,12 @@ export default function PortfolioOS() {
         <div className="text-green-400">{leetcodeData.total} problems</div>
         <div className="text-gray-500">hard</div>
         <div className="text-green-400">{leetcodeData.hard} solved</div>
-        <div className="text-gray-500">last seen</div>
-        <div className="text-gray-400">{timeAgo(leetcodeData.lastSubmission)}</div>
         <div className="text-gray-500">rank</div>
         <div className="text-yellow-400">top 15% globally</div>
       </div>
       <div className="text-gray-400">─────────────────────────────────────</div>
-      <a href="https://leetcode.com/u/Mustakim_Shikalgar/" target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline mt-4">
-        → leetcode.com/u/Mustakim_Shikalgar/
+      <a href={PERSONAL.leetcode} target="_blank" rel="noopener noreferrer" className="block text-blue-400 hover:underline mt-4">
+        → {PERSONAL.leetcode.replace("https://", "")}
       </a>
     </div>
   )
@@ -894,8 +773,8 @@ export default function PortfolioOS() {
                 key={win.id}
                 onClick={() => (win.isMinimized ? restoreWindow(win.id) : bringToFront(win.id))}
                 className={`px-3 py-1 text-sm font-mono rounded transition-colors ${win.isMinimized
-                    ? "bg-gray-800/50 text-gray-500 hover:bg-gray-700/50"
-                    : "bg-gray-700/50 text-gray-300 hover:bg-gray-600/50"
+                  ? "bg-gray-800/50 text-gray-500 hover:bg-gray-700/50"
+                  : "bg-gray-700/50 text-gray-300 hover:bg-gray-600/50"
                   }`}
               >
                 {win.title}
