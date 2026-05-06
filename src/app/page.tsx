@@ -9,6 +9,7 @@ import Skills from '@/components/Skills'
 import Research from '@/components/Research'
 import Contact from '@/components/Contact'
 import RaftBackground from '@/components/RaftBackground'
+import KonamiCanvas from '@/components/KonamiCanvas'
 import { setEasterHash } from '@/lib/easterHash'
 import { PERSONAL } from '@/lib/data'
 
@@ -264,6 +265,7 @@ export default function Page() {
           className={`fixed inset-0 z-[200] flex items-center justify-center pointer-events-none select-none ${konamiFading ? 'graffiti-out' : ''}`}
           style={{ background: 'rgba(0,0,0,0.55)' }}
         >
+          <KonamiCanvas active={konamiActive} />
           {/* Scattered tags */}
           {GRAFFITI_TAGS.map((tag, i) => (
             <span
