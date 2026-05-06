@@ -39,6 +39,7 @@ const GRAFFITI_TAGS = [
 
 export default function Page() {
   const [chaosMode, setChaosMode] = useState(false)
+  const [shakeMode, setShakeMode] = useState(false)
   const [termOpen, setTermOpen] = useState(true)
   const [termLines, setTermLines] = useState<string[]>([
     'mustakim@portfolio ~ $ type "help" for commands',
@@ -219,7 +220,8 @@ export default function Page() {
         'mustakim@portfolio ~ $',
       ])
       setChaosMode(true)
-      setTimeout(() => setChaosMode(false), 8000)
+      setShakeMode(true)
+      setTimeout(() => { setShakeMode(false); setChaosMode(false); window.location.reload() }, 3000)
       return
     }
 
@@ -237,7 +239,7 @@ export default function Page() {
   }
 
   return (
-    <main className="relative min-h-screen bg-[#060810]">
+    <main className={`relative min-h-screen bg-[#060810]${shakeMode ? ' shake-it' : ''}`}>
       <RaftBackground chaosMode={chaosMode} />
       <div className="relative z-10">
         <Nav />
