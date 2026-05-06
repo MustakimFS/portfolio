@@ -15,6 +15,15 @@ async function generateSessionHash(): Promise<string> {
   return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
+const SECRET_WORDS = ["phantom", "ghost", "cipher", "void", "glitch", "specter", "echo", "flux"]
+
+function rot13(input: string): string {
+  return input.replace(/[a-zA-Z]/g, c => {
+    const base = c >= 'a' ? 97 : 65
+    return String.fromCharCode(((c.charCodeAt(0) - base + 13) % 26) + base)
+  })
+}
+
 function glitchText(target: string, progress: number): string {
   const chars = '!@#$%^&*<>[]{}|/\\~`'
   return target.split('').map((char) => {
@@ -107,10 +116,9 @@ export default function PortfolioOS() {
 
   // Session hash — generated once on mount
   useEffect(() => {
-    generateSessionHash().then(hash => {
-      secretHashRef.current = hash
-      setEasterHash(hash.slice(0, 8))
-    })
+    const word = SECRET_WORDS[Math.floor(Math.random() * SECRET_WORDS.length)]
+    secretHashRef.current = word
+    setEasterHash('[' + rot13(word) + ']')
   }, [])
 
   // Taskbar glitch cycle — every 12 seconds reveal hash for 3s
@@ -120,7 +128,7 @@ export default function PortfolioOS() {
     const CYCLE_MS = 12000
 
     const runGlitch = () => {
-      const target = secretHashRef.current.slice(0, 8)
+      const target = getEasterHash()
       const start = performance.now()
 
       // Phase 1: glitch IN
@@ -156,7 +164,7 @@ export default function PortfolioOS() {
   }, [])
 
   // Konami code detector
-  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']
+  const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       konamiRef.current = [...konamiRef.current, e.key].slice(-10)
@@ -170,7 +178,7 @@ export default function PortfolioOS() {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -333,32 +341,114 @@ export default function PortfolioOS() {
   }
 
   // ── Easter egg modes ───────────────────────────────────────────────────────
-  const handleEasterMode = (mode: number, output: string[]) => {
+  const handleEasterMode = (mode: number) => {
+    const newWord = SECRET_WORDS.filter(w => w !== secretHashRef.current)[Math.floor(Math.random() * (SECRET_WORDS.length - 1))]
+
+    const rotateAndFinish = (finalLines: string[]) => {
+      secretHashRef.current = newWord
+      setEasterHash('[' + rot13(newWord) + ']')
+      setTerminalOutput([
+        ...finalLines,
+        '',
+        '// the system has shifted. a new signal exists.',
+        '// look for it.',
+        'mustakim@portfolio ~ $'
+      ])
+    }
+
+    const typeLines = (lines: string[], delay: number, onDone?: () => void) => {
+      setTerminalOutput([])
+      let i = 0
+      const next = () => {
+        if (i < lines.length) {
+          setTerminalOutput(prev => [...prev, lines[i]])
+          i++
+          setTimeout(next, delay)
+        } else {
+          onDone?.()
+        }
+      }
+      setTimeout(next, 100)
+    }
+
+    setTerminalOutput([])
+
     if (mode === 0) {
-      // Mode 0: Matrix rain
-      setTerminalOutput([...output, '// signal detected in the noise...'])
-      const chars = 'ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ01'
-      let ticks = 0
-      const id = setInterval(() => {
-        const line = Array.from({ length: 60 }, () =>
-          chars[Math.floor(Math.random() * chars.length)]
-        ).join('')
-        setTerminalOutput(prev => [...prev, line])
-        ticks++
-        if (ticks >= 37) {
-          clearInterval(id)
-          setTerminalOutput(prev => [
-            ...prev,
+      const ROWS = 22
+      const COLS = 60
+      const chars = '0123456789ABCDEF!@#$%^&*<>[]{}|/\\~`abcdef'
+
+      // Initialize grid with spaces
+      const grid: string[][] = Array.from({ length: ROWS }, () =>
+        Array.from({ length: COLS }, () => ' ')
+      )
+
+      // Drop positions for each column
+      const drops: number[] = Array.from({ length: COLS }, () =>
+        Math.floor(Math.random() * -ROWS)
+      )
+
+      let frame = 0
+      const totalFrames = 40
+
+      const tick = () => {
+        // Update each column
+        for (let col = 0; col < COLS; col++) {
+          const row = drops[col]
+          if (row >= 0 && row < ROWS) {
+            grid[row][col] = chars[Math.floor(Math.random() * chars.length)]
+          }
+          if (row - 1 >= 0 && row - 1 < ROWS) {
+            grid[row - 1][col] = chars[Math.floor(Math.random() * chars.length)]
+          }
+          if (row - 3 >= 0 && row - 3 < ROWS) {
+            grid[row - 3][col] = '.'
+          }
+          if (row - 5 >= 0 && row - 5 < ROWS) {
+            grid[row - 5][col] = ' '
+          }
+          drops[col]++
+          if (drops[col] > ROWS + 5) {
+            drops[col] = Math.floor(Math.random() * -10)
+          }
+        }
+
+        const lines = grid.map(row => row.map(c => c ?? ' ').join(''))
+        setTerminalOutput(lines)
+
+        frame++
+        if (frame < totalFrames) {
+          setTimeout(tick, 70)
+        } else {
+          // Type out final message line by line
+          const finalLines = [
             '',
             '// signal detected in the noise',
             '// the matrix has you',
+            '',
             '// → sudo hire-me',
-            'mustakim@portfolio ~ $',
-          ])
+            '',
+            '// the system has shifted. a new signal exists.',
+            '// look for it.',
+            'mustakim@portfolio ~ $'
+          ]
+          setTerminalOutput([])
+          secretHashRef.current = newWord
+          setEasterHash('[' + rot13(newWord) + ']')
+          let i = 0
+          const typeLine = () => {
+            if (i < finalLines.length) {
+              setTerminalOutput(prev => [...prev, finalLines[i]])
+              i++
+              setTimeout(typeLine, 120)
+            }
+          }
+          setTimeout(typeLine, 200)
         }
-      }, 80)
+      }
+      setTimeout(tick, 100)
     } else if (mode === 1) {
-      // Mode 1: Fake hack sequence
+      // Fake hack sequence typed out line by line
       const lines = [
         '[SYS] unauthorized access attempt detected',
         '[SYS] tracing source...............',
@@ -374,31 +464,25 @@ export default function PortfolioOS() {
         'status:   ACTIVELY SEEKING EMPLOYMENT',
         '──────────────────────────────────────────',
         '[SYS] recommended action: sudo hire-me',
-        '',
-        'mustakim@portfolio ~ $',
       ]
-      let base = [...output]
-      lines.forEach((line, i) => {
-        setTimeout(() => {
-          base = [...base, line]
-          setTerminalOutput([...base])
-          setCommandHistory(prev => (i === lines.length - 1 ? prev : prev))
-        }, i * 150)
+      typeLines(lines, 140, () => {
+        setTimeout(() => rotateAndFinish([...lines]), 500)
       })
+
     } else if (mode === 2) {
-      // Mode 2: Kernel panic + reboot with new hash
+      // Kernel panic then reboot
       const panicLines = [
         'KERNEL PANIC — not syncing: fatal exception',
         'CPU: 0 PID: 1337',
         'RIP: portfolio_os+0x4a2f',
+        '',
         '████ SYSTEM HALTED ████',
       ]
-      setTerminalOutput([...output, ...panicLines])
-      setTimeout(() => {
-        // Reboot with new hash
-        generateSessionHash().then(newHash => {
-          secretHashRef.current = newHash
-          setEasterHash(newHash.slice(0, 8))
+      typeLines(panicLines, 180, () => {
+        setTimeout(() => {
+          setTerminalOutput([])
+          secretHashRef.current = newWord
+          setEasterHash('[' + rot13(newWord) + ']')
           const rebootLines = [
             'Initializing mustakim.dev...',
             'Loading modules............. done',
@@ -408,29 +492,33 @@ export default function PortfolioOS() {
             'Type \'help\' for available commands',
             '───────────────────────────────────',
             '// reality is unstable. something changed.',
-            'mustakim@portfolio ~ $',
+            '// the system has shifted. a new signal exists.',
+            '// look for it.',
+            'mustakim@portfolio ~ $'
           ]
-          setTerminalOutput(rebootLines)
-          setIsBooting(false)
-        })
-      }, 1500)
+          typeLines(rebootLines, 120)
+        }, 1500)
+      })
+
     } else {
-      // Mode 3: ASCII art
-      const art = [
-        ' ███  ███ ███████',
-        ' ████ ███ ████',
-        ' ███ ████ ███████',
-        ' ███ ╚███ ╚════██',
-        ' ███  ▀▀▀ ███████',
-        ' ╚══      ╚══════',
+      // Mode 3 — personal message typed out
+      const lines = [
+        'you found something.',
         '',
-        '// mustakim shikalgar',
-        '// distributed systems · ml · asu',
-        '// sudo hire-me',
+        'this portfolio runs on:',
+        '  next.js · tailwind · vercel',
+        '  raft consensus (the real one)',
+        '  a questionable amount of caffeine',
         '',
-        'mustakim@portfolio ~ $',
+        'the raft nodes in the background?',
+        'that algorithm powers the distributed',
+        'kv store in ~/projects.',
+        '',
+        '// sudo hire-me if you appreciate the details',
       ]
-      setTerminalOutput([...output, ...art])
+      typeLines(lines, 100, () => {
+        setTimeout(() => rotateAndFinish([...lines]), 500)
+      })
     }
   }
 
@@ -503,7 +591,10 @@ export default function PortfolioOS() {
       )
     } else if (trimmed.startsWith("open ")) {
       const target = trimmed.replace("open ", "")
-      if (["about", "projects", "skills", "research"].includes(target)) {
+      if (target === "leetcode") {
+        openWindow("leetcode", "~/leetcode")
+        output.push("opening ~/leetcode...")
+      } else if (["about", "projects", "skills", "research"].includes(target)) {
         openWindow(target as any, `~/${target}`)
         output.push(`opening ~/${target}...`)
       } else if (PROJECTS.some(p => p.id === target)) {
@@ -513,9 +604,6 @@ export default function PortfolioOS() {
       } else {
         output.push(`open: ${target}: No such file or directory`)
       }
-    } else if (trimmed === "open leetcode") {
-      openWindow("leetcode", "~/leetcode")
-      output.push("opening ~/leetcode...")
     } else if (trimmed === "connect") {
       openWindow("contact", "~/contact")
       output.push("opening ~/contact...")
@@ -527,11 +615,6 @@ export default function PortfolioOS() {
     } else if (trimmed === "clear") {
       setTerminalOutput(["mustakim@portfolio ~ $"])
       setTerminalInput("")
-      return
-    } else if (trimmed === secretHashRef.current?.slice(0, 8)) {
-      const mode = Math.floor(Math.random() * 4)
-      easterHintPendingRef.current = true
-      handleEasterMode(mode, output)
       return
     } else if (trimmed === "sudo hire-me") {
       output.push(
@@ -565,16 +648,34 @@ export default function PortfolioOS() {
       } else {
         output.push(`cat: ${section}: No such file or directory`)
       }
+    } else if (trimmed === rot13(secretHashRef.current || '')) {
+      output.push(
+        '// access denied',
+        '// this input appears to be encoded',
+        '// hint: rot13 · try rot13.com'
+      )
+    } else if (trimmed === secretHashRef.current) {
+      const mode = Math.floor(Math.random() * 4)
+      easterHintPendingRef.current = true
+      handleEasterMode(mode)
+      return
+    } else if (SECRET_WORDS.includes(trimmed)) {
+      output.push(
+        '// not this time',
+        '// the key changes every session'
+      )
     } else if (trimmed === "") {
-      // Empty command, just show prompt
+      // empty command, just show prompt
     } else {
       output.push(`command not found: ${cmd}`, "try 'help' for available commands")
     }
 
-    output.push("mustakim@portfolio ~ $")
     setTerminalOutput(output)
-    setCommandHistory((prev) => [...prev, cmd])
-    setHistoryIndex(-1)
+    setTimeout(() => {
+      if (terminalOutputRef.current) {
+        terminalOutputRef.current.scrollTop = terminalOutputRef.current.scrollHeight
+      }
+    }, 50)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -802,8 +903,8 @@ export default function PortfolioOS() {
         onClick={() => terminalInputRef.current?.focus()}
       >
         {terminalOutput.map((line, idx) => {
-          const isPrompt = line.includes("mustakim@portfolio")
-          const isComment = line.startsWith("//")
+          const isPrompt = line?.includes("mustakim@portfolio") ?? false
+          const isComment = line?.startsWith("//") ?? false
           return (
             <div
               key={idx}
