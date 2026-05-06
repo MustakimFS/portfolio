@@ -1,88 +1,151 @@
 'use client'
-import { useState, useEffect } from 'react'
-import { PERSONAL } from '@/lib/data'
-import Link from 'next/link'
-import { Terminal } from 'lucide-react'
 
-const links = [
-  { href: '#about', label: 'About' },
-  { href: '#projects', label: 'Projects' },
-  { href: '#skills', label: 'Skills' },
-  { href: '#research', label: 'Research' },
-  { href: '#contact', label: 'Contact' },
+import { useEffect, useState } from 'react'
+import { getEasterHash } from '@/lib/easterHash'
+import { Menu, X, FileText } from 'lucide-react'
+
+const NAV_LINKS = [
+  { label: 'About', href: '#about' },
+  { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Research', href: '#research' },
+  { label: 'Contact', href: '#contact' },
 ]
 
+const GLITCH_CHARS = '!@#$%^&*<>[]{}|'
+
+function scrollTo(href: string) {
+  const el = document.querySelector(href)
+  if (el) el.scrollIntoView({ behavior: 'smooth' })
+}
+
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [glitchText, setGlitchText] = useState('')
+  const [glitchVisible, setGlitchVisible] = useState(false)
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 40)
-    window.addEventListener('scroll', handler)
-    return () => window.removeEventListener('scroll', handler)
+    function runGlitch() {
+      const hash = getEasterHash()
+      let frame = 0
+      const scrambleFrames = 20
+      const showFrames = 150
+      const scrambleOutFrames = 20
+
+      setGlitchVisible(true)
+
+      function animate() {
+        if (frame < scrambleFrames) {
+          const scrambled = Array.from({ length: hash.length }, () =>
+            GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
+          ).join('')
+          setGlitchText(scrambled)
+          frame++
+          setTimeout(animate, 20)
+        } else if (frame < scrambleFrames + showFrames) {
+          setGlitchText(hash)
+          frame++
+          setTimeout(animate, 20)
+        } else if (frame < scrambleFrames + showFrames + scrambleOutFrames) {
+          const t = frame - scrambleFrames - showFrames
+          const ratio = t / scrambleOutFrames
+          const scrambled = hash
+            .split('')
+            .map(c =>
+              Math.random() > ratio
+                ? GLITCH_CHARS[Math.floor(Math.random() * GLITCH_CHARS.length)]
+                : c
+            )
+            .join('')
+          setGlitchText(scrambled)
+          frame++
+          setTimeout(animate, 20)
+        } else {
+          setGlitchVisible(false)
+          setGlitchText('')
+        }
+      }
+
+      requestAnimationFrame(animate)
+    }
+
+    const interval = setInterval(runGlitch, 12000)
+    return () => clearInterval(interval)
   }, [])
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 font-mono ${
-        scrolled ? 'bg-[#080b10]/95 backdrop-blur-md border-b border-border/50 shadow-sm' : 'bg-[#080b10] border-b border-transparent'
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 group hover:opacity-80 transition-opacity">
-          <Terminal className="w-5 h-5 text-foreground" />
-          <span className="text-sm font-bold text-foreground">
-            ~/mustakim
-          </span>
-          <span className="animate-pulse text-muted-foreground">_</span>
-        </Link>
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#060810]/90 backdrop-blur-md border-b border-gray-800/50">
+      <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+        {/* Left: brand */}
+        <span className="text-green-400 font-mono text-sm font-semibold tracking-tight select-none">
+          MS.dev
+        </span>
 
-        {/* Desktop */}
+        {/* Center: nav links (desktop) */}
         <div className="hidden md:flex items-center gap-6">
-          {links.map(l => (
-            <Link key={l.href} href={l.href} className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-              {l.label}
-            </Link>
+          {NAV_LINKS.map(({ label, href }) => (
+            <button
+              key={href}
+              onClick={() => scrollTo(href)}
+              className="font-mono text-sm text-gray-400 hover:text-green-400 transition-colors"
+            >
+              {label}
+            </button>
           ))}
-          <a 
-            href={PERSONAL.resume} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="text-xs px-4 py-2 border border-border/50 text-foreground hover:bg-secondary/50 hover:border-border transition-all rounded-md"
-          >
-            Resume
-          </a>
         </div>
 
-        {/* Mobile toggle */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 p-2 text-muted-foreground hover:text-foreground transition-colors"
-          onClick={() => setOpen(!open)}
-          aria-label="Menu"
-        >
-          <span className={`block w-5 h-px bg-current transition-all ${open ? 'rotate-45 translate-y-[7px]' : ''}`} />
-          <span className={`block w-5 h-px bg-current transition-all ${open ? 'opacity-0' : ''}`} />
-          <span className={`block w-5 h-px bg-current transition-all ${open ? '-rotate-45 -translate-y-[7px]' : ''}`} />
-        </button>
+        {/* Right: glitch display + resume */}
+        <div className="flex items-center gap-3">
+          {/* Easter egg glitch element — invisible except during animation */}
+          <span
+            className={`font-mono text-xs tracking-widest transition-opacity duration-100 ${
+              glitchVisible ? 'text-green-400 opacity-100' : 'opacity-0 pointer-events-none select-none'
+            }`}
+            aria-hidden="true"
+          >
+            {glitchVisible ? glitchText : '          '}
+          </span>
+
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:inline-flex items-center gap-1.5 border border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono text-xs px-3 py-1.5 rounded transition-colors"
+          >
+            <FileText className="w-3 h-3" />
+            Resume
+          </a>
+
+          {/* Hamburger (mobile) */}
+          <button
+            className="md:hidden text-gray-400 hover:text-green-400 transition-colors"
+            onClick={() => setMenuOpen(v => !v)}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
-      {/* Mobile menu */}
-      {open && (
-        <div className="md:hidden px-6 pb-6 pt-2 flex flex-col gap-4 bg-[#080b10] border-b border-border/50">
-          {links.map(l => (
-            <Link 
-              key={l.href} 
-              href={l.href} 
-              className="text-sm text-muted-foreground hover:text-foreground py-2 border-b border-border/20" 
-              onClick={() => setOpen(false)}
+      {/* Mobile dropdown */}
+      {menuOpen && (
+        <div className="md:hidden bg-[#060810]/95 border-t border-gray-800/50 px-4 py-3 flex flex-col gap-3">
+          {NAV_LINKS.map(({ label, href }) => (
+            <button
+              key={href}
+              onClick={() => { scrollTo(href); setMenuOpen(false) }}
+              className="font-mono text-sm text-gray-400 hover:text-green-400 transition-colors text-left"
             >
-              {l.label}
-            </Link>
+              {label}
+            </button>
           ))}
-          <a 
-            href={PERSONAL.resume} 
-            className="text-sm px-4 py-2 mt-2 border border-border/50 text-foreground hover:bg-secondary/50 transition-all rounded-md w-fit"
+          <a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 border border-green-400/50 text-green-400 hover:bg-green-400/10 font-mono text-xs px-3 py-1.5 rounded transition-colors w-fit"
           >
+            <FileText className="w-3 h-3" />
             Resume
           </a>
         </div>
