@@ -9,7 +9,7 @@ import Skills from '@/components/Skills'
 import Research from '@/components/Research'
 import Contact from '@/components/Contact'
 import RaftBackground from '@/components/RaftBackground'
-import { setEasterHash, getEasterHash } from '@/lib/easterHash'
+import { setEasterHash } from '@/lib/easterHash'
 import { PERSONAL } from '@/lib/data'
 
 // ── Easter utilities ──────────────────────────────────────────────────────
@@ -25,11 +25,22 @@ function rot13(s: string) {
 
 const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a']
 
+// Graffiti tags scattered around the screen
+const GRAFFITI_TAGS = [
+  { text: '1337',            style: { top: '12%',  left: '8%',  fontSize: '3rem',   color: '#ffd700', '--rot': '-12deg' } as React.CSSProperties, delay: 0.05 },
+  { text: 'h4x0r',          style: { top: '18%',  right: '6%', fontSize: '2.4rem', color: '#ff6b35', '--rot': '8deg'   } as React.CSSProperties, delay: 0.08 },
+  { text: '404:\nnormal\nnot found', style: { bottom: '22%', left: '4%', fontSize: '1.6rem', color: '#00e5ff', '--rot': '-6deg', whiteSpace: 'pre', lineHeight: 1.2 } as React.CSSProperties, delay: 0.1 },
+  { text: 'EZ GG',          style: { bottom: '14%', right: '7%', fontSize: '2.8rem', color: '#69ff47', '--rot': '10deg' } as React.CSSProperties, delay: 0.12 },
+  { text: 'was here',       style: { top: '62%',  left: '3%',  fontSize: '1.4rem', color: '#ea80fc', '--rot': '-8deg' } as React.CSSProperties, delay: 0.06 },
+  { text: '░▒▓ l33t ▓▒░',  style: { top: '75%',  right: '4%', fontSize: '1.3rem', color: '#ff4081', '--rot': '5deg'  } as React.CSSProperties, delay: 0.09 },
+]
+
 // ── Component ─────────────────────────────────────────────────────────────
 
 export default function Page() {
   const [chaosMode, setChaosMode] = useState(false)
-  const [termOpen, setTermOpen] = useState(false)
+  const [shakeMode, setShakeMode] = useState(false)
+  const [termOpen, setTermOpen] = useState(true)
   const [termLines, setTermLines] = useState<string[]>([
     'mustakim@portfolio ~ $ type "help" for commands',
     'mustakim@portfolio ~ $',
@@ -37,6 +48,10 @@ export default function Page() {
   const [termInput, setTermInput] = useState('')
   const [history, setHistory] = useState<string[]>([])
   const [histIdx, setHistIdx] = useState(-1)
+
+  // Konami graffiti state
+  const [konamiActive, setKonamiActive] = useState(false)
+  const [konamiFading, setKonamiFading] = useState(false)
 
   const secretWordRef = useRef<string>(SECRET_WORDS[0])
   const termEndRef = useRef<HTMLDivElement>(null)
@@ -59,10 +74,15 @@ export default function Page() {
       }
       if (e.key === 'Escape') setTermOpen(false)
 
+      // Konami — graffiti overlay
       konamiRef.current = [...konamiRef.current, e.key].slice(-KONAMI.length)
       if (konamiRef.current.join(',') === KONAMI.join(',')) {
-        setChaosMode(v => !v)
         konamiRef.current = []
+        setKonamiActive(true)
+        setKonamiFading(false)
+        // Start fade-out after 5.5s, remove after 6.1s
+        setTimeout(() => setKonamiFading(true), 5500)
+        setTimeout(() => { setKonamiActive(false); setKonamiFading(false) }, 6100)
       }
     }
     window.addEventListener('keydown', onKey)
@@ -200,7 +220,8 @@ export default function Page() {
         'mustakim@portfolio ~ $',
       ])
       setChaosMode(true)
-      setTimeout(() => setChaosMode(false), 8000)
+      setShakeMode(true)
+      setTimeout(() => { setShakeMode(false); setChaosMode(false) }, 3000)
       return
     }
 
@@ -218,7 +239,7 @@ export default function Page() {
   }
 
   return (
-    <main className="relative min-h-screen bg-[#060810]">
+    <main className={`relative min-h-screen bg-[#060810]${shakeMode ? ' shake-it' : ''}`}>
       <RaftBackground chaosMode={chaosMode} />
       <div className="relative z-10">
         <Nav />
@@ -236,6 +257,68 @@ export default function Page() {
         onClick={() => setTermOpen(v => !v)}
         title="Press ` to open terminal"
       />
+
+      {/* ── Konami graffiti overlay ── */}
+      {konamiActive && (
+        <div
+          className={`fixed inset-0 z-[200] flex items-center justify-center pointer-events-none select-none ${konamiFading ? 'graffiti-out' : ''}`}
+          style={{ background: 'rgba(0,0,0,0.55)' }}
+        >
+          {/* Scattered tags */}
+          {GRAFFITI_TAGS.map((tag, i) => (
+            <span
+              key={i}
+              className="graffiti-tag absolute font-black tracking-tight drop-shadow-[0_0_12px_currentColor]"
+              style={{
+                ...tag.style,
+                fontFamily: "'Impact','Arial Black',sans-serif",
+                textShadow: `0 0 20px ${(tag.style as React.CSSProperties & { color: string }).color}88, 2px 3px 0 #000`,
+                animationDelay: `${tag.delay}s`,
+              }}
+            >
+              {tag.text}
+            </span>
+          ))}
+
+          {/* Main centrepiece */}
+          <div
+            className="graffiti-tag relative text-center"
+            style={{ '--rot': '-3deg' } as React.CSSProperties}
+          >
+            <div
+              className="font-black leading-none tracking-tighter"
+              style={{
+                fontFamily: "'Impact','Arial Black',sans-serif",
+                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                color: '#ffd700',
+                WebkitTextStroke: '3px #ff6b00',
+                textShadow: '0 0 40px #ffd700cc, 0 0 80px #ffd70055, 4px 5px 0 #000',
+                animationDelay: '0s',
+              }}
+            >
+              Congratulations!!!
+            </div>
+            <div
+              className="font-black leading-none tracking-tighter"
+              style={{
+                fontFamily: "'Impact','Arial Black',sans-serif",
+                fontSize: 'clamp(2.2rem, 6vw, 4.5rem)',
+                color: '#ea80fc',
+                WebkitTextStroke: '2px #9c27b0',
+                textShadow: '0 0 30px #ea80fcaa, 4px 5px 0 #000',
+              }}
+            >
+              You are a nerd too.
+            </div>
+            <div
+              className="mt-3 font-mono text-sm tracking-widest"
+              style={{ color: '#69ff4799', textShadow: '0 0 10px #69ff47' }}
+            >
+              ↑↑↓↓←→←→BA · achievement unlocked
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Terminal overlay */}
       {termOpen && (
