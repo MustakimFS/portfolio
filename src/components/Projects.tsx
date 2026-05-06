@@ -151,7 +151,7 @@ export default function Projects() {
                 {/* Expanded on hover */}
                 <div
                   className={`transition-all duration-300 ease-out overflow-hidden ${
-                    isHov ? 'max-h-[700px] opacity-100' : 'max-h-0 opacity-0'
+                    isHov ? 'max-h-[1200px] opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
                   <div className="px-5 pb-5 space-y-4 border-t border-gray-800/50 pt-4">
