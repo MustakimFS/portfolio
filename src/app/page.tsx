@@ -27,12 +27,12 @@ const KONAMI = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'Ar
 
 // Graffiti tags scattered around the screen
 const GRAFFITI_TAGS = [
-  { text: '1337',            style: { top: '12%',  left: '8%',  fontSize: '3rem',  color: '#00fff7', '--rot': '-12deg' } as React.CSSProperties, delay: 0.15 },
-  { text: 'h4x0r',          style: { top: '18%',  right: '6%', fontSize: '2.4rem', color: '#ff2d78', '--rot': '8deg'  } as React.CSSProperties, delay: 0.25 },
-  { text: '404:\nnormal\nnot found', style: { bottom: '22%', left: '4%', fontSize: '1.6rem', color: '#ffe600', '--rot': '-6deg', whiteSpace: 'pre', lineHeight: 1.2 } as React.CSSProperties, delay: 0.35 },
-  { text: 'EZ GG',          style: { bottom: '14%', right: '7%', fontSize: '2.8rem', color: '#39ff14', '--rot': '10deg' } as React.CSSProperties, delay: 0.45 },
-  { text: 'was here',       style: { top: '62%',  left: '3%',  fontSize: '1.4rem', color: '#b388ff', '--rot': '-8deg' } as React.CSSProperties, delay: 0.2  },
-  { text: '░▒▓ l33t ▓▒░',  style: { top: '75%',  right: '4%', fontSize: '1.3rem', color: '#ff9800', '--rot': '5deg'  } as React.CSSProperties, delay: 0.3  },
+  { text: '1337',            style: { top: '12%',  left: '8%',  fontSize: '3rem',   color: '#ffd700', '--rot': '-12deg' } as React.CSSProperties, delay: 0.05 },
+  { text: 'h4x0r',          style: { top: '18%',  right: '6%', fontSize: '2.4rem', color: '#ff6b35', '--rot': '8deg'   } as React.CSSProperties, delay: 0.08 },
+  { text: '404:\nnormal\nnot found', style: { bottom: '22%', left: '4%', fontSize: '1.6rem', color: '#00e5ff', '--rot': '-6deg', whiteSpace: 'pre', lineHeight: 1.2 } as React.CSSProperties, delay: 0.1 },
+  { text: 'EZ GG',          style: { bottom: '14%', right: '7%', fontSize: '2.8rem', color: '#69ff47', '--rot': '10deg' } as React.CSSProperties, delay: 0.12 },
+  { text: 'was here',       style: { top: '62%',  left: '3%',  fontSize: '1.4rem', color: '#ea80fc', '--rot': '-8deg' } as React.CSSProperties, delay: 0.06 },
+  { text: '░▒▓ l33t ▓▒░',  style: { top: '75%',  right: '4%', fontSize: '1.3rem', color: '#ff4081', '--rot': '5deg'  } as React.CSSProperties, delay: 0.09 },
 ]
 
 // ── Component ─────────────────────────────────────────────────────────────
@@ -80,9 +80,9 @@ export default function Page() {
         konamiRef.current = []
         setKonamiActive(true)
         setKonamiFading(false)
-        // Start fade-out after 3.5s, remove after 4s
-        setTimeout(() => setKonamiFading(true), 3500)
-        setTimeout(() => { setKonamiActive(false); setKonamiFading(false) }, 4100)
+        // Start fade-out after 5.5s, remove after 6.1s
+        setTimeout(() => setKonamiFading(true), 5500)
+        setTimeout(() => { setKonamiActive(false); setKonamiFading(false) }, 6100)
       }
     }
     window.addEventListener('keydown', onKey)
@@ -221,7 +221,7 @@ export default function Page() {
       ])
       setChaosMode(true)
       setShakeMode(true)
-      setTimeout(() => { setShakeMode(false); setChaosMode(false); window.location.reload() }, 3000)
+      setTimeout(() => { setShakeMode(false); setChaosMode(false) }, 3000)
       return
     }
 
@@ -290,29 +290,29 @@ export default function Page() {
               style={{
                 fontFamily: "'Impact','Arial Black',sans-serif",
                 fontSize: 'clamp(3rem, 8vw, 6rem)',
-                color: '#fff',
-                WebkitTextStroke: '3px #ff2d78',
-                textShadow: '0 0 40px #ff2d78aa, 0 0 80px #ff2d7855, 4px 5px 0 #000',
+                color: '#ffd700',
+                WebkitTextStroke: '3px #ff6b00',
+                textShadow: '0 0 40px #ffd700cc, 0 0 80px #ffd70055, 4px 5px 0 #000',
                 animationDelay: '0s',
               }}
             >
-              CONGRATS
+              Congratulations!!!
             </div>
             <div
               className="font-black leading-none tracking-tighter"
               style={{
                 fontFamily: "'Impact','Arial Black',sans-serif",
                 fontSize: 'clamp(2.2rem, 6vw, 4.5rem)',
-                color: '#00fff7',
-                WebkitTextStroke: '2px #0088aa',
-                textShadow: '0 0 30px #00fff7aa, 4px 5px 0 #000',
+                color: '#ea80fc',
+                WebkitTextStroke: '2px #9c27b0',
+                textShadow: '0 0 30px #ea80fcaa, 4px 5px 0 #000',
               }}
             >
-              U R A NERD TOO
+              You are a nerd too.
             </div>
             <div
               className="mt-3 font-mono text-sm tracking-widest"
-              style={{ color: '#ffe60099', textShadow: '0 0 10px #ffe600' }}
+              style={{ color: '#69ff4799', textShadow: '0 0 10px #69ff47' }}
             >
               ↑↑↓↓←→←→BA · achievement unlocked
             </div>
