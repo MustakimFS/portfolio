@@ -2,7 +2,26 @@
 
 import { useState, useEffect, useRef, useCallback } from "react"
 import { PROJECTS, SKILLS, PERSONAL, ACHIEVEMENTS } from '@/lib/data'
+import { setEasterHash, getEasterHash } from '@/lib/easterHash'
 import RaftBackground from "./RaftBackground"
+
+// ── Easter egg utilities ───────────────────────────────────────────────────
+async function generateSessionHash(): Promise<string> {
+  const visits = parseInt(sessionStorage.getItem('eg_visits') || '0') + 1
+  sessionStorage.setItem('eg_visits', String(visits))
+  const data = new TextEncoder().encode(`mustakim${visits}${new Date().toDateString()}`)
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+  const hashArray = Array.from(new Uint8Array(hashBuffer))
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+}
+
+function glitchText(target: string, progress: number): string {
+  const chars = '!@#$%^&*<>[]{}|/\\~`'
+  return target.split('').map((char) => {
+    if (Math.random() < progress) return char
+    return chars[Math.floor(Math.random() * chars.length)]
+  }).join('')
+}
 
 function timeAgo(dateString: string) {
   const date = new Date(dateString)
@@ -63,6 +82,13 @@ export default function PortfolioOS() {
   const [isRecruiter, setIsRecruiter] = useState(false)
   const [leetcodeData, setLeetcodeData] = useState({ total: 815, hard: 126 })
   const [githubData, setGithubData] = useState({ repo: "distributed-kv-store", message: "feat: quorum reads", time: new Date().toISOString() })
+  const [taskbarLabel, setTaskbarLabel] = useState("MS.dev")
+  const [taskbarGlowing, setTaskbarGlowing] = useState(false)
+  const [konamiOverlay, setKonamiOverlay] = useState(false)
+  const [chaosMode, setChaosMode] = useState(false)
+  const secretHashRef = useRef<string>("........")
+  const konamiRef = useRef<string[]>([])
+  const easterHintPendingRef = useRef(false)
 
   useEffect(() => {
     fetch('/api/leetcode').then(res => res.json()).then(data => setLeetcodeData(data)).catch(console.error)
@@ -77,6 +103,74 @@ export default function PortfolioOS() {
   useEffect(() => {
     const interval = setInterval(() => setCurrentTime(new Date()), 1000)
     return () => clearInterval(interval)
+  }, [])
+
+  // Session hash — generated once on mount
+  useEffect(() => {
+    generateSessionHash().then(hash => {
+      secretHashRef.current = hash
+      setEasterHash(hash.slice(0, 8))
+    })
+  }, [])
+
+  // Taskbar glitch cycle — every 12 seconds reveal hash for 3s
+  useEffect(() => {
+    const GLITCH_MS = 400
+    const HOLD_MS = 3000
+    const CYCLE_MS = 12000
+
+    const runGlitch = () => {
+      const target = secretHashRef.current.slice(0, 8)
+      const start = performance.now()
+
+      // Phase 1: glitch IN
+      const glitchIn = () => {
+        const elapsed = performance.now() - start
+        const progress = Math.min(elapsed / GLITCH_MS, 1)
+        setTaskbarLabel(glitchText(target, progress))
+        if (progress < 1) { requestAnimationFrame(glitchIn) }
+        else {
+          setTaskbarLabel(target)
+          setTaskbarGlowing(true)
+          // Phase 2: hold
+          setTimeout(() => {
+            setTaskbarGlowing(false)
+            const holdStart = performance.now()
+            // Phase 3: glitch OUT
+            const glitchOut = () => {
+              const e2 = performance.now() - holdStart
+              const p2 = Math.min(e2 / GLITCH_MS, 1)
+              setTaskbarLabel(glitchText('MS.dev', p2))
+              if (p2 < 1) { requestAnimationFrame(glitchOut) }
+              else { setTaskbarLabel('MS.dev') }
+            }
+            requestAnimationFrame(glitchOut)
+          }, HOLD_MS)
+        }
+      }
+      requestAnimationFrame(glitchIn)
+    }
+
+    const id = setInterval(runGlitch, CYCLE_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  // Konami code detector
+  const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      konamiRef.current = [...konamiRef.current, e.key].slice(-10)
+      if (konamiRef.current.join(',') === KONAMI.join(',')) {
+        konamiRef.current = []
+        setChaosMode(true)
+        setKonamiOverlay(true)
+        setTimeout(() => setKonamiOverlay(false), 2300)
+        setTimeout(() => setChaosMode(false), 4000)
+      }
+    }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -238,6 +332,108 @@ export default function PortfolioOS() {
     setWindows((prev) => prev.map((w) => (w.id === windowId ? { ...w, isMinimized: false } : w)))
   }
 
+  // ── Easter egg modes ───────────────────────────────────────────────────────
+  const handleEasterMode = (mode: number, output: string[]) => {
+    if (mode === 0) {
+      // Mode 0: Matrix rain
+      setTerminalOutput([...output, '// signal detected in the noise...'])
+      const chars = 'ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ01'
+      let ticks = 0
+      const id = setInterval(() => {
+        const line = Array.from({ length: 60 }, () =>
+          chars[Math.floor(Math.random() * chars.length)]
+        ).join('')
+        setTerminalOutput(prev => [...prev, line])
+        ticks++
+        if (ticks >= 37) {
+          clearInterval(id)
+          setTerminalOutput(prev => [
+            ...prev,
+            '',
+            '// signal detected in the noise',
+            '// the matrix has you',
+            '// → sudo hire-me',
+            'mustakim@portfolio ~ $',
+          ])
+        }
+      }, 80)
+    } else if (mode === 1) {
+      // Mode 1: Fake hack sequence
+      const lines = [
+        '[SYS] unauthorized access attempt detected',
+        '[SYS] tracing source...............',
+        '[NET] bypassing firewall: ████████░░ 80%',
+        '[NET] bypassing firewall: ██████████ done',
+        '[ACC] accessing classified records...',
+        '[REC] file: mustakim_shikalgar.classified',
+        '──────────────────────────────────────────',
+        'name:     Mustakim Shikalgar',
+        'threat:   extremely hireable',
+        'skills:   dangerous levels of distributed systems knowledge',
+        'warning:  has shipped production AI at $0.0008/query',
+        'status:   ACTIVELY SEEKING EMPLOYMENT',
+        '──────────────────────────────────────────',
+        '[SYS] recommended action: sudo hire-me',
+        '',
+        'mustakim@portfolio ~ $',
+      ]
+      let base = [...output]
+      lines.forEach((line, i) => {
+        setTimeout(() => {
+          base = [...base, line]
+          setTerminalOutput([...base])
+          setCommandHistory(prev => (i === lines.length - 1 ? prev : prev))
+        }, i * 150)
+      })
+    } else if (mode === 2) {
+      // Mode 2: Kernel panic + reboot with new hash
+      const panicLines = [
+        'KERNEL PANIC — not syncing: fatal exception',
+        'CPU: 0 PID: 1337',
+        'RIP: portfolio_os+0x4a2f',
+        '████ SYSTEM HALTED ████',
+      ]
+      setTerminalOutput([...output, ...panicLines])
+      setTimeout(() => {
+        // Reboot with new hash
+        generateSessionHash().then(newHash => {
+          secretHashRef.current = newHash
+          setEasterHash(newHash.slice(0, 8))
+          const rebootLines = [
+            'Initializing mustakim.dev...',
+            'Loading modules............. done',
+            'Mounting filesystems........ done',
+            '',
+            'MS/OS v1.0.0 — mustakim shikalgar',
+            'Type \'help\' for available commands',
+            '───────────────────────────────────',
+            '// reality is unstable. something changed.',
+            'mustakim@portfolio ~ $',
+          ]
+          setTerminalOutput(rebootLines)
+          setIsBooting(false)
+        })
+      }, 1500)
+    } else {
+      // Mode 3: ASCII art
+      const art = [
+        ' ███  ███ ███████',
+        ' ████ ███ ████',
+        ' ███ ████ ███████',
+        ' ███ ╚███ ╚════██',
+        ' ███  ▀▀▀ ███████',
+        ' ╚══      ╚══════',
+        '',
+        '// mustakim shikalgar',
+        '// distributed systems · ml · asu',
+        '// sudo hire-me',
+        '',
+        'mustakim@portfolio ~ $',
+      ]
+      setTerminalOutput([...output, ...art])
+    }
+  }
+
   // Terminal commands
   const executeCommand = (cmd: string) => {
     const trimmed = cmd.trim().toLowerCase()
@@ -256,7 +452,7 @@ export default function PortfolioOS() {
         "  cat [section]   print section inline",
         "  resume          download resume",
         "  clear           clear terminal",
-        "// 💡 there are easter eggs hidden in this portfolio"
+        "// 💡 secrets exist. some are hidden in plain sight."
       )
     } else if (trimmed === "whoami") {
       output.push(
@@ -332,16 +528,11 @@ export default function PortfolioOS() {
       setTerminalOutput(["mustakim@portfolio ~ $"])
       setTerminalInput("")
       return
-    } else if (trimmed === "easter") {
-      output.push(
-        "(っ◔◡◔)っ ♥",
-        "you found it. here's a secret:",
-        "",
-        "the missing persons KG paper was accepted on my birthday.",
-        "27% acceptance rate. worth it.",
-        "",
-        "type 'sudo hire-me' if you agree."
-      )
+    } else if (trimmed === secretHashRef.current?.slice(0, 8)) {
+      const mode = Math.floor(Math.random() * 4)
+      easterHintPendingRef.current = true
+      handleEasterMode(mode, output)
+      return
     } else if (trimmed === "sudo hire-me") {
       output.push(
         "[sudo] password for recruiter:",
@@ -697,7 +888,27 @@ export default function PortfolioOS() {
       }}
     >
       {/* Raft Background Animation */}
-      <RaftBackground />
+      <RaftBackground chaosMode={chaosMode} />
+
+      {/* Konami overlay */}
+      {konamiOverlay && (
+        <div
+          className="fixed inset-0 flex items-center justify-center pointer-events-none z-[9999]"
+          style={{ animation: 'konamiFade 2.3s ease-in-out forwards' }}
+        >
+          <style>{`
+            @keyframes konamiFade {
+              0%   { opacity: 0; transform: translateY(8px); }
+              15%  { opacity: 0.7; transform: translateY(0); }
+              75%  { opacity: 0.7; }
+              100% { opacity: 0; }
+            }
+          `}</style>
+          <span className="text-green-400 font-mono text-sm tracking-widest opacity-70">
+            // you know the way
+          </span>
+        </div>
+      )}
 
       {/* Windows */}
       {windows
@@ -764,7 +975,15 @@ export default function PortfolioOS() {
 
       {/* Taskbar */}
       <div className="absolute bottom-0 left-0 right-0 h-10 bg-[#0d0f14]/95 border-t border-gray-800 flex items-center px-4 backdrop-blur-sm">
-        <div className="text-green-400 font-mono text-sm font-bold mr-6">MS.dev</div>
+        <div
+          className="font-mono text-sm font-bold mr-6 transition-all duration-100"
+          style={taskbarGlowing
+            ? { color: '#34d399', letterSpacing: '0.15em', textShadow: '0 0 8px rgba(52,211,153,0.8)' }
+            : { color: '#34d399' }
+          }
+        >
+          {taskbarLabel}
+        </div>
         <div className="flex gap-2 flex-1">
           {windows
             .filter((w) => w.isOpen)
