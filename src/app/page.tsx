@@ -39,7 +39,7 @@ const GRAFFITI_TAGS = [
 
 export default function Page() {
   const [chaosMode, setChaosMode] = useState(false)
-  const [termOpen, setTermOpen] = useState(false)
+  const [termOpen, setTermOpen] = useState(true)
   const [termLines, setTermLines] = useState<string[]>([
     'mustakim@portfolio ~ $ type "help" for commands',
     'mustakim@portfolio ~ $',
