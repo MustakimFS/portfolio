@@ -19,7 +19,7 @@ export default function Hero() {
   const [focusIdx, setFocusIdx] = useState(0)
   const [focusFade, setFocusFade] = useState(true)
   const [leetcode, setLeetcode] = useState<string>(ACHIEVEMENTS[0].value)
-  const [lcSubs, setLcSubs] = useState(['Top 15% globally', '126 Hard'])
+  const [lcSubs, setLcSubs] = useState(['Rank #47,287', '126 Hard'])
   const [lcSubIdx, setLcSubIdx] = useState(0)
   const [lcSubFade, setLcSubFade] = useState(true)
 
@@ -61,11 +61,12 @@ export default function Hero() {
       .then(d => {
         if (d?.total) setLeetcode(String(d.total) + '+')
         if (d?.easy != null && d?.medium != null && d?.hard != null) {
+          const rank = d.ranking ? `Rank #${d.ranking.toLocaleString()}` : 'Rank #47,287'
           setLcSubs([
             `${d.easy} Easy`,
             `${d.medium} Medium`,
             `${d.hard} Hard`,
-            'Top 15% globally',
+            rank,
           ])
         }
       })
