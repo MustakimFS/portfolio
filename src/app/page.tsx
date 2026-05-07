@@ -41,7 +41,7 @@ const GRAFFITI_TAGS = [
 export default function Page() {
   const [chaosMode, setChaosMode] = useState(false)
   const [shakeMode, setShakeMode] = useState(false)
-  const [termOpen, setTermOpen] = useState(true)
+  const [termOpen, setTermOpen] = useState(false)
   const [termLines, setTermLines] = useState<string[]>([
     'mustakim@portfolio ~ $ type "help" for commands',
     'mustakim@portfolio ~ $',
@@ -252,12 +252,17 @@ export default function Page() {
         <Contact />
       </div>
 
-      {/* Hint dot */}
-      <div
-        className="fixed bottom-4 right-4 z-50 w-2 h-2 rounded-full bg-green-400/40 animate-pulse cursor-pointer"
+      {/* Terminal hint button */}
+      <button
+        className="fixed bottom-4 right-4 z-50 flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-green-400/20 bg-[#060810]/80 hover:border-green-400/50 hover:bg-green-400/5 active:scale-[0.97] transition-all duration-150 group"
         onClick={() => setTermOpen(v => !v)}
-        title="Press ` to open terminal"
-      />
+        title="Press ` to toggle terminal"
+        aria-label="Toggle terminal"
+      >
+        <span className="w-1.5 h-1.5 rounded-full bg-green-400/60 animate-pulse group-hover:bg-green-400 transition-colors duration-150" />
+        <span className="font-mono text-[10px] text-green-400/50 group-hover:text-green-400 transition-colors duration-150 tracking-wider">terminal</span>
+        <kbd className="font-mono text-[9px] text-gray-600 group-hover:text-gray-400 transition-colors duration-150">`</kbd>
+      </button>
 
       {/* ── Konami graffiti overlay ── */}
       {konamiActive && (

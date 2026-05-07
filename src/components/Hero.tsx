@@ -6,11 +6,11 @@ import { useInView } from '@/hooks/useInView'
 
 const ROTATING = ['distributed systems', 'intelligent agents', 'ml pipelines', 'knowledge graphs']
 
-const STAT_COLORS = [
-  'from-emerald-500/15 to-emerald-500/5 border-emerald-500/20',
-  'from-blue-500/15 to-blue-500/5 border-blue-500/20',
-  'from-violet-500/15 to-violet-500/5 border-violet-500/20',
-  'from-amber-500/15 to-amber-500/5 border-amber-500/20',
+const STAT_ACCENTS = [
+  { border: 'border-emerald-500/25', topColor: 'border-t-emerald-400/60', num: 'text-emerald-300' },
+  { border: 'border-blue-500/25',    topColor: 'border-t-blue-400/60',    num: 'text-blue-300'    },
+  { border: 'border-violet-500/25',  topColor: 'border-t-violet-400/60',  num: 'text-violet-300'  },
+  { border: 'border-amber-500/25',   topColor: 'border-t-amber-400/60',   num: 'text-amber-300'   },
 ]
 
 export default function Hero() {
@@ -76,7 +76,7 @@ export default function Hero() {
   const stats = ACHIEVEMENTS.map((a, i) => ({
     ...a,
     value: i === 0 ? leetcode : a.value,
-    color: STAT_COLORS[i],
+    accent: STAT_ACCENTS[i],
   }))
 
   return (
@@ -85,9 +85,6 @@ export default function Hero() {
       ref={sectionRef as React.RefObject<HTMLElement>}
       className="relative min-h-screen flex items-center overflow-hidden pt-14"
     >
-      {/* Background orbs */}
-      <div className="absolute top-1/4 -left-40 w-[500px] h-[500px] bg-blue-500/8 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-40 w-[500px] h-[500px] bg-green-500/8 rounded-full blur-3xl pointer-events-none" />
 
       {/* Sweep line */}
       <div
@@ -161,9 +158,9 @@ export default function Hero() {
               href={stat.href}
               target={stat.href.startsWith('http') ? '_blank' : undefined}
               rel={stat.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className={`group relative p-4 sm:p-5 rounded-xl bg-gradient-to-br ${stat.color} border backdrop-blur-sm hover:-translate-y-1 transition-all duration-300`}
+              className={`group relative p-4 sm:p-5 rounded-xl bg-[#0a0c10] border border-t-2 ${stat.accent.border} ${stat.accent.topColor} hover:-translate-y-1 transition-all duration-300`}
             >
-              <div className="text-2xl sm:text-3xl font-bold text-white font-mono mb-1">{stat.value}</div>
+              <div className={`text-2xl sm:text-3xl font-bold font-mono mb-1 ${stat.accent.num}`}>{stat.value}</div>
               <div className="text-xs text-gray-400 font-mono">{stat.label}</div>
               {i === 0 ? (
                 <div
@@ -187,7 +184,7 @@ export default function Hero() {
           <a
             href="#projects"
             onClick={e => { e.preventDefault(); document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' }) }}
-            className="px-6 py-2.5 bg-green-400 text-[#060810] font-mono font-semibold text-sm rounded hover:bg-green-300 transition-colors"
+            className="px-6 py-2.5 bg-green-400 text-[#060810] font-mono font-semibold text-sm rounded hover:bg-green-300 active:scale-[0.97] transition-[background-color,transform] duration-150"
           >
             View Projects
           </a>
@@ -195,7 +192,7 @@ export default function Hero() {
             href={PERSONAL.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 border border-gray-700 text-gray-300 hover:text-white hover:border-gray-500 font-mono text-sm rounded transition-colors"
+            className="px-5 py-2.5 border border-gray-700 text-gray-300 hover:text-white hover:border-gray-500 font-mono text-sm rounded active:scale-[0.97] transition-[border-color,color,transform] duration-150"
           >
             GitHub
           </a>
@@ -203,7 +200,7 @@ export default function Hero() {
             href={PERSONAL.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 border border-gray-700 text-gray-300 hover:text-white hover:border-gray-500 font-mono text-sm rounded transition-colors"
+            className="px-5 py-2.5 border border-gray-700 text-gray-300 hover:text-white hover:border-gray-500 font-mono text-sm rounded active:scale-[0.97] transition-[border-color,color,transform] duration-150"
           >
             LinkedIn
           </a>
@@ -211,7 +208,7 @@ export default function Hero() {
             href={PERSONAL.resume}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 border border-gray-700 text-gray-300 hover:text-white hover:border-gray-500 font-mono text-sm rounded transition-colors"
+            className="px-5 py-2.5 border border-gray-700 text-gray-300 hover:text-white hover:border-gray-500 font-mono text-sm rounded active:scale-[0.97] transition-[border-color,color,transform] duration-150"
           >
             Resume
           </a>
