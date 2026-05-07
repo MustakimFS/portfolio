@@ -19,6 +19,9 @@ export default function Hero() {
   const [focusIdx, setFocusIdx] = useState(0)
   const [focusFade, setFocusFade] = useState(true)
   const [leetcode, setLeetcode] = useState<string>(ACHIEVEMENTS[0].value)
+  const [lcSubs, setLcSubs] = useState(['Rank #47,287', '126 Hard'])
+  const [lcSubIdx, setLcSubIdx] = useState(0)
+  const [lcSubFade, setLcSubFade] = useState(true)
 
   // Sweep line then content
   useEffect(() => {
@@ -39,12 +42,33 @@ export default function Hero() {
     return () => clearInterval(id)
   }, [])
 
-  // Live LeetCode count
+  // Rotating LeetCode difficulty sub-line
+  useEffect(() => {
+    const id = setInterval(() => {
+      setLcSubFade(false)
+      setTimeout(() => {
+        setLcSubIdx(i => (i + 1) % lcSubs.length)
+        setLcSubFade(true)
+      }, 250)
+    }, 2200)
+    return () => clearInterval(id)
+  }, [lcSubs.length])
+
+  // Live LeetCode count + difficulty breakdown
   useEffect(() => {
     fetch('/api/leetcode')
       .then(r => r.json())
       .then(d => {
         if (d?.total) setLeetcode(String(d.total) + '+')
+        if (d?.easy != null && d?.medium != null && d?.hard != null) {
+          const rank = d.ranking ? `Rank #${d.ranking.toLocaleString()}` : 'Rank #47,287'
+          setLcSubs([
+            `${d.easy} Easy`,
+            `${d.medium} Medium`,
+            `${d.hard} Hard`,
+            rank,
+          ])
+        }
       })
       .catch(() => {})
   }, [])
@@ -141,7 +165,16 @@ export default function Hero() {
             >
               <div className="text-2xl sm:text-3xl font-bold text-white font-mono mb-1">{stat.value}</div>
               <div className="text-xs text-gray-400 font-mono">{stat.label}</div>
-              <div className="text-[10px] text-gray-500 mt-0.5 leading-snug">{stat.sub}</div>
+              {i === 0 ? (
+                <div
+                  className="text-[10px] text-gray-500 mt-0.5 leading-snug transition-all duration-250"
+                  style={{ opacity: lcSubFade ? 1 : 0, transform: lcSubFade ? 'none' : 'translateY(4px)' }}
+                >
+                  {lcSubs[lcSubIdx]}
+                </div>
+              ) : (
+                <div className="text-[10px] text-gray-500 mt-0.5 leading-snug">{stat.sub}</div>
+              )}
             </a>
           ))}
         </div>

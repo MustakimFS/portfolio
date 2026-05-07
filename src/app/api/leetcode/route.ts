@@ -12,6 +12,7 @@ export async function GET() {
       body: JSON.stringify({
         query: `query getUserProfile($username: String!) {
           matchedUser(username: $username) {
+            profile { ranking }
             submitStats {
               acSubmissionNum {
                 difficulty
@@ -28,13 +29,16 @@ export async function GET() {
     })
     const data = await res.json()
     const stats = data?.data?.matchedUser?.submitStats?.acSubmissionNum
-    const total = stats?.find((s: any) => s.difficulty === 'All')?.count ?? 815
-    const hard = stats?.find((s: any) => s.difficulty === 'Hard')?.count ?? 126
-    const recent = data?.data?.recentSubmissionList?.[0]?.timestamp
+    const total   = stats?.find((s: any) => s.difficulty === 'All')?.count    ?? 815
+    const easy    = stats?.find((s: any) => s.difficulty === 'Easy')?.count   ?? 550
+    const medium  = stats?.find((s: any) => s.difficulty === 'Medium')?.count ?? 139
+    const hard    = stats?.find((s: any) => s.difficulty === 'Hard')?.count   ?? 126
+    const ranking = data?.data?.matchedUser?.profile?.ranking ?? 47287
+    const recent  = data?.data?.recentSubmissionList?.[0]?.timestamp
     const lastSubmission = recent ? new Date(parseInt(recent) * 1000).toISOString() : new Date().toISOString()
-    return Response.json({ total, hard, lastSubmission })
+    return Response.json({ total, easy, medium, hard, ranking, lastSubmission })
   } catch (err) {
     console.error("LeetCode API Error:", err)
-    return Response.json({ total: 815, hard: 126, lastSubmission: new Date().toISOString() })
+    return Response.json({ total: 815, easy: 550, medium: 139, hard: 126, ranking: 47287, lastSubmission: new Date().toISOString() })
   }
 }
