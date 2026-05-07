@@ -55,17 +55,13 @@ export default function Contact() {
       />
 
       <div className="max-w-4xl mx-auto px-6">
-        {/* Terminal header */}
+        {/* Section label */}
         <div
-          className="flex items-center gap-2 mb-10 transition-all duration-500"
+          className="flex items-center gap-4 mb-10 transition-all duration-500"
           style={{ opacity: isInView ? 1 : 0, transform: isInView ? 'none' : 'translateY(24px)', transitionDelay: '400ms' }}
         >
-          <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
-            <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-          </div>
-          <span className="font-mono text-sm text-gray-500 ml-2">~/contact</span>
+          <span className="font-mono text-xs text-gray-600 tracking-wider shrink-0">~/contact</span>
+          <div className="flex-1 h-px bg-gray-800/70" />
         </div>
 
         {/* Heading */}
