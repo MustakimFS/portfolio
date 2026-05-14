@@ -32,6 +32,21 @@ export const PROJECTS = [
     note: 'Industry capstone · Private contract · Source under NDA',
   },
   {
+    id: 'aegisflow',
+    title: 'AegisFlow',
+    subtitle: 'FastAPI · NATS JetStream · pgvector · OpenTelemetry',
+    description: 'Production-grade AI reliability platform that treats every agent invocation as a probabilistic operation requiring scoring, validation, recovery, and tracing. Seven decoupled microservices — gateway, orchestrator, reliability engine, guardrail layer, semantic memory, replay engine, and chaos injector — communicate over a NATS JetStream event bus with shared Postgres + pgvector + Redis state. The reliability engine combines per-provider circuit breakers, confidence scoring, hallucination heuristics, and adaptive fallback routing to recover non-deterministically failing agents without human intervention. Every execution is event-sourced for deterministic replay: given a trace ID and a frozen model snapshot the system reproduces any historical run bit-for-bit. Full OpenTelemetry + Prometheus + Grafana observability stack; chaos engine injects latency, malformed outputs, and provider outages on demand.',
+    metrics: [
+      { label: 'Microservices', value: '7' },
+      { label: 'Min confidence', value: '0.75' },
+      { label: 'Retry depth', value: '3×' },
+    ],
+    tags: ['Python', 'FastAPI', 'NATS', 'pgvector', 'OpenTelemetry', 'Docker', 'Kubernetes', 'Redis', 'PostgreSQL'],
+    github: 'https://github.com/MustakimFS/aegisflow',
+    featured: true,
+    category: 'Distributed Systems',
+  },
+  {
     id: 'distributed-kv',
     title: 'Distributed Key-Value Store',
     subtitle: 'Raft Consensus · gRPC · Java · Docker',
