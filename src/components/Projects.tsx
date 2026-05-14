@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { PROJECTS } from '@/lib/data'
-import { ExternalLink, Github, FileText, Lock } from 'lucide-react'
+import { ExternalLink, Github, FileText, Lock, Play } from 'lucide-react'
 import { useInView } from '@/hooks/useInView'
 
 const ALL_CATEGORIES = ['All', ...Array.from(new Set(PROJECTS.map(p => p.category)))]
@@ -14,6 +14,7 @@ const CATEGORY_TAG: Record<string, string> = {
   'Computer Vision':       'bg-cyan-500/10   text-cyan-400   border-cyan-500/20',
   'Research / Full Stack': 'bg-amber-500/10  text-amber-400  border-amber-500/20',
   'Systems / Algorithms':  'bg-rose-500/10   text-rose-400   border-rose-500/20',
+  'Web / Games':           'bg-pink-500/10   text-pink-400   border-pink-500/20',
 }
 
 const CATEGORY_GLOW: Record<string, string> = {
@@ -23,6 +24,7 @@ const CATEGORY_GLOW: Record<string, string> = {
   'Computer Vision':       'border-cyan-500/50   shadow-cyan-500/10',
   'Research / Full Stack': 'border-amber-500/50  shadow-amber-500/10',
   'Systems / Algorithms':  'border-rose-500/50   shadow-rose-500/10',
+  'Web / Games':           'border-pink-500/50   shadow-pink-500/10',
 }
 
 export default function Projects() {
@@ -154,6 +156,18 @@ export default function Projects() {
                     <p className="text-sm text-gray-400 leading-relaxed">
                       {project.description}
                     </p>
+
+                    {project.playable && project.demo && (
+                      <a
+                        href={project.demo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center justify-center gap-2 w-full py-3 rounded-lg text-sm font-mono font-bold bg-emerald-500/15 text-emerald-300 border border-emerald-500/40 hover:bg-emerald-500/25 hover:border-emerald-400/60 hover:text-emerald-200 transition-all"
+                      >
+                        <Play className="w-4 h-4 fill-current" />
+                        Play today&apos;s puzzle
+                      </a>
+                    )}
 
                     <div className="grid grid-cols-3 gap-2">
                       {project.metrics.map(m => (

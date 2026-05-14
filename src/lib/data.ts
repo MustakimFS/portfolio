@@ -129,6 +129,23 @@ export const PROJECTS = [
     featured: false,
     category: 'Systems / Algorithms',
   },
+  {
+    id: 'zebradoodle',
+    title: 'Zebradoodle',
+    subtitle: 'React · Wordle / Quordle / Sedecordle / Nerdle',
+    description: 'A browser word and math puzzle collection reconstructed from a 2022 Java CLI prototype I wrote in undergrad. Four game modes share one engine: Wordle (1 board), Quordle (4 boards), Sedecordle (16 boards, 21 guesses), and Nerdle (8-character math equation). Every day picks the same puzzle for everyone via a deterministic FNV-32 date hash; practice mode rolls a fresh puzzle on demand. Scoring is a JS port of the original Java compare() method, two-pass with proper repeated-letter handling. The Nerdle module ships its own tokenizer and evaluator that enforces operator precedence, exact integer division, and no-leading-zero rules. Stats, streaks, and daily-resume live in localStorage so the whole thing deploys as a static bundle.',
+    metrics: [
+      { label: 'Game modes', value: '4' },
+      { label: 'Word bank', value: '14.8K' },
+      { label: 'Original', value: '2022' },
+    ],
+    tags: ['React 17', 'JavaScript', 'React Router', 'CSS', 'localStorage', 'canvas-confetti'],
+    github: 'https://github.com/MustakimFS/zebradoodle',
+    demo: 'https://mustakimfs.github.io/zebradoodle/',
+    featured: false,
+    category: 'Web / Games',
+    playable: true,
+  },
 ]
 
 export const SKILLS = [
