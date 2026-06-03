@@ -2,15 +2,221 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Konami graffiti ── */
+/* ─────────────────────────────────────────────────────────────────────────────
+   Window-portfolio palette — warm near-black inspired by Perry Wang's site.
+   Type pairing: Geist (sans) + Gloock (italic serif accent).
+   ───────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  --ink: #101010;
+  --ink-raised: #161616;
+  --ink-high: #1d1d1d;
+  --ink-border: #262626;
+  --ink-border-dim: #1f1f1f;
+  --bone: #F2F2F2;
+  --bone-muted: #A0A0A0;
+  --bone-dim: #666666;
+  --bone-faint: #3a3a3a;
+
+  /* Aliases — the geist package exposes --font-geist-sans / --font-geist-mono.
+     Map them to the names referenced by tailwind.config.js and css below. */
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  /* --font-serif is set directly on <html> by next/font/google */
+
+  /* Legacy shadcn vars — kept so any leftover UI primitives still render */
+  --background: 0 0% 6%;
+  --foreground: 0 0% 95%;
+  --card: 0 0% 9%;
+  --card-foreground: 0 0% 95%;
+  --popover: 0 0% 9%;
+  --popover-foreground: 0 0% 95%;
+  --primary: 0 0% 95%;
+  --primary-foreground: 0 0% 6%;
+  --secondary: 0 0% 14%;
+  --secondary-foreground: 0 0% 95%;
+  --muted: 0 0% 14%;
+  --muted-foreground: 0 0% 60%;
+  --accent: 0 0% 14%;
+  --accent-foreground: 0 0% 95%;
+  --destructive: 0 62% 40%;
+  --destructive-foreground: 0 0% 95%;
+  --border: 0 0% 15%;
+  --input: 0 0% 14%;
+  --ring: 0 0% 80%;
+  --radius: 0.5rem;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background: var(--ink);
+  /* `clip` (not `hidden`) prevents horizontal overflow WITHOUT turning the
+     element into a scroll container — `overflow-x: hidden` would force
+     `overflow-y: auto`, which breaks `position: sticky` (the case-study
+     Contents sidebar). `clip` keeps the vertical axis `visible`. */
+  overflow-x: clip;
+}
+
+body {
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+::selection {
+  background: rgba(242, 242, 242, 0.18);
+  color: var(--bone);
+}
+
+.selection-asu *::selection {
+  background: rgba(140, 29, 64, 0.9) !important; /* ASU Maroon */
+  color: #FFC627 !important;                     /* ASU Gold */
+}
+.selection-asu ::selection {
+  background: rgba(140, 29, 64, 0.9) !important;
+  color: #FFC627 !important;
+}
+
+/* Scoped ASU Theme overrides for Missing Persons page components */
+.theme-asu .text-emerald-300\/80 {
+  color: #FFC627 !important; /* ASU Gold */
+}
+.theme-asu .border-emerald-500\/20 {
+  border-color: rgba(140, 29, 64, 0.4) !important; /* ASU Maroon */
+}
+.theme-asu .text-emerald-300 {
+  color: #FFC627 !important; /* ASU Gold */
+}
+.theme-asu .text-amber-300\/85 {
+  color: #FFC627 !important; /* ASU Gold */
+}
+.theme-asu .bg-amber-500\/10 {
+  background-color: rgba(140, 29, 64, 0.15) !important; /* ASU Maroon background */
+}
+.theme-asu .border-amber-500\/20 {
+  border-color: rgba(140, 29, 64, 0.4) !important; /* ASU Maroon border */
+}
+.theme-asu .text-amber-300 {
+  color: #FFC627 !important; /* ASU Gold */
+}
+
+/* Scoped AegisFlow Theme overrides for AegisFlow page components */
+.selection-aegisflow *::selection {
+  background: rgba(64, 156, 255, 0.9) !important; /* Cool Blue background */
+  color: #ffffff !important;
+}
+.selection-aegisflow ::selection {
+  background: rgba(64, 156, 255, 0.9) !important;
+  color: #ffffff !important;
+}
+
+.theme-aegisflow .text-emerald-300\/80 {
+  color: #28dcc8 !important; /* AegisFlow Teal */
+}
+.theme-aegisflow .border-emerald-500\/20 {
+  border-color: rgba(64, 156, 255, 0.3) !important; /* AegisFlow Blue */
+}
+.theme-aegisflow .text-emerald-300 {
+  color: #28dcc8 !important;
+}
+.theme-aegisflow .text-emerald-400 {
+  color: #28dcc8 !important;
+}
+.theme-aegisflow .border-emerald-500\/30 {
+  border-color: rgba(64, 156, 255, 0.3) !important;
+}
+.theme-aegisflow .text-amber-300\/85 {
+  color: #8a66ff !important; /* AegisFlow Purple */
+}
+.theme-aegisflow .bg-amber-500\/10 {
+  background-color: rgba(138, 102, 255, 0.15) !important;
+}
+.theme-aegisflow .border-amber-500\/20 {
+  border-color: rgba(138, 102, 255, 0.4) !important;
+}
+.theme-aegisflow .text-amber-300 {
+  color: #8a66ff !important;
+}
+
+/* Webkit scrollbar — minimal, on-brand */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: var(--ink-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
+
+/* ── Hero glow — subtle radial highlight behind the headline letters ────── */
+.text-glow {
+  text-shadow:
+    0 0 36px rgba(242, 242, 242, 0.18),
+    0 0 12px rgba(242, 242, 242, 0.08);
+}
+
+/* The italic-serif accent gets a slightly different glow, gradient feel */
+.text-accent-glow {
+  background: linear-gradient(180deg, #F2F2F2 0%, #F2F2F2 60%, #828282 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 28px rgba(242, 242, 242, 0.18));
+}
+
+/* ── Thin gradient divider — fades at both edges ────────────────────────── */
+.divider-fade {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(242, 242, 242, 0.35) 20%,
+    rgba(242, 242, 242, 0.55) 50%,
+    rgba(242, 242, 242, 0.35) 80%,
+    transparent 100%
+  );
+  position: relative;
+}
+.divider-fade::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  filter: blur(2px);
+  background: inherit;
+  opacity: 0.6;
+}
+
+/* ── Window chrome — subtle gradient that simulates titlebar light ─────── */
+.window-chrome {
+  background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+}
+
+/* ── Lenis smooth scroll — required class hook ──────────────────────────── */
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-stopped { overflow: hidden; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+/* ── Project tint backdrop — gentle radial in the corner of case studies ─ */
+.tint-stadia { background: radial-gradient(ellipse at top, #0d1f33 0%, #101010 60%); }
+.tint-forest { background: radial-gradient(ellipse at top, #0d1f17 0%, #101010 60%); }
+.tint-warm   { background: radial-gradient(ellipse at top, #1f1611 0%, #101010 60%); }
+.tint-plum   { background: radial-gradient(ellipse at top, #1a0d20 0%, #101010 60%); }
+.tint-asu    { background: radial-gradient(ellipse at top, #3a0d17 0%, #101010 60%); }
+
+/* ── Easter egg keyframes (preserved from previous design) ───────────────── */
 @keyframes graffiti-spray {
   0%   { opacity: 0; transform: scale(0.15) rotate(var(--rot, -4deg)); filter: blur(16px); }
   65%  { opacity: 1; transform: scale(1.06) rotate(var(--rot, -4deg)); filter: blur(0); }
   100% { opacity: 1; transform: scale(1)    rotate(var(--rot, -4deg)); filter: blur(0); }
-}
-@keyframes graffiti-drip {
-  0%   { clip-path: inset(0 0 100% 0); }
-  100% { clip-path: inset(0 0 0% 0); }
 }
 @keyframes graffiti-overlay-out {
   0%   { opacity: 1; }
@@ -24,143 +230,301 @@
   animation: graffiti-overlay-out 0.6s ease-in forwards;
 }
 
-/* ── Secret word shake ── */
 @keyframes violent-shake {
   0%,100% { transform: translate(0, 0) rotate(0deg); }
-  5%  { transform: translate(-8px,  6px) rotate(-1.5deg); }
   10% { transform: translate( 9px, -7px) rotate( 1.8deg); }
-  15% { transform: translate(-10px, 5px) rotate(-2deg); }
-  20% { transform: translate( 7px,  8px) rotate( 1.2deg); }
   25% { transform: translate(-9px, -6px) rotate(-1.8deg); }
-  30% { transform: translate( 11px, 5px) rotate( 2.1deg); }
-  35% { transform: translate(-7px,  9px) rotate(-1.5deg); }
   40% { transform: translate( 8px, -8px) rotate( 1.7deg); }
-  45% { transform: translate(-11px, 6px) rotate(-2.2deg); }
-  50% { transform: translate( 9px,  7px) rotate( 1.9deg); }
   55% { transform: translate(-8px, -9px) rotate(-1.6deg); }
-  60% { transform: translate( 10px, 5px) rotate( 2deg); }
-  65% { transform: translate(-6px,  8px) rotate(-1.3deg); }
   70% { transform: translate( 7px, -7px) rotate( 1.5deg); }
-  75% { transform: translate(-9px,  6px) rotate(-1.8deg); }
-  80% { transform: translate( 8px,  8px) rotate( 1.6deg); }
   85% { transform: translate(-7px, -5px) rotate(-1.2deg); }
-  90% { transform: translate( 6px,  7px) rotate( 1.4deg); }
-  95% { transform: translate(-5px, -6px) rotate(-1deg); }
 }
 .shake-it {
   animation: violent-shake 0.12s linear infinite;
 }
 
-:root {
-  --gold: #c8a96e;
-  --gold-dim: #8a7050;
-  --gold-bright: #e8c98e;
-  --gold-subtle: rgba(200, 169, 110, 0.08);
-  --gold-border: rgba(200, 169, 110, 0.15);
-  --bg-primary: #080b10;
-  --bg-secondary: #0d1117;
-  --bg-card: #111722;
-  --text-primary: #e2e8f0;
-  --text-secondary: #9ca3af;
-  --text-dim: #6b7280;
+/* shadcn base — only applies where shadcn components are still imported */
+@layer base {
+  body { color: var(--bone); }
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* ── Fluid label (glass / Liquid Glass pill) ─────────────────────────────
+   Combines a translucent fill, backdrop blur, multi-layer inset shadows for
+   the curved-glass top/bottom edges, ambient inner glow, and a soft outer
+   shadow so the chip "floats". Active state lowers it by 1px.
+   ────────────────────────────────────────────────────────────────────────── */
+.fluid-label {
+  /* No position declaration here — each instance picks its own position
+     via Tailwind utility classes (relative for cards-with-absolute-children,
+     absolute for the nav center pill, etc.). Setting position: relative here
+     would override `absolute` utilities due to source-order specificity. */
+  background: rgba(255, 255, 255, 0.035);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid transparent;
+  box-shadow:
+    /* top specular edge */
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    /* bottom dim edge */
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    /* perimeter hairline */
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06),
+    /* outer soft shadow */
+    0 8px 22px rgba(0, 0, 0, 0.40),
+    0 2px 4px rgba(0, 0, 0, 0.25);
+  transition:
+    background 0.25s ease,
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+.fluid-label:hover {
+  background: rgba(255, 255, 255, 0.065);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.30),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.10),
+    0 10px 28px rgba(0, 0, 0, 0.45),
+    0 2px 4px rgba(0, 0, 0, 0.25);
+  transform: translateY(-1px);
+}
+.fluid-label:active {
+  transform: translateY(0) scale(0.985);
+  background: rgba(255, 255, 255, 0.045);
 }
 
-html {
-  scroll-behavior: smooth;
+.fluid-label-solid {
+  background: rgba(34, 34, 34, 0.85);
+}
+.fluid-label-solid:hover {
+  background: rgba(42, 42, 42, 0.92);
 }
 
-body {
-  background: #060810;
-  margin: 0;
-  padding: 0;
-  color: var(--text-primary);
-  font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  -webkit-font-smoothing: antialiased;
+/* ── Expand-on-hover variant (Spline pattern) ─────────────────────────────
+   Collapsed: just the icon, perfect circle.
+   Hover/focus-within: text column animates from 0fr → 1fr, revealing the
+   label without reflowing surrounding elements (the column is what changes,
+   not the box itself).
+
+   Asymmetric timing: expanding is brisk (0.4s, no delay) so it feels
+   responsive; collapsing is slower (0.55s) with a 0.18s delay before
+   starting, so the pill doesn't snap shut the moment your cursor drifts
+   off — gives you a beat to come back.
+   ────────────────────────────────────────────────────────────────────────── */
+.fluid-label-expandable {
+  /* Base / un-hovered (this is the transition the COLLAPSE runs through) */
+  grid-template-columns: auto 0fr;
+  transition:
+    grid-template-columns 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.18s,
+    padding 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.18s,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+.fluid-label-expandable:hover,
+.fluid-label-expandable:focus-visible {
+  /* On hover — overrides the transition so EXPANSION is fast and immediate */
+  grid-template-columns: auto 1fr;
+  padding-left: 0.75rem;
+  padding-right: 0.875rem;
+  transition:
+    grid-template-columns 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0s,
+    padding 0.42s cubic-bezier(0.22, 1, 0.36, 1) 0s,
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
 }
 
-@media (min-width: 768px) {
-  body {
-    overflow-x: hidden;
-  }
+.fluid-label-expandable .fluid-label-reveal {
+  /* Base / un-hovered — fade-out takes its time and waits a beat */
+  opacity: 0;
+  transition: opacity 0.4s ease 0.22s;
+}
+.fluid-label-expandable:hover .fluid-label-reveal,
+.fluid-label-expandable:focus-visible .fluid-label-reveal {
+  opacity: 1;
+  transition: opacity 0.28s ease 0.10s;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-primary); }
-::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
-/* Selection */
-::selection { background: rgba(200, 169, 110, 0.2); color: var(--gold-bright); }
-
-/* Grid noise texture */
-.noise-bg::before {
-  content: '';
+/* ── Navigation overlay ("Just a moment" three-dot loading) ──────────────
+   Sits above all content. Fades opacity 0 ↔ 1 with a subtle backdrop blur.
+   The dots pulse via staggered animations. Pointer-events disabled while
+   hidden so it never blocks clicks.
+   ────────────────────────────────────────────────────────────────────────── */
+.navigation-overlay {
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(16, 16, 16, 0.78);
+  backdrop-filter: blur(14px) saturate(120%);
+  -webkit-backdrop-filter: blur(14px) saturate(120%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.navigation-overlay.is-visible {
+  opacity: 1;
+}
+.navigation-overlay-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  transform: translateY(8px);
+  opacity: 0;
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.06s,
+    opacity 0.4s ease 0.06s;
+}
+.navigation-overlay.is-visible .navigation-overlay-inner {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.navigation-dots {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.navigation-dots span {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: rgba(242, 242, 242, 0.92);
+  display: inline-block;
+  animation: navigation-dot 1.2s ease-in-out infinite both;
+}
+.navigation-dots span:nth-child(1) { animation-delay: -0.32s; }
+.navigation-dots span:nth-child(2) { animation-delay: -0.16s; }
+.navigation-dots span:nth-child(3) { animation-delay: 0s; }
+
+@keyframes navigation-dot {
+  0%, 80%, 100% { opacity: 0.18; transform: scale(0.7); }
+  40%           { opacity: 1.0;  transform: scale(1.0); }
+}
+
+.navigation-overlay-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: rgba(242, 242, 242, 0.65);
+  letter-spacing: 0.04em;
+}
+.navigation-overlay-text .font-serif {
+  color: rgba(242, 242, 242, 0.9);
+}
+
+/* ── Hero window ambient glow ─────────────────────────────────────────────
+   The first BrowserWindow on the homepage gets a soft silver/white halo
+   behind it so the hero feels lit rather than dropped on a flat page.
+   Applied via the `.hero-glow` wrapper. Always on (not hover-only).
+   ────────────────────────────────────────────────────────────────────────── */
+.hero-glow {
+  position: relative;
+  isolation: isolate;
+}
+.hero-glow::before {
+  content: '';
+  position: absolute;
+  inset: -6% -10%;
+  border-radius: 32px;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 45%,
+    rgba(255, 255, 255, 0.16) 0%,
+    rgba(220, 230, 250, 0.08) 38%,
+    rgba(180, 200, 240, 0.03) 65%,
+    transparent 90%
+  );
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+  animation: hero-glow-breathe 9s ease-in-out infinite;
+}
+@keyframes hero-glow-breathe {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50%      { opacity: 1.0;  transform: scale(1.04); }
+}
+
+/* Inside the hero window: a soft inner radial gradient so the text sits
+   on a faint silver pool rather than a flat black square. */
+.hero-inner-glow {
+  background:
+    radial-gradient(
+      ellipse 60% 50% at 50% 45%,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.025) 38%,
+      transparent 75%
+    );
+}
+
+/* ── Project frame with ambient hover glow ────────────────────────────────
+   Each project showcase wraps its BrowserWindow in `.project-frame`. The
+   default state is plain; on hover (via `.project-trigger:hover` on the
+   parent Link), an ambient radial glow blooms behind the window and the
+   window lifts up. Glow colors come from CSS variables --glow-1 / 2 / 3
+   which each project sets via inline style.
+   ────────────────────────────────────────────────────────────────────────── */
+.project-frame {
+  position: relative;
+  border-radius: 1.5rem;
+  transition: 
+    border-color 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-trigger:hover .project-frame {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 
+    0 0 25px rgba(255, 255, 255, 0.12),
+    0 0 10px rgba(255, 255, 255, 0.06);
+}
+
+.project-inner-glow {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
   pointer-events: none;
   z-index: 0;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.project-trigger:hover .project-inner-glow,
+.project-trigger:focus-visible .project-inner-glow {
+  opacity: 0.42;
 }
 
-@layer base {
-  :root {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
-  }
+.project-window {
+  position: relative;
+  transform: translateY(14px);
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+.project-trigger:hover .project-window,
+.project-trigger:focus-visible .project-window {
+  transform: translateY(0);
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply text-foreground;
-  }
+/* ── Placeholder badge — marks content we'll fill in later ──────────────── */
+.placeholder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f59e0b;
+  background: rgba(245, 158, 11, 0.08);
+  border: 1px dashed rgba(245, 158, 11, 0.45);
+  border-radius: 4px;
+}
+.placeholder-badge::before {
+  content: '⚠';
+  font-size: 10px;
+}
+
+/* Linear-gradient mask to fade bottom borders & content smoothly to transparent */
+.mask-fade-bottom {
+  mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 50%, transparent 100%);
 }
