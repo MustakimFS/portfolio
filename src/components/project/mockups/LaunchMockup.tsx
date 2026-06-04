@@ -1,25 +1,15 @@
 /**
  * Launch Parameters — homepage card / case-study hero mockup.
- * Plays the earth-globe demo clip (muted, looping, 0.5x speed) inside the
- * window. Falls back to the default-globe screenshot if the video can't play.
+ * Plays the earth-globe demo clip (muted, looping). The clip is pre-slowed
+ * and recorded at 60fps, so it plays at native speed — no playbackRate hack.
+ * Falls back to the default-globe screenshot if the video can't play.
  */
-'use client'
-
-import { useEffect, useRef } from 'react'
-
 export default function LaunchMockup() {
-  const videoRef = useRef<HTMLVideoElement>(null)
-
-  useEffect(() => {
-    if (videoRef.current) videoRef.current.playbackRate = 0.5
-  }, [])
-
   return (
     <div className="relative w-full aspect-[16/9] bg-black overflow-hidden">
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
-        ref={videoRef}
-        src="/projects/launch-parameters/earth-globe-thumbnail.webm"
+        src="/projects/launch-parameters/earth-globe-thumbnail-slow.mp4"
         poster="/projects/launch-parameters/01-default-globe.png"
         autoPlay
         muted
