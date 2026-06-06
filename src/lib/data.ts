@@ -72,7 +72,8 @@ export const PROJECTS = [
     year: '2024',
     mockupUrl: 'missing-persons-knowledge-graph.vercel.app',
     tint: 'asu',
-    paper: '/papers/missing-persons-kg.pdf',
+    // Published paper is linked via IEEE Xplore (see `ieee`); the IEEE
+    // camera-ready PDF is not self-hosted for copyright reasons.
   },
   {
     id: 'distributed-kv',

@@ -68,8 +68,19 @@ function Overview() {
         sans="Three segmentation models,"
         accent="one honest mIoU."
         size="md"
-        className="mb-8"
+        className="mb-5"
       />
+
+      <div className="mb-8">
+        <a
+          href="/papers/pixeldrive.pdf"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 text-bone hover:text-bone-muted text-sm font-medium border-b border-bone/20 hover:border-bone/40 pb-0.5 transition-colors"
+        >
+          Read the paper <span aria-hidden="true">↗</span>
+        </a>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-x-8 gap-y-6 text-[15px] leading-relaxed">
         <Meta label="My Role" value="Sole engineer" />

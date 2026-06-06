@@ -65,8 +65,19 @@ function Overview() {
         sans="A knowledge graph for"
         accent="the people we lose."
         size="md"
-        className="mb-8"
+        className="mb-5"
       />
+
+      <div className="mb-8">
+        <a
+          href="https://ieeexplore.ieee.org/document/11126748"
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 text-bone hover:text-bone-muted text-sm font-medium border-b border-bone/20 hover:border-bone/40 pb-0.5 transition-colors"
+        >
+          Read on IEEE Xplore <span aria-hidden="true">↗</span>
+        </a>
+      </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-x-8 gap-y-6 text-[15px] leading-relaxed">
         <Meta label="My Role" value="Continuation engineer & deployer" />
