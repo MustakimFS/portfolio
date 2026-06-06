@@ -19,6 +19,12 @@ export default function NavigationOverlay() {
   const [visible, setVisible] = useState(true) // start visible for initial load
   const startedAt = useRef(performance.now())
   const isFirstRender = useRef(true)
+  // Tracks the live pathname so the popstate handler can tell a real page
+  // back/forward from an in-page hash change (which also fires popstate).
+  const currentPathRef = useRef(pathname)
+  useEffect(() => {
+    currentPathRef.current = pathname
+  }, [pathname])
 
   // ── Hide overlay after initial load finishes (min 600ms dwell time) ──
   useEffect(() => {
@@ -89,6 +95,11 @@ export default function NavigationOverlay() {
   // ── Brief overlay on browser back/forward ──
   useEffect(() => {
     const onPopState = () => {
+      // In-page hash links (e.g. the case-study Contents sidebar) also fire
+      // popstate but never change the path. Showing the overlay for those
+      // would hang it forever, because the "hide on pathname change" effect
+      // never runs. Only flash the overlay for true page back/forward.
+      if (window.location.pathname === currentPathRef.current) return
       startedAt.current = performance.now()
       setVisible(true)
     }
