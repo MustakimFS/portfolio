@@ -4,6 +4,7 @@ import GradientDivider from '@/components/typography/GradientDivider'
 import { BrowserWindow } from '@/components/windows'
 import ProjectShowcase from '@/components/project/ProjectShowcase'
 import ArchiveList from '@/components/project/ArchiveList'
+import NowSection from '@/components/project/NowSection'
 import Footer from '@/components/Footer'
 import { PERSONAL } from '@/lib/data'
 import { FEATURED_PROJECTS, ARCHIVED_PROJECTS } from '@/lib/projects'
@@ -63,6 +64,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Now — actively building (above selected work) ─────────────── */}
+      <NowSection />
+
       {/* ── Selected Work label ────────────────────────────────────────── */}
       <section className="px-4 sm:px-8 pt-20 pb-12">
         <div className="max-w-6xl lg:max-w-[1340px] mx-auto">
@@ -93,6 +97,8 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+
 
       <Footer />
     </main>
