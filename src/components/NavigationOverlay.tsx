@@ -78,6 +78,11 @@ export default function NavigationOverlay() {
         href.startsWith('#') ||
         link.target === '_blank'
       ) return
+      // Skip static-asset links (e.g. /resume.pdf). These aren't app routes,
+      // so router.push() can't resolve them — intercepting would show the
+      // overlay and never hide it. Let the browser handle them natively.
+      const path = href.split(/[?#]/)[0]
+      if (/\.[a-zA-Z0-9]+$/.test(path)) return
       // Skip same-page links
       if (href === pathname || href === window.location.pathname) return
 
@@ -91,6 +96,19 @@ export default function NavigationOverlay() {
     document.addEventListener('click', onClick, true)
     return () => document.removeEventListener('click', onClick, true)
   }, [pathname, router])
+
+  // ── Safety net: force-hide on bfcache restore ──
+  // If the user navigates away (e.g. opens the resume PDF) while the overlay
+  // is showing and then hits Back, the browser restores the page from the
+  // back/forward cache with the overlay still visible. pageshow(persisted)
+  // fires on that restore — clear the overlay so it can never get stuck.
+  useEffect(() => {
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) setVisible(false)
+    }
+    window.addEventListener('pageshow', onPageShow)
+    return () => window.removeEventListener('pageshow', onPageShow)
+  }, [])
 
   // ── Brief overlay on browser back/forward ──
   useEffect(() => {

@@ -98,11 +98,16 @@ export default function FluidLabel({
 
   if (href) {
     if (external || href.startsWith('http') || href.startsWith('mailto:')) {
+      // Open in a new tab for everything that leaves the app (profiles,
+      // the resume PDF, etc.) so the visitor never loses the portfolio —
+      // except mailto:/tel: which hand off to the OS. This also keeps the
+      // navigation overlay from intercepting same-tab asset links.
+      const newTab = !(href.startsWith('mailto:') || href.startsWith('tel:'))
       return (
         <a
           href={href}
-          target={href.startsWith('http') ? '_blank' : undefined}
-          rel={href.startsWith('http') ? 'noopener noreferrer' : undefined}
+          target={newTab ? '_blank' : undefined}
+          rel={newTab ? 'noopener noreferrer' : undefined}
           className={classes}
           aria-label={ariaLabel}
           title={title}
