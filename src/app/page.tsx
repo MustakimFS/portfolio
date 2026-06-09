@@ -4,6 +4,7 @@ import GradientDivider from '@/components/typography/GradientDivider'
 import { BrowserWindow } from '@/components/windows'
 import ProjectShowcase from '@/components/project/ProjectShowcase'
 import ArchiveList from '@/components/project/ArchiveList'
+import NowSection from '@/components/project/NowSection'
 import Footer from '@/components/Footer'
 import { PERSONAL } from '@/lib/data'
 import { FEATURED_PROJECTS, ARCHIVED_PROJECTS } from '@/lib/projects'
@@ -93,6 +94,9 @@ export default function HomePage() {
           </div>
         </section>
       )}
+
+      {/* ── Now — actively building + ideas (foot of the page) ─────────── */}
+      <NowSection />
 
       <Footer />
     </main>
