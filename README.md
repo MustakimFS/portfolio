@@ -1,4 +1,4 @@
-# mustakimshikalgar.dev
+# mustakim-shikalgar.dev
 
 Personal portfolio for Mustakim Shikalgar — MS Software Engineering @ ASU,
 IEEE-published researcher, distributed-systems & applied-ML engineer.
