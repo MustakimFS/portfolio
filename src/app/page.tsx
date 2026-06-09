@@ -64,6 +64,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* ── Now — actively building (above selected work) ─────────────── */}
+      <NowSection />
+
       {/* ── Selected Work label ────────────────────────────────────────── */}
       <section className="px-4 sm:px-8 pt-20 pb-12">
         <div className="max-w-6xl lg:max-w-[1340px] mx-auto">
@@ -95,8 +98,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── Now — actively building + ideas (foot of the page) ─────────── */}
-      <NowSection />
+
 
       <Footer />
     </main>

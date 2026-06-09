@@ -20,11 +20,11 @@ export interface NowItem {
 /** Active work — the things being built right now. */
 export const NOW_BUILDING: NowItem[] = [
   {
-    title: 'Knowledge-Graph Prediction for Logistics',
+    title: 'Cascade — Knowledge-Graph Intelligence for Logistics Networks',
     blurb:
-      'Most logistics models score each shipment in isolation, but the real signal lives in the relationships between hubs, lanes, carriers, and events. I model the network as a knowledge graph and use link prediction to forecast disruptions from its structure: where delays will cascade, which routes are about to bottleneck, and which shipments are quietly at risk, all before it surfaces in the tracking data.',
+      'Most logistics models score each shipment in isolation, but the real signal lives in the relationships between hubs, lanes, carriers, weather, and fuel markets. I\'m building Cascade, a platform that models the U.S. air-freight network as a live knowledge graph and propagates shocks through it, whether a snowstorm at one hub, a fuel spike, or a retail-sales miss, to forecast where delays will cascade, which routes are about to bottleneck, and which shipments are quietly at risk, all before it surfaces in the tracking data. I\'m pairing graph-structure embeddings with probabilistic forecasting, then feeding those predictions into an optimizer that recommends cost-optimal reroutes. The whole engine is schema-driven, so it retargets from freight to any networked entity without code changes.',
     status: 'in progress',
-    tags: ['Knowledge Graphs', 'Link Prediction', 'GNNs', 'Logistics ML', 'Python'],
+    tags: ['Knowledge Graphs', 'Graph Neural Networks', 'Link Prediction', 'Probabilistic Forecasting', 'Operations Research', 'FastAPI', 'Python'],
   },
   {
     title: 'Local companion models',
