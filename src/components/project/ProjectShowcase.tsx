@@ -21,6 +21,12 @@ import { getMockup, getMockupWindow } from './registry'
 
 /** Per-project glow palettes. Hover ambient lighting picks from these. */
 const GLOW_PALETTES: Record<string, { '--glow-1': string; '--glow-2': string; '--glow-3': string }> = {
+  cascade: {
+    // Graph intelligence — violet → blue → teal, echoing the node-type legend
+    '--glow-1': 'rgba(108, 140, 255, 0.55)',
+    '--glow-2': 'rgba(179, 136, 255, 0.40)',
+    '--glow-3': 'rgba(77, 208, 167, 0.25)',
+  },
   'mety-legal': {
     // Prismatic — matches the rainbow swirl on the landing page
     '--glow-1': 'rgba(0, 212, 255, 0.55)',

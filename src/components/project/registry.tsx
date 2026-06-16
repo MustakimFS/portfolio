@@ -10,6 +10,8 @@
  */
 
 import type { ComponentType } from 'react'
+import CascadeMockup from './mockups/CascadeMockup'
+import CascadeCaseStudy, { CASCADE_SECTIONS } from './caseStudies/CascadeCaseStudy'
 import MetyMockup from './mockups/MetyMockup'
 import MetyCaseStudy, { METY_SECTIONS } from './caseStudies/MetyCaseStudy'
 import LaunchParametersCaseStudy, { LAUNCH_PARAMETERS_SECTIONS } from './caseStudies/LaunchParametersCaseStudy'
@@ -54,6 +56,12 @@ export interface ProjectEntry {
 }
 
 export const PROJECT_REGISTRY: Record<string, ProjectEntry> = {
+  cascade: {
+    Mockup: CascadeMockup,
+    mockupWindow: 'browser',
+    CaseStudy: CascadeCaseStudy,
+    sections: CASCADE_SECTIONS,
+  },
   'mety-legal': {
     Mockup: MetyMockup,
     CaseStudy: MetyCaseStudy,

@@ -14,6 +14,28 @@ export const PERSONAL = {
 
 export const PROJECTS = [
   {
+    id: 'cascade',
+    title: 'Cascade',
+    subtitle: 'Graph Intelligence Platform · FastAPI · LightGBM · PyTorch GNN · Next.js',
+    blurb: 'A self-growing knowledge graph that forecasts logistics disruptions like a decision scientist.',
+    description: 'Cascade is a domain-agnostic graph intelligence platform. Given any networked entity, whether a logistics network, a market, or a sector, it builds a living knowledge graph of everything that influences it, trains quantile forecasters on that graph, validates them out-of-sample with leak-free methodology, and writes a structured decision brief automatically. Every node type, edge type, prediction target, and UI panel is declared in YAML, so adding a new domain requires zero Python changes. It ships three production worlds (an 86-node equity and macro market graph, a logistics hub network, and a stock-equity demo), a temporal GNN as the long-train path, and an autonomous analyst loop that runs the full pipeline (expand, retrain, backtest, forecast, brief) on a schedule.',
+    metrics: [
+      { label: 'MAE reduction (logistics, h=1-4)', value: '7-19%' },
+      { label: 'Training bars · 10-yr lookback', value: '210,475' },
+      { label: 'Calibrated band coverage', value: '52% → 78%' },
+    ],
+    tags: ['Knowledge Graphs', 'Graph Neural Networks', 'LightGBM', 'Conformal Prediction', 'Causal Discovery', 'Operations Research', 'FastAPI', 'Next.js', 'Python'],
+    github: null,
+    demo: null,
+    featured: true,
+    category: 'Graph Intelligence / ML',
+    year: '2026',
+    note: 'In active development · no public launch yet · screenshots and demo videos coming soon',
+    mockupKind: 'browser',
+    mockupUrl: 'localhost:3000/graph/markets',
+    tint: 'plum',
+  },
+  {
     id: 'mety-legal',
     title: 'METY Legal Chatbot',
     subtitle: 'LangGraph · FastAPI · Django · 5-node pipeline',
@@ -32,6 +54,7 @@ export const PROJECTS = [
     year: '2026',
     note: 'Industry capstone · IP owned by MyEdMaster · Source under NDA',
     mockupUrl: 'mety.legal',
+    tint: 'stadia',
     videoUrl: '/projects/mety-legal/broque_demo.mp4',
   },
   {
@@ -51,6 +74,7 @@ export const PROJECTS = [
     category: 'Distributed Systems / LLM Infrastructure',
     year: '2026',
     mockupUrl: 'aegisflow.dev',
+    tint: 'forest',
   },
   {
     id: 'missing-persons',
@@ -214,6 +238,7 @@ export const PROJECTS = [
     featured: false,
     category: 'Web / Games',
     playable: true,
+    tint: 'forest',
   },
 ]
 
