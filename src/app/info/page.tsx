@@ -111,9 +111,23 @@ export default async function InfoPage() {
                 output={
                   <div className="space-y-5 mt-1">
                     <ExperienceEntry
+                      role="Full Stack Developer & GenAI Team Lead"
+                      org="Saayam for All"
+                      period="Jun '26 to present"
+                      summary={
+                        <>
+                          Leading architecture and roadmap for a{' '}
+                          <span className="text-bone">RAG-based conversational
+                          agent</span>. Currently building the subject-line
+                          optimization and answer-generation endpoints on the
+                          GenAI team.
+                        </>
+                      }
+                    />
+                    <ExperienceEntry
                       role="Graduate Software Engineer"
                       org="Arizona State University"
-                      period="Aug '24 to present"
+                      period="Aug '24 to May '26"
                       summary={
                         <>
                           MS Software Engineering · GPA 3.75. Coursework across
@@ -145,8 +159,9 @@ export default async function InfoPage() {
                       summary={
                         <>
                           Published &ldquo;Enhanced Tracking and Reporting of
-                          Missing Persons Using Semantic Web Technologies&rdquo;
-                          at IEEE COMPSAC (27% acceptance rate). Replaced a
+                          Missing Persons Using Knowledge Graph and Ontology
+                          Engineering&rdquo; at IEEE COMPSAC (27% acceptance
+                          rate). Replaced a
                           $50/month GraphDB/Azure backend with FastAPI + RDFLib at{' '}
                           <span className="text-bone">$0 infra cost</span>,
                           sub-100ms SPARQL over 3,559 NamUs cases.
