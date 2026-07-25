@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://mustakimshikalgar.dev'),
   title: 'Mustakim Shikalgar — Software Engineer',
   description:
-    'I build distributed systems, intelligent agents & research. MS Software Engineering @ ASU. IEEE published researcher. Seeking SDE roles May 2026.',
+    'I build distributed systems, intelligent agents & research. MS Software Engineering @ ASU. IEEE published researcher. Actively interviewing for SDE/MLE roles.',
   keywords: [
     'Software Engineer',
     'Distributed Systems',
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Mustakim Shikalgar — Software Engineer',
     description:
-      'I build distributed systems, intelligent agents & research. MS @ ASU · IEEE published · Seeking SDE roles May 2026.',
+      'I build distributed systems, intelligent agents & research. MS @ ASU · IEEE published · Actively interviewing for SDE/MLE roles.',
     url: 'https://mustakimshikalgar.dev',
     siteName: 'Mustakim Shikalgar',
     type: 'website',

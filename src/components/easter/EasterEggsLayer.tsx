@@ -192,7 +192,7 @@ export default function EasterEggsLayer() {
     if (cmd === 'whoami') {
       const lc = lcStats
         ? `${lcStats.total.toLocaleString()} solved · #${lcStats.ranking.toLocaleString()} · contest top ${lcStats.topPercentage}%`
-        : 'top 15% globally · 815+ solved'
+        : 'Knight · top 3% globally · 881+ solved · 1900+ rating'
       addLines(
         echo,
         PERSONAL.name,
@@ -203,7 +203,7 @@ export default function EasterEggsLayer() {
         'research    IEEE COMPSAC 2025 · published',
         `leetcode    ${lc}${lcStats ? '  (live)' : ''}`,
         `location    ${PERSONAL.location}`,
-        'status      seeking full-time SDE roles · May 2026',
+        'status      actively interviewing for SDE/MLE roles',
       )
       return
     }

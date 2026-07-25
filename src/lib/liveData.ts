@@ -24,12 +24,12 @@ export interface LeetcodeStats {
 }
 
 const LEETCODE_DEFAULTS: LeetcodeStats = {
-  total: 815,
+  total: 881,
   easy: 550,
-  medium: 139,
-  hard: 126,
+  medium: 201,
+  hard: 130,
   ranking: 47287,
-  rating: 1841,
+  rating: 1900,
   topPercentage: 6.44,
   lastSubmission: new Date().toISOString(),
   live: false,

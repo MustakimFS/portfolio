@@ -37,7 +37,7 @@ export default function OpengraphImage() {
           I build distributed systems, intelligent agents &amp; research.
         </div>
         <div style={{ fontSize: 30, color: '#A0A0A0', marginTop: 44 }}>
-          Software Engineer · MS @ ASU · IEEE published · Top 15% LeetCode
+          Software Engineer · MS @ ASU · IEEE published · Top 3% LeetCode
         </div>
       </div>
     ),

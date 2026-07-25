@@ -68,15 +68,44 @@ function Overview() {
         className="mb-5"
       />
 
-      <div className="mb-8">
-        <a
-          href="https://ieeexplore.ieee.org/document/11126748"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-bone hover:text-bone-muted text-sm font-medium border-b border-bone/20 hover:border-bone/40 pb-0.5 transition-colors"
-        >
-          Read on IEEE Xplore <span aria-hidden="true">↗</span>
-        </a>
+      <div className="mb-8 rounded-xl border border-ink-border bg-ink-raised p-5">
+        <div className="text-bone-dim text-[11px] uppercase tracking-eyebrow font-mono mb-2.5">
+          Publication
+        </div>
+        <p className="text-bone text-[14px] leading-relaxed">
+          S. R. Chowdhury, A. Desai, M. Kapure,{' '}
+          <span className="font-medium underline decoration-bone/30 underline-offset-2">
+            M. Shikalgar
+          </span>
+          , R. Venugopal, and S. Bansal, &ldquo;Enhanced tracking and reporting
+          of missing persons using Knowledge Graph and Ontology Engineering,&rdquo;
+        </p>
+        <p className="text-bone-muted text-[13.5px] leading-relaxed mt-1.5">
+          in{' '}
+          <span className="italic font-serif text-bone/90">
+            2025 IEEE 49th Annual Computers, Software, and Applications Conference
+            (COMPSAC)
+          </span>
+          , Toronto, Canada, July 8-11, 2025, pp. 619-627.
+        </p>
+        <div className="mt-3.5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[13px]">
+          <a
+            href="https://doi.org/10.1109/COMPSAC65507.2025.00084"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 text-bone hover:text-bone-muted font-medium border-b border-bone/20 hover:border-bone/40 pb-0.5 transition-colors"
+          >
+            DOI: 10.1109/COMPSAC65507.2025.00084 <span aria-hidden="true">↗</span>
+          </a>
+          <a
+            href="https://ieeexplore.ieee.org/document/11126748"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1.5 text-bone-muted hover:text-bone border-b border-bone/15 hover:border-bone/30 pb-0.5 transition-colors"
+          >
+            IEEE Xplore <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-x-8 gap-y-6 text-[15px] leading-relaxed">
@@ -115,7 +144,7 @@ function Overview() {
           (Toronto, 27% acceptance rate) under the title{' '}
           <em>
             &ldquo;Enhanced Tracking and Reporting of Missing Persons Using
-            Semantic Web Technologies.&rdquo;
+            Knowledge Graph and Ontology Engineering.&rdquo;
           </em>
         </p>
       </div>

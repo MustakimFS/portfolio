@@ -152,7 +152,8 @@ function Highlights() {
         influence graph, retrain, backtest, and write the brief, as a scheduled
         pipeline. The headline result is measured inside the disruption window
         where graph context is supposed to help, and reported exactly where it
-        does not.
+        does not. Every design decision is captured across 22 architecture
+        decision records.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
@@ -166,8 +167,17 @@ function Highlights() {
           On the logistics network, graph-structure features cut short-horizon
           error by 7-19% (h=1-4), decaying back to the baseline at longer
           horizons exactly as disruption-propagation theory predicts. On daily
-          equities the graph does not beat the own-history baseline, and that
-          finding ships in the report instead of being hidden.
+          equities it does not: in 0 of 18 target evaluations did a graph
+          configuration beat the own-history baseline. Graph structure helped
+          logistics, not markets, and that negative result ships in the report
+          instead of being hidden.
+        </Point>
+        <Point title="LightGBM over the GNN, on the evidence.">
+          Head-to-head on logistics, gradient-boosted trees beat the temporal
+          GNN (<Code>0.098</Code> vs <Code>0.151</Code> MAE), so LightGBM stays
+          the default and the GNN is the long-train path, not the headline.
+          Every result runs through purged, embargoed time-series
+          cross-validation.
         </Point>
         <Point title="Honest uncertainty, not false confidence.">
           Raw LightGBM <Code>q10</Code>/<Code>q90</Code> bands were badly
@@ -361,8 +371,8 @@ function Process() {
           body={
             <>
               Adding 128-dim structural embeddings to the 11-node stock model
-              dropped out-of-sample directional accuracy on FDX by 9.8 points.
-              With that few nodes, the embeddings memorize node identity. Fix: a
+              measurably degraded out-of-sample performance on FDX. With that
+              few nodes, the embeddings memorize node identity. Fix: a
               schema flag, <Code>use_embeddings: false</Code> for small graphs,
               on for the 60+ node logistics network where structural roles
               actually generalize.
@@ -600,7 +610,7 @@ function Retrospective() {
         <RetroColumn title="What I'd do differently">
           <RetroItem
             head="Multi-window backtests from the start"
-            body="A single-split result (63% directional in one trend regime) was misleading and took two iterations to retire. The honest multi-window mean is 48-54% depending on regime."
+            body="A single-split result in one trend regime looked encouraging but was misleading. The honest multi-window evaluation was far flatter and took two iterations to retire the optimistic single-split view; on daily equity direction the result is statistically indistinguishable from chance, which is the correct finding to report rather than a headline."
           />
           <RetroItem
             head="Concurrency model up front"

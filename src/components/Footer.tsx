@@ -37,7 +37,7 @@ export default function Footer() {
             </div>
           </div>
           <div className="text-bone/55">
-            Open to SDE roles · May 2026{' '}
+            Actively interviewing for SDE/MLE roles{' '}
             <span aria-hidden="true">·</span>{' '}
             <span className="italic font-serif">{PERSONAL.location}</span>
           </div>

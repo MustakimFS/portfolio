@@ -118,7 +118,7 @@ export default async function InfoPage() {
                         <>
                           MS Software Engineering · GPA 3.75. Coursework across
                           distributed systems, ML, AI engineering, and applied
-                          research. Graduating May 2026.
+                          research. Graduated May 2026.
                         </>
                       }
                     />
@@ -468,9 +468,10 @@ export default async function InfoPage() {
           <div>
             <SectionLabel className="mb-4">Currently</SectionLabel>
             <p className="text-bone-muted text-[15px] leading-relaxed">
-              Graduating <span className="text-bone">May 2026</span> and looking
-              for full-time SDE roles where I can ship reliability infrastructure
-              or applied-ML systems at scale. In the meantime: stress-testing
+              Graduated <span className="text-bone">May 2026</span> from ASU and
+              actively interviewing for full-time SDE/MLE roles where I can ship
+              reliability infrastructure or applied-ML systems at scale. In the
+              meantime: stress-testing
               models, chasing hallucinations down, building small daily-use
               applications, and self-hosting local companion models that
               pair-program with me while I work.

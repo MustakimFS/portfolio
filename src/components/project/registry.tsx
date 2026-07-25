@@ -32,6 +32,8 @@ import JobHuntMockup from './mockups/JobHuntMockup'
 import JobHuntCaseStudy, { JOB_HUNT_SECTIONS } from './caseStudies/JobHuntCaseStudy'
 import ZebradoodleMockup from './mockups/ZebradoodleMockup'
 import ZebradoodleCaseStudy, { ZEBRADOODLE_SECTIONS } from './caseStudies/ZebradoodleCaseStudy'
+import EvidenceReviewMockup from './mockups/EvidenceReviewMockup'
+import EvidenceReviewCaseStudy, { EVIDENCE_REVIEW_SECTIONS } from './caseStudies/EvidenceReviewCaseStudy'
 
 export interface ProjectEntry {
   /** Custom mockup component shown inside the window (homepage card). */
@@ -115,6 +117,12 @@ export const PROJECT_REGISTRY: Record<string, ProjectEntry> = {
     Mockup: ZebradoodleMockup,
     CaseStudy: ZebradoodleCaseStudy,
     sections: ZEBRADOODLE_SECTIONS,
+  },
+  'evidence-review': {
+    Mockup: EvidenceReviewMockup,
+    mockupWindow: 'terminal',
+    CaseStudy: EvidenceReviewCaseStudy,
+    sections: EVIDENCE_REVIEW_SECTIONS,
   },
 }
 
