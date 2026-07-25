@@ -2,13 +2,13 @@ import type { ReactNode } from 'react'
 
 /**
  * Faux code-editor window with file tab + optional line numbers.
- * Use for sections that benefit from a code-editor aesthetic — e.g. showing
+ * Use for sections that benefit from a code-editor aesthetic, e.g. showing
  * skills as imports, philosophy as a manifesto file, etc.
  */
 export interface CodeEditorWindowProps {
   /** Filename shown in the tab. */
   filename: string
-  /** Language label (e.g. "ts", "py", "go") — shown next to filename. */
+  /** Language label (e.g. "ts", "py", "go"), shown next to filename. */
   language?: string
   /** Show line numbers in a gutter. */
   showLineNumbers?: boolean

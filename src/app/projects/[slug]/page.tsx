@@ -13,11 +13,11 @@ import FluidLabel from '@/components/FluidLabel'
 import Footer from '@/components/Footer'
 
 /**
- * Case study template page. Every project gets one of these by default —
+ * Case study template page. Every project gets one of these by default,
  * structure follows Perry Wang's: Overview → Highlights → Context → Problem
  * → Process → Visual Design → Final → Retrospective → Next Project.
  *
- * Most content is intentional placeholder — swap in real text/images per
+ * Most content is intentional placeholder, swap in real text/images per
  * project. Look for `<span className="placeholder-badge">` markers to find
  * what to edit.
  */
@@ -52,11 +52,11 @@ export default function ProjectCaseStudyPage({ params }: { params: { slug: strin
       project.id === 'missing-persons' ? 'selection-asu theme-asu' :
       project.id === 'aegisflow' ? 'selection-aegisflow theme-aegisflow' : ''
     }`}>
-      {/* Scroll-aware Back button — fixed to viewport so it follows you down
+      {/* Scroll-aware Back button, fixed to viewport so it follows you down
           the page; hides when scrolling down and reappears on scroll-up. */}
       <CaseStudyBackButton />
 
-      {/* ── Hero — outlined title + tinted backdrop + device mockup ────── */}
+      {/* ── Hero, outlined title + tinted backdrop + device mockup ────── */}
       <section className={`${tintClass} px-6 sm:px-8 pt-32 sm:pt-36 pb-20 relative overflow-hidden`}>
         <div className="max-w-5xl mx-auto text-center">
 
@@ -68,7 +68,7 @@ export default function ProjectCaseStudyPage({ params }: { params: { slug: strin
             {project.category} {project.year && <>| {project.year}</>}
           </p>
 
-          {/* Hero device mockup — uses the registered custom mockup AND
+          {/* Hero device mockup, uses the registered custom mockup AND
               the registered window kind. Defaults to BrowserWindow if no
               mockupWindow is set on the registry entry. */}
           {HeroMockup ? (
@@ -114,7 +114,7 @@ export default function ProjectCaseStudyPage({ params }: { params: { slug: strin
           {/* Left spacer to center the main content column on lg screens */}
           <div className="hidden lg:block w-[220px]" />
 
-          {/* Main content column — custom case study when registered;
+          {/* Main content column, custom case study when registered;
               otherwise the placeholder template below. */}
           <div className="w-full max-w-5xl">
             {CustomCaseStudy ? (
@@ -260,7 +260,7 @@ function ContextSection({ project }: { project: Project }) {
       </p>
       <p className="text-bone-muted text-[15px] leading-relaxed">
         For Perry Wang&apos;s Stadia case study, this is where he collages community quotes from
-        Reddit, Forbes, and The Verge to PROVE there was demand. Steal that move — show, don&apos;t
+        Reddit, Forbes, and The Verge to PROVE there was demand. Steal that move, show, don&apos;t
         tell. Drop in screenshots, tweets, GitHub issues, or paper citations here.
       </p>
 
@@ -277,7 +277,7 @@ function ProblemSection({ project }: { project: Project }) {
     <section id="problem" className="scroll-mt-24">
       <SectionLabel className="mb-4">The Problem</SectionLabel>
       <HeroHeading
-        sans="The constraint stack —"
+        sans="The constraint stack,"
         accent="five things in tension."
         size="md"
         className="mb-8"

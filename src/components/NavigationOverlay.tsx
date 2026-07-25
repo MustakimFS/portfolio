@@ -48,7 +48,7 @@ export default function NavigationOverlay() {
       isFirstRender.current = false
       return
     }
-    // The pathname just changed — the new page is rendering. Hold the overlay
+    // The pathname just changed, the new page is rendering. Hold the overlay
     // until at least MIN_DWELL has passed since the click so the transition
     // feels deliberate even when the route change is near-instant. This also
     // gives the nav pill's slide animation (300ms) room to play through.
@@ -79,7 +79,7 @@ export default function NavigationOverlay() {
         link.target === '_blank'
       ) return
       // Skip static-asset links (e.g. /resume.pdf). These aren't app routes,
-      // so router.push() can't resolve them — intercepting would show the
+      // so router.push() can't resolve them, intercepting would show the
       // overlay and never hide it. Let the browser handle them natively.
       const path = href.split(/[?#]/)[0]
       if (/\.[a-zA-Z0-9]+$/.test(path)) return
@@ -101,7 +101,7 @@ export default function NavigationOverlay() {
   // If the user navigates away (e.g. opens the resume PDF) while the overlay
   // is showing and then hits Back, the browser restores the page from the
   // back/forward cache with the overlay still visible. pageshow(persisted)
-  // fires on that restore — clear the overlay so it can never get stuck.
+  // fires on that restore, clear the overlay so it can never get stuck.
   useEffect(() => {
     const onPageShow = (e: PageTransitionEvent) => {
       if (e.persisted) setVisible(false)

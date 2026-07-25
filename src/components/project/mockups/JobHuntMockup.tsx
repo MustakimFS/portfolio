@@ -1,5 +1,5 @@
 /**
- * Job Hunt Dashboard (Electron) — homepage / case-study hero mockup.
+ * Job Hunt Dashboard (Electron), homepage / case-study hero mockup.
  *
  * Mimics the Electron desktop app: a faux window with a top sync-status
  * strip, a left-side daily-tasks checklist, a right-side recent-applications
@@ -95,7 +95,7 @@ export default function JobHuntMockup() {
         </div>
       </div>
 
-      {/* Footer — wallpaper WebSocket */}
+      {/* Footer, wallpaper WebSocket */}
       <div className="px-5 py-3 border-t border-white/5 flex items-baseline justify-between text-[10px] font-mono text-bone-dim uppercase tracking-eyebrow">
         <span>tray · auto-launch · local-only</span>
         <span>
@@ -116,7 +116,7 @@ const TASKS = [
 ]
 
 const APPS = [
-  { from: 'Stripe',      subject: 'Re: SWE New Grad — Phone screen scheduled',     status: 'screen' as const },
+  { from: 'Stripe',      subject: 'Re: SWE New Grad, Phone screen scheduled',     status: 'screen' as const },
   { from: 'Anthropic',   subject: 'Application received · Software Engineer',       status: 'applied' as const },
   { from: 'CockroachDB', subject: 'Take-home: distributed systems exercise',        status: 'task'    as const },
   { from: 'Datadog',     subject: 'Unfortunately we won’t be moving forward',  status: 'rejected' as const },

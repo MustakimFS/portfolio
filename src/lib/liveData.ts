@@ -3,7 +3,7 @@
  *
  * Both `getLeetcodeStats` and `getGithubActivity` are safe to call from
  * Server Components (they use `fetch` with `next: { revalidate }`, which
- * piggy-backs on Next.js's Data Cache). They never throw — on failure they
+ * piggy-backs on Next.js's Data Cache). They never throw, on failure they
  * return cached defaults so the UI always has something to show.
  */
 

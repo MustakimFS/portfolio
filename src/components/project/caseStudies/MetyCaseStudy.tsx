@@ -1,5 +1,5 @@
 /**
- * METY Legal Chatbot — full case-study body.
+ * METY Legal Chatbot, full case-study body.
  *
  * Replaces the generic placeholder template for this one project. Mounted by
  * `app/projects/[slug]/page.tsx` when the slug resolves via PROJECT_REGISTRY.
@@ -93,11 +93,11 @@ function Overview() {
         />
         <p className="text-bone-muted">
           Sponsor engagement with{' '}
-          <span className="text-bone">MyEdMaster</span> — they had already beaten
+          <span className="text-bone">MyEdMaster</span>, they had already beaten
           ChatGPT on a benchmark with their health chatbot and wanted the same
           result for a legal product. Shipped end of May 2026, handed to a
           continuation team, demoed at the ASU SER517 Innovation Showcase. No
-          public deployment — IP belongs to MyEdMaster under signed NDA.
+          public deployment, IP belongs to MyEdMaster under signed NDA.
         </p>
       </div>
     </section>
@@ -151,7 +151,7 @@ function Highlights() {
         </Point>
         <Point title="4-dimension FSPR profiling across 20 legal topics.">
           Facts · Strategies · Procedures · Rationales. Built implicitly via async
-          background inference on every message — daemon thread fires{' '}
+          background inference on every message, daemon thread fires{' '}
           <em>after</em> the HTTP response is returned so the user never waits for
           profiling.
         </Point>
@@ -184,14 +184,14 @@ function Context() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
         <QuoteCard
-          source="r/legaladvice — pinned post"
+          source="r/legaladvice, pinned post"
           quote="We are not your lawyers. Advice here is general. Your situation may be completely different."
           context="4.2M members · generic answers by design"
         />
         <QuoteCard
-          source="John Leddo (sponsor) — LinkedIn, Jan 2026"
+          source="John Leddo (sponsor), LinkedIn, Jan 2026"
           quote="A big thanks to our PR person Tony Berry who got our latest chatbot success story (our health chatbot greatly outperformed ChatGPT) featured in 30 newspapers."
-          context="Direct sponsor signal — benchmark beat was the target"
+          context="Direct sponsor signal, benchmark beat was the target"
         />
         <QuoteCard
           source="Stanford Access to Justice Tech Review · 2023"
@@ -199,8 +199,8 @@ function Context() {
           context="Market size signal"
         />
         <QuoteCard
-          source="LangChain GitHub — context-management issues"
-          quote="Long-session coherence is the recurring developer pain — context windows blow out, history gets truncated."
+          source="LangChain GitHub, context-management issues"
+          quote="Long-session coherence is the recurring developer pain, context windows blow out, history gets truncated."
           context="Exactly the problem rolling summarization solves"
         />
         <QuoteCard
@@ -256,13 +256,13 @@ function Problem() {
         <ConstraintCard
           n="5"
           title="PII in every user input"
-          body="Users share real legal situations — names, addresses, financial details. spaCy en_core_web_lg anonymization was required before every LLM call. No exceptions."
+          body="Users share real legal situations, names, addresses, financial details. spaCy en_core_web_lg anonymization was required before every LLM call. No exceptions."
           color="amber"
         />
         <ConstraintCard
           n="6"
           title="Local-only deployment"
-          body="No cloud budget. Full stack on Docker Compose — but architected to lift cleanly into production whenever the sponsor wanted."
+          body="No cloud budget. Full stack on Docker Compose, but architected to lift cleanly into production whenever the sponsor wanted."
           color="amber"
         />
       </div>
@@ -307,11 +307,11 @@ function Process() {
             <>
               The original pipeline had a dedicated clarification node that ran before
               reasoning on every message, using GPT-4o to decide whether to ask a
-              clarifying question — but it fired{' '}
+              clarifying question, but it fired{' '}
               <span className="text-bone">unconditionally</span>, even when the query
               was completely clear. Removed entirely in Sprint 6, flattening the
               pipeline to 5 nodes. Lawyer-style probing was rebuilt inline in the
-              reasoning prompt instead. This was the single biggest cost reduction —
+              reasoning prompt instead. This was the single biggest cost reduction,
               one full GPT-4o call eliminated per message.
             </>
           }
@@ -327,7 +327,7 @@ function Process() {
               and MongoDB persist <em>inside a for-loop</em> iterating over the four
               FSPR dimensions. Each operation executed four times per submission.
               Caught during Sprint 5 testing when the API bill for a single session was
-              4× expected. All three operations moved outside the loop — KB fetched
+              4× expected. All three operations moved outside the loop, KB fetched
               once, evaluation called once with all four dimensions passed together,
               persisted once.
             </>
@@ -375,9 +375,9 @@ function Process() {
         <BeforeAfter
           number="3.0"
           title="Pipeline topology"
-          beforeLabel="Before — 6 nodes"
+          beforeLabel="Before, 6 nodes"
           before="Conditional clarification branch firing GPT-4o on every message regardless of necessity."
-          afterLabel="After — 5 linear nodes"
+          afterLabel="After, 5 linear nodes"
           after="RAG → Extraction → Anonymization → Reasoning → Formatter. Lawyer-style probing inline in the reasoning prompt."
           color="emerald"
         />
@@ -409,17 +409,17 @@ function Architecture() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        The full request lifecycle from browser to response — Django preprocesses
+        The full request lifecycle from browser to response, Django preprocesses
         every message (sanitize via <Code>bleach</Code>, fetch context via{' '}
         <Code>tiktoken</Code> token count, build <Code>user_context</Code>), calls
         FastAPI <Code>/query</Code>, the 5-node LangGraph pipeline runs, the response
         returns, Django persists the LLM message to MongoDB, and{' '}
-        <span className="text-bone">two daemon threads</span> fire — one for FSPR
+        <span className="text-bone">two daemon threads</span> fire, one for FSPR
         inference, one for token-aware summarization. Both call GPT-4o-mini and never
         block the user.
       </p>
 
-      {/* Request lifecycle — terminal-style breakdown */}
+      {/* Request lifecycle, terminal-style breakdown */}
       <TerminalWindow title="mety: ~/request-lifecycle">
         <div className="p-5 sm:p-7 space-y-3.5">
           <TerminalLine
@@ -572,11 +572,11 @@ function FinalDesigns() {
         from the sponsor-handoff build.
       </p>
 
-      {/* Service hub — establishing shot */}
+      {/* Service hub, establishing shot */}
       <div className="w-full">
         <ZoomableImage
           src="/projects/mety-legal/mode-select.png"
-          alt="METY service hub — three modes: tutoring, chat session, generate document"
+          alt="METY service hub, three modes: tutoring, chat session, generate document"
         />
         <FigureCaption
           number="7.0"
@@ -585,7 +585,7 @@ function FinalDesigns() {
         />
       </div>
 
-      {/* Doc gen flow — intake + result, smaller pair side-by-side */}
+      {/* Doc gen flow, intake + result, smaller pair side-by-side */}
       <div className="mt-14">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-5 items-stretch">
           <Figure
@@ -597,7 +597,7 @@ function FinalDesigns() {
           />
           <Figure
             src="/projects/mety-legal/generate-document.png"
-            alt="Split-panel document generation — chat on the left, formatted rental agreement on the right"
+            alt="Split-panel document generation, chat on the left, formatted rental agreement on the right"
             number="7.2"
             caption="Split-panel draft."
             imgHeightClass="h-[180px] sm:h-[240px] md:h-[280px]"
@@ -608,14 +608,14 @@ function FinalDesigns() {
         <p className="text-bone-muted text-[14.5px] leading-relaxed mt-6 max-w-2xl">
           <span className="text-bone">Intake-as-form, not free text.</span> The user
           picks a document type, describes what they need in a sentence, confirms
-          jurisdiction, and the chat takes over — lawyer-style probing, targeted
+          jurisdiction, and the chat takes over, lawyer-style probing, targeted
           follow-ups, and a context-aware draft that updates in place. Document chats
           are saved separately from regular legal chats so a user can return weeks
           later, find the in-progress NDA, and continue exactly where they left off.
         </p>
       </div>
 
-      {/* Video demo — autoplaying, loop, muted for browser policy compatibility */}
+      {/* Video demo, autoplaying, loop, muted for browser policy compatibility */}
       <div className="mt-14 w-full">
         <div className="rounded-xl overflow-hidden border border-ink-border bg-ink-raised w-full">
           <video
@@ -636,13 +636,13 @@ function FinalDesigns() {
         />
       </div>
 
-      {/* Combined closing notes — text-only, lighter weight than a card */}
+      {/* Combined closing notes, text-only, lighter weight than a card */}
       <div className="mt-12 text-bone-muted text-[14px] leading-relaxed max-w-2xl space-y-3">
         <p>
           <span className="text-bone-dim uppercase tracking-eyebrow text-[10.5px] font-mono mr-2">
             Refresh recovery
           </span>
-          On reload, React state is lost — a <Code>useEffect</Code> on{' '}
+          On reload, React state is lost, a <Code>useEffect</Code> on{' '}
           <Code>chatId</Code> calls <Code>getDocuments</Code> and rehydrates the
           split panel from MongoDB if a draft exists for that chat.
         </p>
@@ -652,7 +652,7 @@ function FinalDesigns() {
           </span>
           Delivered to MyEdMaster end of May 2026, handed to continuation team.
           Demoed at the <span className="text-bone">ASU SER517 Innovation Showcase</span>.
-          No public deployment — IP belongs to MyEdMaster.
+          No public deployment, IP belongs to MyEdMaster.
         </p>
       </div>
     </section>
@@ -800,7 +800,7 @@ function Retrospective() {
         <RetroColumn title="Would change">
           <RetroItem
             head="Celery + Redis from Sprint 1."
-            body="The fspr_update_in_progress boolean flag works but isn't production-safe — cross-process race conditions are only partially prevented. Celery would have given proper coordination, retries, and monitoring."
+            body="The fspr_update_in_progress boolean flag works but isn't production-safe, cross-process race conditions are only partially prevented. Celery would have given proper coordination, retries, and monitoring."
           />
           <RetroItem
             head="JWT auth from Sprint 1."
@@ -821,13 +821,13 @@ function Retrospective() {
           <span className="text-bone">Anonymization was the source of every weird bug.</span>{' '}
           I expected it to be a straightforward privacy layer. What I didn&apos;t
           expect was how many features silently depended on whether they were reading
-          anonymized or raw text — document generation used the anonymized summary and
+          anonymized or raw text, document generation used the anonymized summary and
           produced fictional names; FSPR inference passed anonymized LLM responses to
           the evaluator; the reasoning prompt received anonymized history that then
           produced responses with placeholder names. Every feature that touched
           persisted text had to be individually audited.{' '}
           <span className="italic font-serif text-bone">
-            Anonymization isn&apos;t a node decision — it&apos;s a data-provenance
+            Anonymization isn&apos;t a node decision, it&apos;s a data-provenance
             question that affects every field in every model.
           </span>
         </p>

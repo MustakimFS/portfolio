@@ -1,5 +1,5 @@
 /**
- * Multi-Modal Evidence Review — compact case-study body.
+ * Multi-Modal Evidence Review, compact case-study body.
  *
  * A timed-hackathon build (HackerRank Orchestrate). Kept intentionally short
  * and low-key: what it is, the approach, and what worked. No competition

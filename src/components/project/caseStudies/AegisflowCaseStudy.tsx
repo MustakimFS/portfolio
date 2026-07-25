@@ -1,14 +1,14 @@
 /**
- * AegisFlow — full case-study body.
+ * AegisFlow, full case-study body.
  *
  * Real facts pulled from:
- *   - README.md — tagline, capability table, repo layout, quickstart, engineering principles
- *   - ARCHITECTURE.md — system decomposition, data flow happy path (9 steps),
+ *   - README.md, tagline, capability table, repo layout, quickstart, engineering principles
+ *   - ARCHITECTURE.md, system decomposition, data flow happy path (9 steps),
  *     reliability engine / confidence formula, circuit breaker, storage model,
  *     observability (trace skeleton + Prometheus metric families), security, deployment
- *   - docs/adr/0002-event-bus-nats.md — verbatim rationale for NATS over Kafka/PG
- *   - docker-compose.yml — exact 14-service topology, port assignments, image versions
- *   - Makefile — bootstrap / up / seed / demo / test / lint / typecheck targets
+ *   - docs/adr/0002-event-bus-nats.md, verbatim rationale for NATS over Kafka/PG
+ *   - docker-compose.yml, exact 14-service topology, port assignments, image versions
+ *   - Makefile, bootstrap / up / seed / demo / test / lint / typecheck targets
  */
 
 import HeroHeading from '@/components/typography/HeroHeading'
@@ -92,7 +92,7 @@ function Overview() {
           (structural validity + semantic grounding + validator critique +
           provider history) combined with a diminishing-returns anomaly penalty
           into a single <Code>[0, 1]</Code> score. Based on the score, the
-          system accepts, repairs, retries, falls back, or rejects — without
+          system accepts, repairs, retries, falls back, or rejects, without
           the calling application knowing any of it.
         </p>
 
@@ -119,7 +119,7 @@ function Highlights() {
     <section id="highlights" className="scroll-mt-24">
       <SectionLabel className="mb-4">Highlights</SectionLabel>
       <HeroHeading
-        sans="AegisFlow —"
+        sans="AegisFlow,"
         accent="reliability engineering for models that lie."
         size="md"
         className="mb-10"
@@ -153,7 +153,7 @@ function Highlights() {
       <div className="space-y-5 text-[14.5px] leading-relaxed text-bone-muted max-w-2xl">
         <Point title="7 microservices, 14 containers, 1 command.">
           Gateway, orchestrator, reliability, guardrails, memory, replay, and
-          chaos — each with its own Dockerfile, <Code>/healthz</Code>,{' '}
+          chaos, each with its own Dockerfile, <Code>/healthz</Code>,{' '}
           <Code>/readyz</Code>, and Prometheus <Code>/metrics</Code>. Plus
           Postgres (pgvector), Redis, NATS, OTEL collector, Prometheus, Tempo,
           Grafana. <Code>make up</Code> brings up everything.
@@ -169,7 +169,7 @@ function Highlights() {
         </Point>
         <Point title="6 injectable failure modes.">
           Latency spikes, timeouts, synthetic 5xx, malformed JSON,
-          hallucinations, refusals — injectable on any provider via the chaos
+          hallucinations, refusals, injectable on any provider via the chaos
           service API without touching provider code. Disabled by default;
           opt-in per test run.
         </Point>
@@ -190,7 +190,7 @@ function Context() {
     <section id="context" className="scroll-mt-24">
       <SectionLabel className="mb-4">Context</SectionLabel>
       <HeroHeading
-        sans="LLMs are in production —"
+        sans="LLMs are in production,"
         accent="reliability is still ad-hoc."
         size="md"
         className="mb-10"
@@ -198,7 +198,7 @@ function Context() {
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
         Traditional backend infrastructure assumes failures are{' '}
-        <em>categorical</em> — a request either succeeded or it didn&apos;t.
+        <em>categorical</em>, a request either succeeded or it didn&apos;t.
         LLM systems break that assumption: a &ldquo;successful&rdquo; 200
         response can still be wrong, malformed, or unsafe. SDKs had retry
         logic for rate limits but nothing for{' '}
@@ -211,17 +211,17 @@ function Context() {
         <QuoteCard
           source="GitHub · langchain-ai/langchain #15808"
           quote="Output parsers silently swallow malformed JSON and return None."
-          context="Top-voted open issue — default = fail closed, no repair, no signal"
+          context="Top-voted open issue, default = fail closed, no repair, no signal"
         />
         <QuoteCard
           source="Reddit · r/LocalLLaMA"
-          quote="How do you handle hallucinations in production? — Top-voted answer: 'prompt harder and add a retry loop.'"
+          quote="How do you handle hallucinations in production?, Top-voted answer: 'prompt harder and add a retry loop.'"
           context="The state of the art before reliability-as-infrastructure"
         />
         <QuoteCard
           source="a16z 'State of AI' · 2024"
           quote="Inconsistent or unexpected model outputs is the #1 production pain point for teams running LLMs at scale."
-          context="Survey from a16z — the pain is industry-wide"
+          context="Survey from a16z, the pain is industry-wide"
         />
         <QuoteCard
           source="OpenAI API · status + community · 2024–2025"
@@ -229,8 +229,8 @@ function Context() {
           context="Forums full of teams discovering this only after it broke production"
         />
         <QuoteCard
-          source="AegisFlow README — 'Why this exists'"
-          quote="Service meshes, retries, circuit breakers, and schema validators all assume failures are categorical — a request either succeeded or it didn't. LLM systems break that assumption."
+          source="AegisFlow README, 'Why this exists'"
+          quote="Service meshes, retries, circuit breakers, and schema validators all assume failures are categorical, a request either succeeded or it didn't. LLM systems break that assumption."
           context="The thesis the whole platform is built around"
           spanFull
         />
@@ -272,7 +272,7 @@ function Problem() {
         <ConstraintCard
           n="4"
           title="No ground-truth labels"
-          body="Confidence scoring had no labeled dataset to calibrate against. Grounding uses token Jaccard as a fast proxy (not embedding similarity) — a deliberate trade-off documented in the code."
+          body="Confidence scoring had no labeled dataset to calibrate against. Grounding uses token Jaccard as a fast proxy (not embedding similarity), a deliberate trade-off documented in the code."
         />
         <ConstraintCard
           n="5"
@@ -325,7 +325,7 @@ function Process() {
               thing. I wanted to test the guardrail repairer with 100%
               malformed JSON, but doing so in-process corrupted the reliability
               scorer&apos;s provider history stats. The split into
-              microservices came directly from that failure — each service now
+              microservices came directly from that failure, each service now
               gets its own chaos surface. ADR-0001 documents the decision.
             </>
           }
@@ -337,7 +337,7 @@ function Process() {
           body={
             <>
               First formula weighted all four components equally at 0.25. A
-              model returning perfect JSON but hallucinating scored 0.75 —
+              model returning perfect JSON but hallucinating scored 0.75,
               well above the 0.30 minimum threshold. Fix was structural:
               downweight history (0.10), add a separate anomaly penalty
               subtracted <em>after</em> the weighted sum, and use diminishing
@@ -358,12 +358,12 @@ function Process() {
           title="NATS JetStream over Postgres LISTEN/NOTIFY."
           body={
             <>
-              Started with Postgres LISTEN/NOTIFY for the event bus — already
+              Started with Postgres LISTEN/NOTIFY for the event bus, already
               in the stack, one fewer service. Hit the wall when the replay
               service needed fan-out to multiple consumers simultaneously.
               LISTEN/NOTIFY doesn&apos;t survive consumer disconnects and has
               no replay semantics. NATS JetStream solved both in one binary
-              with no ZooKeeper — at-least-once delivery plus hierarchical
+              with no ZooKeeper, at-least-once delivery plus hierarchical
               subject wildcards (<Code>workflow.*.completed</Code>). The full
               rationale is in{' '}
               <span className="text-bone">ADR-0002</span>:
@@ -409,10 +409,10 @@ function Process() {
           body={
             <>
               First chaos config had 30% failure probability across all
-              providers. The happy path became unreachable — every test run hit
+              providers. The happy path became unreachable, every test run hit
               at least one failure, making baselines impossible. Pulled back to
               conservative defaults: primary-blip 5%, json-corruption 10%,
-              latency-spike 20% — all disabled by default and opt-in per test
+              latency-spike 20%, all disabled by default and opt-in per test
               run via the chaos service API.
             </>
           }
@@ -475,7 +475,7 @@ function Architecture() {
     <section id="architecture" className="scroll-mt-24">
       <SectionLabel className="mb-4">Architecture</SectionLabel>
       <HeroHeading
-        sans="The reliability loop —"
+        sans="The reliability loop,"
         accent="one request, seven services."
         size="md"
         className="mb-10"
@@ -586,7 +586,7 @@ function Architecture() {
           </table>
         </div>
       </div>
-      <FigureCaption number="6.1" label="Service table — each owns one reliability concern." kind="diagram" />
+      <FigureCaption number="6.1" label="Service table, each owns one reliability concern." kind="diagram" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-12">
         <div className="bg-ink-raised border border-ink-border rounded-xl p-6">
@@ -624,7 +624,7 @@ HALF_OPEN ─(probe failure)─► OPEN (double cooldown)
 
 # Failure = 5xx, timeout, connection error.
 # Low-confidence outputs are NOT failures at this
-# layer — they're handled by the reliability engine.
+# layer, they're handled by the reliability engine.
 
 # Per-provider, per-model.
 # Implemented in libs/aegis_core/circuit_breaker.py`}
@@ -698,11 +698,11 @@ aegisflow_chaos_injections_total{scenario}                # counter`}
 const SERVICE_TABLE = [
   { svc: 'gateway',       model: 'stateless · async',       persist: 'Redis (rate-limit)',              scale: 'request rate' },
   { svc: 'orchestrator',  model: 'stateless · async',       persist: 'Postgres (runs) · NATS',          scale: 'concurrent workflows' },
-  { svc: 'reliability',   model: 'stateless · CPU-bound',   persist: '— (in-memory windows)',           scale: 'scoring throughput' },
-  { svc: 'guardrails',    model: 'stateless · CPU-bound',   persist: '—',                               scale: 'validation throughput' },
+  { svc: 'reliability',   model: 'stateless · CPU-bound',   persist: ', (in-memory windows)',           scale: 'scoring throughput' },
+  { svc: 'guardrails',    model: 'stateless · CPU-bound',   persist: ', ',                               scale: 'validation throughput' },
   { svc: 'memory',        model: 'stateful read replicas',  persist: 'Postgres + pgvector · S3',        scale: 'retrieval QPS' },
   { svc: 'replay',        model: 'stateful append-only',    persist: 'Postgres (event store) · S3',     scale: 'event ingestion' },
-  { svc: 'chaos',         model: 'stateless',               persist: 'Redis (active scenarios)',         scale: '—' },
+  { svc: 'chaos',         model: 'stateless',               persist: 'Redis (active scenarios)',         scale: ', ' },
 ]
 
 // ── 7. Final Designs ──────────────────────────────────────────────────────
@@ -712,33 +712,33 @@ function FinalDesigns() {
     <section id="final" className="scroll-mt-24">
       <SectionLabel className="mb-4">Final Designs</SectionLabel>
       <HeroHeading
-        sans="What shipped —"
+        sans="What shipped,"
         accent="and what shipping means here."
         size="md"
         className="mb-10"
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed max-w-2xl mb-10">
-        Everything below is captured from the running stack — no mockups. The
+        Everything below is captured from the running stack, no mockups. The
         boot transcript, the Grafana dashboard, a real workflow response, and
         the chaos-driven fallback + guardrails repair, in order.
       </p>
 
-      {/* 7.0 — make up boot + docker ps */}
+      {/* 7.0, make up boot + docker ps */}
       <Figure
         src="/projects/aegisflow/01-make-up-containers.png"
-        alt="make up — 14/14 aegisflow containers healthy, docker ps showing real ports"
+        alt="make up, 14/14 aegisflow containers healthy, docker ps showing real ports"
         number="7.0"
         caption="make up → 14/14 containers healthy in 41.8s · docker ps with real port mappings."
       />
 
-      {/* 7.1 — Grafana overview dashboard */}
+      {/* 7.1, Grafana overview dashboard */}
       <div className="mt-14">
         <Figure
           src="/projects/aegisflow/04-aegisflow-overview-dashboard.png"
-          alt="Grafana aegisflow-overview dashboard — throughput, fallback counter, confidence histogram, circuit breaker gauge, token counters"
+          alt="Grafana aegisflow-overview dashboard, throughput, fallback counter, confidence histogram, circuit breaker gauge, token counters"
           number="7.1"
-          caption="Grafana aegisflow-overview — auto-provisioned from aegisflow-overview.json."
+          caption="Grafana aegisflow-overview, auto-provisioned from aegisflow-overview.json."
         />
         <p className="text-bone-muted text-[14.5px] leading-relaxed max-w-2xl mt-5">
           Every panel reads a real Prometheus metric: workflow throughput,
@@ -746,34 +746,34 @@ function FinalDesigns() {
           confidence, P50/P95 duration, circuit-breaker state gauge,
           hallucination flags/sec, and token counters. Avg confidence sits at{' '}
           <Code>0.376</Code> here because the demo runs against the mock
-          provider with chaos enabled — the system is doing exactly what it
+          provider with chaos enabled, the system is doing exactly what it
           should: scoring low and falling back.
         </p>
       </div>
 
-      {/* 7.2 — real workflow response */}
+      {/* 7.2, real workflow response */}
       <div className="mt-14">
         <Figure
           src="/projects/aegisflow/02-make-demo-curl-response.png"
-          alt="curl POST /v1/workflows — real response with run_id, trace_id, confidence 0.379, fallback true"
+          alt="curl POST /v1/workflows, real response with run_id, trace_id, confidence 0.379, fallback true"
           number="7.2"
-          caption="make demo → POST /v1/workflows — a real workflow response."
+          caption="make demo → POST /v1/workflows, a real workflow response."
         />
         <p className="text-bone-muted text-[14.5px] leading-relaxed max-w-2xl mt-5">
           <span className="text-bone">Real fields, real values.</span>{' '}
           <Code>confidence: 0.379</Code> lands below the accept and retry
           thresholds, so the routing tree walks the fallback chain
           (<Code>fallback_depth: 1</Code>) and the orchestrator returns the
-          deterministic rule-based fallback —{' '}
+          deterministic rule-based fallback,{' '}
           <em>&ldquo;All primary providers exhausted; returning deterministic
           fallback.&rdquo;</em> The caller still gets a structured{' '}
           <Code>status: succeeded</Code> with a <Code>trace_id</Code> that keys
-          straight into the replay event stream. No exception, no 500 — the
+          straight into the replay event stream. No exception, no 500, the
           failure is handled, not leaked.
         </p>
       </div>
 
-      {/* 7.3 — chaos + guardrails repair */}
+      {/* 7.3, chaos + guardrails repair */}
       <div className="mt-14">
         <Figure
           src="/projects/aegisflow/03-chaos-fallback-repair.png"
@@ -786,7 +786,7 @@ function FinalDesigns() {
           Enabling the <Code>json-corruption</Code> chaos scenario (probability
           0.1, all providers) forces malformed output through the guardrails
           repair path. The <Code>/v1/validate</Code> endpoint returns{' '}
-          <Code>repaired: true</Code> and lists every operation it applied —
+          <Code>repaired: true</Code> and lists every operation it applied,
           here <Code>stripped_prose_prefix</Code>,{' '}
           <Code>stripped_trailing_text</Code>, and{' '}
           <Code>removed_trailing_commas</Code>. The repairer only ever fixes
@@ -830,11 +830,11 @@ function Retrospective() {
         <RetroColumn title="Worked">
           <RetroItem
             head="'Fail open' as a design rule, not a guideline."
-            body="Every except httpx.RequestError returns a neutral value and logs rather than raising. I never needed all 14 services running to work on one — reliability down = neutral scores, memory down = empty retrieval. Isolation was free."
+            body="Every except httpx.RequestError returns a neutral value and logs rather than raising. I never needed all 14 services running to work on one, reliability down = neutral scores, memory down = empty retrieval. Isolation was free."
           />
           <RetroItem
             head="The shared aegis_core library."
-            body="CircuitBreaker, Pydantic schemas, Prometheus metric definitions, and structured logging in one package. Every service had consistent instrumentation from the first line — Grafana dashboards had real data the first time they loaded."
+            body="CircuitBreaker, Pydantic schemas, Prometheus metric definitions, and structured logging in one package. Every service had consistent instrumentation from the first line, Grafana dashboards had real data the first time they loaded."
           />
           <RetroItem
             head="ADRs before the code."
@@ -853,7 +853,7 @@ function Retrospective() {
           />
           <RetroItem
             head="Use a real embedding model from day one."
-            body="Memory service has pgvector infra and cosine similarity, but the dev stack uses mock embeddings — grounding scores are consequently meaningless in practice. Wiring all-MiniLM-L6-v2 via Ollama would make the confidence scores semantically real."
+            body="Memory service has pgvector infra and cosine similarity, but the dev stack uses mock embeddings, grounding scores are consequently meaningless in practice. Wiring all-MiniLM-L6-v2 via Ollama would make the confidence scores semantically real."
           />
         </RetroColumn>
       </div>
@@ -867,12 +867,12 @@ function Retrospective() {
             Local Ollama models wrap JSON in markdown fences far more often
             than any documentation suggests.
           </span>{' '}
-          The assumption was &quot;occasional edge case — maybe 5%.&quot;
+          The assumption was &quot;occasional edge case, maybe 5%.&quot;
           Empirically it was closer to <span className="text-bone">40%</span>{' '}
           from Qwen3 and DeepSeek R1. The prose prefix (&quot;Here is the
           JSON:&quot;) hit another 10–15%.{' '}
           <span className="italic font-serif text-bone">
-            The guardrails service isn&apos;t a last-resort fallback —
+            The guardrails service isn&apos;t a last-resort fallback,
             it&apos;s a required post-processor for local models.
           </span>
         </p>

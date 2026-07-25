@@ -1,5 +1,5 @@
 /**
- * PixelDrive Segmentation — full case-study body.
+ * PixelDrive Segmentation, full case-study body.
  *
  * Real facts pulled from:
  *   - PixelDrive.ipynb (Lyft/Udacity Carla, 13 classes, 3-architecture compare)
@@ -86,7 +86,7 @@ function Overview() {
         <Meta label="My Role" value="Sole engineer" />
         <p className="text-bone-muted">
           Inherited a partially-working baseline notebook for road-scene
-          segmentation on the Lyft / Udacity Carla dataset. Audited every line —
+          segmentation on the Lyft / Udacity Carla dataset. Audited every line,
           fixed{' '}
           <span className="text-bone">seven correctness bugs</span> (including a
           broken mIoU metric, a wrong-axis mask decode, and a softmax / logits
@@ -101,7 +101,7 @@ function Overview() {
           value="Python · TensorFlow · Keras · U-Net · SegNet · DeepLabV3+ · Gradio · Hugging Face Spaces"
         />
         <p className="text-bone-muted">
-          One Jupyter notebook is the source of truth — dataset prep, three
+          One Jupyter notebook is the source of truth, dataset prep, three
           model definitions, training loops, evaluation, and per-class IoU
           tables. The deployed Space loads the best-checkpoint{' '}
           <Code>unet_best.keras</Code> at startup and serves a three-panel
@@ -116,7 +116,7 @@ function Overview() {
         <p className="text-bone-muted">
           Lives at{' '}
           <Code>huggingface.co/spaces/mustakimfs/pixelDrive</Code>. The
-          full training notebook is in the repo —{' '}
+          full training notebook is in the repo,{' '}
           <span className="italic font-serif text-bone">
             anyone can clone, retrain, and verify the numbers.
           </span>
@@ -140,7 +140,7 @@ function Highlights() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-10 max-w-2xl">
-        The point of the project wasn&apos;t just to train a segmenter — it was
+        The point of the project wasn&apos;t just to train a segmenter, it was
         to get to a number you could{' '}
         <span className="text-bone">trust</span>. The starting codebase reported
         a great-looking mIoU that fell apart under audit, so the first half of
@@ -164,13 +164,13 @@ function Highlights() {
         <Point title="Three architectures, same training loop.">
           U-Net (4 encoder stages, skip connections, bilinear upsampling),
           SegNet (encoder-decoder with pooling-index unpool), and DeepLabV3+
-          (ASPP + low-level skip) — same dataset split, same augmentations, same
+          (ASPP + low-level skip), same dataset split, same augmentations, same
           loss, same evaluation. Apples to apples.
         </Point>
         <Point title="The winner ships live.">
           The Gradio Space at{' '}
           <Code>huggingface.co/spaces/mustakimfs/pixelDrive</Code> runs the
-          U-Net checkpoint on any road scene you upload — three panels (Input ·
+          U-Net checkpoint on any road scene you upload, three panels (Input ·
           Mask · Overlay) plus a per-class pixel-percentage table.
         </Point>
       </div>
@@ -193,13 +193,13 @@ function Context() {
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
         Every modern autonomous-driving stack does pixel-wise semantic
-        segmentation somewhere in its perception pipeline — that&apos;s how the
+        segmentation somewhere in its perception pipeline, that&apos;s how the
         car knows what is{' '}
         <span className="text-bone">road, sidewalk, pedestrian, sign</span>{' '}
         before any planning happens. The Lyft / Udacity Carla challenge was a
         common benchmark that produced a wave of student-built encoder-decoder
         networks, most of which are public, many of which have subtly broken
-        evaluation code. PixelDrive is one of those — but cleaned.
+        evaluation code. PixelDrive is one of those, but cleaned.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
@@ -215,12 +215,12 @@ function Context() {
         />
         <QuoteCard
           source="Lyft Perception Challenge · Udacity"
-          quote="Build a semantic segmentation model for road scenes using Carla simulator data — 13 classes, vehicles, pedestrians, signs, road furniture."
+          quote="Build a semantic segmentation model for road scenes using Carla simulator data, 13 classes, vehicles, pedestrians, signs, road furniture."
           context="The dataset + task definition"
         />
         <QuoteCard
-          source="Common gotcha — Stack Overflow / Keras forums"
-          quote="Why is my mIoU stuck at 0.99 even when masks look wrong? — using sparse loss with one-hot inputs / wrong axis on argmax / etc."
+          source="Common gotcha, Stack Overflow / Keras forums"
+          quote="Why is my mIoU stuck at 0.99 even when masks look wrong?, using sparse loss with one-hot inputs / wrong axis on argmax / etc."
           context="The class of bugs this project audited away"
           spanFull
         />
@@ -247,12 +247,12 @@ function Problem() {
         <ConstraintCard
           n="1"
           title="The baseline reported a metric it couldn't compute"
-          body="Inherited code had a custom IoU implementation that compared decoded masks against one-hot ground truth on the wrong axis — every metric was effectively pixel accuracy, not IoU. Numbers had to be rebuilt from scratch."
+          body="Inherited code had a custom IoU implementation that compared decoded masks against one-hot ground truth on the wrong axis, every metric was effectively pixel accuracy, not IoU. Numbers had to be rebuilt from scratch."
         />
         <ConstraintCard
           n="2"
           title="Softmax vs logits in the loss"
-          body="Loss function was sparse-categorical with from_logits=False, but the model head already applied softmax — so the loss got softmax-of-softmax. Training looked stable, learned little, then plateaued."
+          body="Loss function was sparse-categorical with from_logits=False, but the model head already applied softmax, so the loss got softmax-of-softmax. Training looked stable, learned little, then plateaued."
         />
         <ConstraintCard
           n="3"
@@ -267,12 +267,12 @@ function Problem() {
         <ConstraintCard
           n="5"
           title="Three architectures, one budget"
-          body="Single-GPU notebook training. Each model had to be reproducible end-to-end in one session — same seeds, same splits, same augmentation pipeline, same evaluation pass."
+          body="Single-GPU notebook training. Each model had to be reproducible end-to-end in one session, same seeds, same splits, same augmentation pipeline, same evaluation pass."
         />
         <ConstraintCard
           n="6"
           title="The winner has to be demoable"
-          body="A 79% mIoU number means nothing without something a recruiter can paste a road scene into. The deliverable wasn't a checkpoint — it was a Hugging Face Space anyone could open."
+          body="A 79% mIoU number means nothing without something a recruiter can paste a road scene into. The deliverable wasn't a checkpoint, it was a Hugging Face Space anyone could open."
         />
       </div>
 
@@ -377,7 +377,7 @@ function Process() {
           beforeLabel="Before"
           before="Softmax-of-softmax loss; mIoU implementation computed pixel accuracy. Training looked stable, numbers looked too good to be true."
           afterLabel="After"
-          after="Sparse-categorical-cross-entropy with from_logits=False against pre-softmax head, or the inverse — consistent end-to-end. mIoU re-implemented against the canonical formula and unit-tested."
+          after="Sparse-categorical-cross-entropy with from_logits=False against pre-softmax head, or the inverse, consistent end-to-end. mIoU re-implemented against the canonical formula and unit-tested."
         />
         <BeforeAfter
           number="3.1"
@@ -406,7 +406,7 @@ function Architecture() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        The deployed inference path is intentionally short — five steps from
+        The deployed inference path is intentionally short, five steps from
         upload to overlay. The training pipeline is more involved (three
         encoder-decoders, three training loops, three evaluation passes) but
         the inference surface is just the U-Net.
@@ -461,7 +461,7 @@ function Architecture() {
             U-Net (deployed)
           </div>
           <pre className="text-[12.5px] leading-[1.6] text-bone-muted font-mono whitespace-pre-wrap">
-{`# Encoder — 4 down-blocks
+{`# Encoder, 4 down-blocks
 x → Conv2D(64)  → Conv2D(64)  → pool   ─┐
    → Conv2D(128) → Conv2D(128) → pool  ─┤
    → Conv2D(256) → Conv2D(256) → pool  ─┤
@@ -470,7 +470,7 @@ x → Conv2D(64)  → Conv2D(64)  → pool   ─┐
 # Bottleneck                            │  connections
    → Conv2D(1024) → Conv2D(1024)        │
                                         │
-# Decoder — bilinear up + concat skip   │
+# Decoder, bilinear up + concat skip   │
    → up + concat(skip4) → Conv2D(512)  <┘
    → up + concat(skip3) → Conv2D(256)
    → up + concat(skip2) → Conv2D(128)
@@ -533,7 +533,7 @@ function FinalDesigns() {
 
       <p className="text-bone-muted text-[15px] leading-relaxed max-w-2xl mb-10">
         Anyone can open the Space, drop a road photo, and watch the three-panel
-        output render — Input on the left, the colored segmentation mask in
+        output render, Input on the left, the colored segmentation mask in
         the middle, the input-mask blend on the right. A class-percent table
         underneath shows which of the 13 classes were detected and how much of
         the frame each one took.
@@ -541,15 +541,15 @@ function FinalDesigns() {
 
       <Figure
         src="/projects/pixeldrive/landing.png"
-        alt="PixelDrive Gradio Space — upload UI with sample images"
+        alt="PixelDrive Gradio Space, upload UI with sample images"
         number="7.0"
-        caption="Landing — upload UI + five sample scenes from the Carla dataset."
+        caption="Landing, upload UI + five sample scenes from the Carla dataset."
       />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
         <Figure
           src="/projects/pixeldrive/output-1.png"
-          alt="PixelDrive three-panel output — input, segmentation mask, overlay + class breakdown"
+          alt="PixelDrive three-panel output, input, segmentation mask, overlay + class breakdown"
           number="7.1"
           caption="Three-panel output + class-percent breakdown."
         />
@@ -557,11 +557,11 @@ function FinalDesigns() {
           src="/projects/pixeldrive/output-2.png"
           alt="PixelDrive inference on a different Carla scene"
           number="7.2"
-          caption="Second sample — different scene, same 13-class palette."
+          caption="Second sample, different scene, same 13-class palette."
         />
       </div>
 
-      {/* Live preview — clickable browser window linking to HF Space */}
+      {/* Live preview, clickable browser window linking to HF Space */}
       <div className="mt-14">
         <a
           href="https://huggingface.co/spaces/mustakimfs/pixelDrive"
@@ -574,7 +574,7 @@ function FinalDesigns() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/projects/pixeldrive/output-1.png"
-                alt="Live app — PixelDrive on Hugging Face Spaces"
+                alt="Live app, PixelDrive on Hugging Face Spaces"
                 className="w-full block"
                 loading="lazy"
               />
@@ -586,7 +586,7 @@ function FinalDesigns() {
             </div>
           </BrowserWindow>
         </a>
-        <FigureCaption number="7.3" label="Live at huggingface.co/spaces/mustakimfs/pixelDrive — click to open." kind="image" />
+        <FigureCaption number="7.3" label="Live at huggingface.co/spaces/mustakimfs/pixelDrive, click to open." kind="image" />
       </div>
     </section>
   )
@@ -612,7 +612,7 @@ function Retrospective() {
             body="Once when the new mIoU revealed which architecture actually won, and again at deploy time when class-percent numbers in the Gradio app matched the per-class IoU from the notebook."
           />
           <RetroItem
-            head="One notebook, three models — apples-to-apples."
+            head="One notebook, three models, apples-to-apples."
             body="Same data split, same augmentation, same loss, same schedule. The only variable was the model class, so the comparison was defensible."
           />
           <RetroItem

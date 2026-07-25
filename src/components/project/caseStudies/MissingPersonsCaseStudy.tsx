@@ -1,5 +1,5 @@
 /**
- * Missing Persons Knowledge Graph — full case-study body.
+ * Missing Persons Knowledge Graph, full case-study body.
  *
  * Pattern mirrors MetyCaseStudy.tsx + AegisflowCaseStudy.tsx. Each
  * <section id="…"> matches an entry in `MISSING_PERSONS_SECTIONS` so the
@@ -128,7 +128,7 @@ function Overview() {
           Turtle (<Code>result-triples.ttl</Code>). FastAPI loads the graph into
           an in-memory <Code>rdflib.Graph</Code> at boot, then maps incoming REST
           filters to SPARQL queries against it. The React client is a thin
-          consumer — table / card toggle, detail view, Google Maps embed for
+          consumer, table / card toggle, detail view, Google Maps embed for
           last-known location.
         </p>
 
@@ -172,7 +172,7 @@ function Highlights() {
         the team stopped paying. Migrating to an in-process RDF graph kept the
         same SPARQL semantics, ran at the same speed, and dropped the operating
         cost to{' '}
-        <span className="text-bone">$0 / month</span> on free tiers — a precondition
+        <span className="text-bone">$0 / month</span> on free tiers, a precondition
         for it staying alive long enough to be cited.
       </p>
 
@@ -191,7 +191,7 @@ function Highlights() {
         </Point>
         <Point title="A custom OWL ontology, not a relational schema.">
           Cases, persons, locations, demographics, and case events are all RDF
-          classes with typed properties — not foreign keys. That keeps the same
+          classes with typed properties, not foreign keys. That keeps the same
           domain model the original team modeled in Protégé and makes the data
           usable by other semantic-web tools without translation.
         </Point>
@@ -221,7 +221,7 @@ function Context() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        NamUs — the National Missing and Unidentified Persons System — is the
+        NamUs, the National Missing and Unidentified Persons System, is the
         canonical public dataset, but its search UI was built around looking up{' '}
         <em>a case you already know</em>. Researchers, families, and journalists
         who want to ask compound questions (
@@ -237,7 +237,7 @@ function Context() {
         <QuoteCard
           source="NamUs · NIJ"
           quote="Tens of thousands of new missing-persons cases are entered into NamUs each year, and a large share remain open."
-          context="Scale signal — the dataset only grows"
+          context="Scale signal, the dataset only grows"
         />
         <QuoteCard
           source="W3C · Semantic Web for Public Data"
@@ -250,7 +250,7 @@ function Context() {
           context="The course constraint that started it"
         />
         <QuoteCard
-          source="GraphDB pricing — Ontotext, 2025"
+          source="GraphDB pricing, Ontotext, 2025"
           quote="GraphDB Free runs locally; production hosting starts ~$50/mo on standard cloud."
           context="The cost cliff we walked off"
           spanFull
@@ -278,22 +278,22 @@ function Problem() {
         <ConstraintCard
           n="1"
           title="The ontology was non-negotiable"
-          body="SER531 required OWL classes modeled in Protégé. Relational alternatives were off the table — the deliverable had to be semantic web from the source up."
+          body="SER531 required OWL classes modeled in Protégé. Relational alternatives were off the table, the deliverable had to be semantic web from the source up."
         />
         <ConstraintCard
           n="2"
           title="No paid cloud budget after the semester"
-          body="The original team deployment used GraphDB on Azure at ~$50/mo. Nobody was going to keep paying. To stay published-reproducible, the system had to run on Vercel + Render free tiers — indefinitely."
+          body="The original team deployment used GraphDB on Azure at ~$50/mo. Nobody was going to keep paying. To stay published-reproducible, the system had to run on Vercel + Render free tiers, indefinitely."
         />
         <ConstraintCard
           n="3"
           title="Real (not synthetic) NamUs data"
-          body="3,559 cases across California, Texas, and Alaska — pulled from NamUs and shaped to fit the ontology. The graph had to load every record at startup without blowing memory on a free-tier dyno."
+          body="3,559 cases across California, Texas, and Alaska, pulled from NamUs and shaped to fit the ontology. The graph had to load every record at startup without blowing memory on a free-tier dyno."
         />
         <ConstraintCard
           n="4"
           title="SPARQL semantics had to survive the rewrite"
-          body="The original Java/Jena queries used SPARQL FILTER + OPTIONAL clauses extensively. The Python rewrite had to keep the exact same query semantics — same results, same ordering, same nulls."
+          body="The original Java/Jena queries used SPARQL FILTER + OPTIONAL clauses extensively. The Python rewrite had to keep the exact same query semantics, same results, same ordering, same nulls."
         />
         <ConstraintCard
           n="5"
@@ -303,7 +303,7 @@ function Problem() {
         <ConstraintCard
           n="6"
           title="A team handoff with no follow-on contract"
-          body="Original SER531 team disbanded at end of semester. Continuation work was solo and unfunded — every decision optimized for low maintenance, low cost, long uptime."
+          body="Original SER531 team disbanded at end of semester. Continuation work was solo and unfunded, every decision optimized for low maintenance, low cost, long uptime."
         />
       </div>
 
@@ -311,7 +311,7 @@ function Problem() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <PrincipleCard
           title="The ontology is the source of truth"
-          body="Protégé .owl + Turtle triples sit at the center. Everything else — FastAPI, React, hosting — is replaceable around it."
+          body="Protégé .owl + Turtle triples sit at the center. Everything else, FastAPI, React, hosting, is replaceable around it."
         />
         <PrincipleCard
           title="In-memory beats networked"
@@ -349,7 +349,7 @@ function Process() {
               Azure VM with a Java/Jena query frontend. It worked, the queries were
               fast, the SPARQL was textbook clean. It also cost about{' '}
               <span className="text-bone">$50 / month</span> and required someone to
-              keep paying — a guarantee that the public demo would silently disappear
+              keep paying, a guarantee that the public demo would silently disappear
               once the semester ended.
             </>
           }
@@ -362,7 +362,7 @@ function Process() {
             <>
               First migration attempt: keep Jena, drop the cloud bill. Stood up Fuseki
               on an Oracle Cloud free-tier VM. SPARQL parity was perfect, but free
-              tiers go to sleep — cold starts pushed first-query latency past{' '}
+              tiers go to sleep, cold starts pushed first-query latency past{' '}
               <span className="text-bone">5 s</span> after any quiet period. Not
               acceptable for a public-facing demo a journalist might land on once.
             </>
@@ -393,7 +393,7 @@ function Process() {
             request after wake-up has to re-parse{' '}
             <Code>result-triples.ttl</Code> before serving. We added a small{' '}
             <Code>/health</Code> endpoint and a Vercel cron that pings it every 10
-            minutes — the dyno stays warm, the graph stays loaded, the public demo
+            minutes, the dyno stays warm, the graph stays loaded, the public demo
             keeps answering instantly. The cron itself runs free.
           </p>
         </div>
@@ -403,9 +403,9 @@ function Process() {
         <BeforeAfter
           number="3.0"
           title="Query backend"
-          beforeLabel="Before — V1 GraphDB on Azure"
+          beforeLabel="Before, V1 GraphDB on Azure"
           before="External triplestore container, separate VM, $50/mo, manual restart on OOM."
-          afterLabel="After — V3 rdflib in-process"
+          afterLabel="After, V3 rdflib in-process"
           after="Loaded into FastAPI memory at startup. Zero external dependencies, $0/mo, container restart auto-reloads the graph."
         />
         <BeforeAfter
@@ -414,7 +414,7 @@ function Process() {
           beforeLabel="Before"
           before="~$50 / month on Azure for a GraphDB VM that would die when the team stopped paying."
           afterLabel="After"
-          after="$0 / month on Vercel (frontend) + Render (API free tier) — has stayed live continuously since the IEEE submission."
+          after="$0 / month on Vercel (frontend) + Render (API free tier), has stayed live continuously since the IEEE submission."
         />
       </div>
     </section>
@@ -435,7 +435,7 @@ function Architecture() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        The system is intentionally short — one ontology, one TTL serialization,
+        The system is intentionally short, one ontology, one TTL serialization,
         one in-memory graph, one API layer, one client. There&apos;s no database
         and no message bus. The simplicity is the point: the paper has to be
         reproducible by a single reader with one <Code>git clone</Code> and one{' '}
@@ -542,7 +542,7 @@ result-triples.ttl   (in repo)
 FastAPI  ──  rdflib.Graph  (in process)
    │
    ▼
-Render free tier  ←—  /health ping (Vercel cron, 10 min)
+Render free tier  ←,  /health ping (Vercel cron, 10 min)
    ▲
    │  GET /api/cases?…
    │
@@ -581,11 +581,11 @@ function FinalDesigns() {
 
       {/* Two-column block: left = case detail + prose (wider), right = filter (narrower) */}
       <div className="grid grid-cols-1 md:grid-cols-[1.9fr_1fr] gap-6 md:gap-8 items-stretch mb-12">
-        {/* Left column — case detail screenshot + two paragraphs below */}
+        {/* Left column, case detail screenshot + two paragraphs below */}
         <div className="flex flex-col">
           <Figure
             src="/projects/missing-persons/case-detail.png"
-            alt="Case detail — Maria Munoz, demographics, Google Maps embed, NamUs deep link"
+            alt="Case detail, Maria Munoz, demographics, Google Maps embed, NamUs deep link"
             number="7.0"
             caption="Case detail view."
           />
@@ -593,7 +593,7 @@ function FinalDesigns() {
             <p>
               <span className="text-bone">Each case renders as a full-page
               detail card.</span>{' '}
-              Photo on the left, demographics + case information on the right —
+              Photo on the left, demographics + case information on the right,
               case number, date of last contact, location, biological sex, race.
               Below that: missing age vs. computed current age, full
               circumstance-of-disappearance narrative, and a Google Maps embed
@@ -603,14 +603,14 @@ function FinalDesigns() {
               <span className="text-bone">The filter surface maps REST params to
               SPARQL.</span>{' '}
               Name, Case ID, sex (radio), race (multi-check), missing age range
-              (check-bucket), county, city, and cause of disappearance — all
+              (check-bucket), county, city, and cause of disappearance, all
               compound-queryable in one submission. The backend translates every
               selected filter into a SPARQL FILTER clause against the in-memory
               graph and returns results in &lt; 100 ms.
             </p>
             <p>
               This example searches for a white male named John, aged 18–35,
-              last seen in Santa Barbara under suspicious circumstances — the
+              last seen in Santa Barbara under suspicious circumstances, the
               kind of compound query NamUs&apos;s own search UI was not built for.
             </p>
             <p>
@@ -621,18 +621,18 @@ function FinalDesigns() {
           </div>
         </div>
 
-        {/* Right column — advanced filter screenshot, stretched to match left column height */}
+        {/* Right column, advanced filter screenshot, stretched to match left column height */}
         <div className="flex flex-col">
           <div className="rounded-xl overflow-hidden border border-ink-border bg-ink-raised flex-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/projects/missing-persons/advanced-filter.png"
-              alt="Filter form — John, Male, White, 18-35, Santa Barbara, Suspicious circumstances"
+              alt="Filter form, John, Male, White, 18-35, Santa Barbara, Suspicious circumstances"
               className="w-full h-full object-cover object-top block"
               loading="lazy"
             />
           </div>
-          <FigureCaption number="7.1" label="Advanced filter — compound SPARQL query." kind="image" />
+          <FigureCaption number="7.1" label="Advanced filter, compound SPARQL query." kind="image" />
         </div>
       </div>
     </section>
@@ -686,11 +686,11 @@ function Retrospective() {
         <RetroColumn title="Next">
           <RetroItem
             head="Public SPARQL endpoint."
-            body="Expose a read-only /sparql endpoint so external researchers can run their own queries without going through the REST wrapper. Already prototyped — just needs rate-limiting before it ships."
+            body="Expose a read-only /sparql endpoint so external researchers can run their own queries without going through the REST wrapper. Already prototyped, just needs rate-limiting before it ships."
           />
           <RetroItem
             head="Face-similarity recall."
-            body="Add a per-case image embedding and a 'similar appearance' button on the detail page — many missing-persons searches start with a photograph, not a name."
+            body="Add a per-case image embedding and a 'similar appearance' button on the detail page, many missing-persons searches start with a photograph, not a name."
           />
           <RetroItem
             head="Federated identity across datasets."

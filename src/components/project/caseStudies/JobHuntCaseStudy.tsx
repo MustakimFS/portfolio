@@ -1,5 +1,5 @@
 /**
- * Job Hunt Dashboard (Electron Job Tracker) — full case-study body.
+ * Job Hunt Dashboard (Electron Job Tracker), full case-study body.
  *
  * Real facts pulled from the README at
  * github.com/MustakimFS/electron-job-tracker. Stack, design decisions,
@@ -73,8 +73,8 @@ function Overview() {
           in the Windows tray, polls Gmail on a schedule with read-only OAuth,
           and uses a pluggable AI provider (Gemini / Claude / OpenAI) to
           classify whether each new email is job-related. Everything is stored
-          on my disk; nothing leaves except the Gmail OAuth call itself and —
-          if I opt in — the email subject + snippet sent to one chosen LLM for
+          on my disk; nothing leaves except the Gmail OAuth call itself and,
+          if I opt in, the email subject + snippet sent to one chosen LLM for
           classification.
         </p>
 
@@ -123,9 +123,9 @@ function Highlights() {
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-10 max-w-2xl">
         Three properties are the point.{' '}
-        <span className="text-bone">It stays on disk</span> — no server, no
+        <span className="text-bone">It stays on disk</span>, no server, no
         cloud, no telemetry.{' '}
-        <span className="text-bone">It&apos;s BYOK across three LLMs</span> —
+        <span className="text-bone">It&apos;s BYOK across three LLMs</span>,
         Gemini, Anthropic, or OpenAI, switchable from Settings.{' '}
         <span className="text-bone">It paints itself onto the wallpaper</span>{' '}
         via a Wallpaper Engine plugin that listens on a localhost socket and
@@ -179,7 +179,7 @@ function Context() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        Six months of applying to roles turns Gmail into a haystack —
+        Six months of applying to roles turns Gmail into a haystack,
         acknowledgments, recruiter outreach, scheduling threads,
         take-home assignments, and rejections all mixed in with everything
         else. Generic trackers (Huntr, Teal) want me to upload everything to
@@ -201,12 +201,12 @@ function Context() {
         />
         <QuoteCard
           source="OAuth 2.0 best practice"
-          quote="Request the narrowest scope that still works. Read-only Gmail is gmail.readonly — don't ask for write access if you only need to read."
+          quote="Request the narrowest scope that still works. Read-only Gmail is gmail.readonly, don't ask for write access if you only need to read."
           context="The scope this app uses, by design"
         />
         <QuoteCard
           source="Wallpaper Engine workshop"
-          quote="Web wallpapers can run arbitrary HTML + JS and connect to local services — the perfect transport for a tray-app status widget."
+          quote="Web wallpapers can run arbitrary HTML + JS and connect to local services, the perfect transport for a tray-app status widget."
           context="The integration nobody asks for, but everyone wants"
           spanFull
         />
@@ -238,12 +238,12 @@ function Problem() {
         <ConstraintCard
           n="2"
           title="Narrowest possible Gmail scope"
-          body="gmail.readonly only. The app must never need write or modify access — that's both a trust boundary and a smaller blast radius if the OAuth token leaks."
+          body="gmail.readonly only. The app must never need write or modify access, that's both a trust boundary and a smaller blast radius if the OAuth token leaks."
         />
         <ConstraintCard
           n="3"
           title="Multi-provider AI without vendor lock"
-          body="Users (me, mostly) shouldn't have to commit to one LLM provider. Same classification surface has to work over Gemini, Anthropic, or OpenAI — raw HTTPS, no SDKs."
+          body="Users (me, mostly) shouldn't have to commit to one LLM provider. Same classification surface has to work over Gemini, Anthropic, or OpenAI, raw HTTPS, no SDKs."
         />
         <ConstraintCard
           n="4"
@@ -349,7 +349,7 @@ function Process() {
             Electron&apos;s <Code>setLoginItemSettings</Code> happily registers
             the app for auto-launch, but{' '}
             <Code>openAsHidden</Code> alone doesn&apos;t hide it on first boot
-            after install — Windows shows the window once. Fix was checking{' '}
+            after install, Windows shows the window once. Fix was checking{' '}
             <Code>process.argv</Code> for the{' '}
             <Code>--hidden</Code> flag Windows passes on login starts and
             calling <Code>win.hide()</Code> if present. The first launch shows
@@ -363,9 +363,9 @@ function Process() {
         <BeforeAfter
           number="3.0"
           title="Email classification"
-          beforeLabel="Before — V1 manual inbox"
-          before="Paste subject lines by hand. Useful but slow — 50 applications a week means a lot of typing."
-          afterLabel="After — V2 multi-provider AI"
+          beforeLabel="Before, V1 manual inbox"
+          before="Paste subject lines by hand. Useful but slow, 50 applications a week means a lot of typing."
+          afterLabel="After, V2 multi-provider AI"
           after="node-cron pulls new threads every N minutes, dispatches subject + snippet to the active provider (gemini-2.0-flash / claude-haiku-4-5 / gpt-4o-mini), routes the job-tagged ones to the dashboard."
         />
         <BeforeAfter
@@ -395,7 +395,7 @@ function Architecture() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        The Electron main process owns everything mutable — the JSON store,
+        The Electron main process owns everything mutable, the JSON store,
         the cron timer, the OAuth tokens, the WebSocket server. The renderer
         process is the operator UI. The wallpaper is a passive listener over
         the local socket. All three see the same state because they all read
@@ -480,7 +480,7 @@ async function classify(subject, snippet, cfg) {
   })
 }
 
-// all three speak raw HTTPS — no SDKs, no auth helpers,
+// all three speak raw HTTPS, no SDKs, no auth helpers,
 // no shared dependency surface between them.`}
           </pre>
         </div>
@@ -535,26 +535,26 @@ function FinalDesigns() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed max-w-2xl mb-10">
-        The desktop app is intentionally dense — stat cards across the top,
+        The desktop app is intentionally dense, stat cards across the top,
         today&apos;s objectives on the left, this-week progress + long-term
         goals on the right, all editable in-app. The Wallpaper Engine view is
         a slimmer read-mostly mirror of the same state, painted onto the
         desktop and kept in sync over the local WebSocket.
       </p>
 
-      {/* Dashboard — full-width establishing shot */}
+      {/* Dashboard, full-width establishing shot */}
       <Figure
         src="/projects/jobhunt/dashboard.png"
-        alt="Job Hunt desktop app — Dashboard tab with stat cards, daily objectives, weekly progress, long-term goals"
+        alt="Job Hunt desktop app, Dashboard tab with stat cards, daily objectives, weekly progress, long-term goals"
         number="7.0"
-        caption="Dashboard tab — 224 applications tracked, daily objectives + weekly progress + long-term goals."
+        caption="Dashboard tab, 224 applications tracked, daily objectives + weekly progress + long-term goals."
       />
 
-      {/* Wallpaper Engine live view — full width + text */}
+      {/* Wallpaper Engine live view, full width + text */}
       <div className="mt-14 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-6 md:gap-10 items-center">
         <Figure
           src="/projects/jobhunt/wallpaper.png"
-          alt="Job Hunt wallpaper — live dashboard painted onto the Windows desktop via Wallpaper Engine"
+          alt="Job Hunt wallpaper, live dashboard painted onto the Windows desktop via Wallpaper Engine"
           number="7.1"
           caption="Wallpaper Engine live view."
         />
@@ -565,7 +565,7 @@ function FinalDesigns() {
             A Wallpaper Engine &ldquo;Web&rdquo; wallpaper connects to the
             local WebSocket on <Code>127.0.0.1:49152</Code> and renders the
             stats, today&apos;s objectives, this-week targets, long-term goals,
-            and the deadline countdown — all without focusing the app.
+            and the deadline countdown, all without focusing the app.
           </p>
           <p>
             It&apos;s two-way: checking a task on the wallpaper marks it done
@@ -575,19 +575,19 @@ function FinalDesigns() {
         </div>
       </div>
 
-      {/* Settings — two detail shots side by side */}
+      {/* Settings, two detail shots side by side */}
       <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Figure
           src="/projects/jobhunt/settings-gmail-ai.png"
-          alt="Settings — Gmail connection, AI provider keys, general sync settings"
+          alt="Settings, Gmail connection, AI provider keys, general sync settings"
           number="7.2"
-          caption="Settings — Gmail + AI provider + sync config."
+          caption="Settings, Gmail + AI provider + sync config."
         />
         <Figure
           src="/projects/jobhunt/settings-tasks-goals.png"
-          alt="Settings — editable daily tasks (count/binary) and long-term goals"
+          alt="Settings, editable daily tasks (count/binary) and long-term goals"
           number="7.3"
-          caption="Settings — editable daily tasks + long-term goals."
+          caption="Settings, editable daily tasks + long-term goals."
         />
       </div>
 
@@ -595,7 +595,7 @@ function FinalDesigns() {
         <span className="text-bone-dim uppercase tracking-eyebrow text-[10.5px] font-mono mr-2">
           Local-only · no public URL
         </span>
-        Job Hunt is a desktop app, not a hosted site — it lives in the Windows
+        Job Hunt is a desktop app, not a hosted site, it lives in the Windows
         tray and reads your Gmail locally. The screenshots above are from the
         running Electron build on developer hardware; daily tasks and goals are
         fully editable in Settings (<Code>count</Code> tasks track a number,{' '}
@@ -630,14 +630,14 @@ function Retrospective() {
           />
           <RetroItem
             head="WebSocket-as-state-bus."
-            body="A local-only ws server is enough to keep two viewports (renderer + wallpaper) in sync. No Redux, no Zustand, no IPC ceremony — just JSON messages over a socket."
+            body="A local-only ws server is enough to keep two viewports (renderer + wallpaper) in sync. No Redux, no Zustand, no IPC ceremony, just JSON messages over a socket."
           />
         </RetroColumn>
 
         <RetroColumn title="Didn't">
           <RetroItem
             head="Windows-only."
-            body="Tray behavior, auto-launch, Wallpaper Engine integration — all Windows-coded. A cross-platform version means rebuilding the auto-launch + wallpaper pieces from scratch for macOS / Linux."
+            body="Tray behavior, auto-launch, Wallpaper Engine integration, all Windows-coded. A cross-platform version means rebuilding the auto-launch + wallpaper pieces from scratch for macOS / Linux."
           />
           <RetroItem
             head="No inbox search."

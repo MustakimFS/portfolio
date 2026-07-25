@@ -3,7 +3,7 @@
  *
  * Mimics the real Gradio app at huggingface.co/spaces/mustakimfs/pixelDrive:
  * three side-by-side panels (Input · Mask · Overlay) with a class-breakdown
- * panel underneath. Visuals are CSS gradients — illustrative of what the
+ * panel underneath. Visuals are CSS gradients, illustrative of what the
  * deployed app shows, not the actual model output.
  */
 export default function PixelDriveMockup() {
@@ -40,7 +40,7 @@ export default function PixelDriveMockup() {
         />
       </div>
 
-      {/* Class breakdown — mini legend */}
+      {/* Class breakdown, mini legend */}
       <div className="px-5 py-3 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-1 text-[11px] font-mono">
         {LEGEND.map(c => (
           <div key={c.name} className="flex items-baseline gap-2 text-bone-muted">

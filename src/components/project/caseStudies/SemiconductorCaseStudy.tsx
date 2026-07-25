@@ -1,5 +1,5 @@
 /**
- * Semiconductor Yield Optimizer — full case-study body.
+ * Semiconductor Yield Optimizer, full case-study body.
  *
  * Every number, decision rationale, and architecture step here is pulled
  * directly from the README at github.com/MustakimFS/semiconductor-yield-optimizer.
@@ -61,7 +61,7 @@ function Overview() {
     <section id="overview" className="scroll-mt-24">
       <SectionLabel className="mb-4">Overview</SectionLabel>
       <HeroHeading
-        sans="Catch the wafers that fail —"
+        sans="Catch the wafers that fail,"
         accent="even when failure is six percent."
         size="md"
         className="mb-5"
@@ -84,9 +84,9 @@ function Overview() {
           End-to-end ownership: data audit, preprocessing pipeline, L1 feature
           selection, model comparison across five candidates, threshold tuning,
           and a Streamlit operator UI with a live recall / false-alarm knob.
-          The deliverable is a single-line decision —{' '}
+          The deliverable is a single-line decision,{' '}
           <span className="text-bone">PASS or FAIL with calibrated probability</span>{' '}
-          — that an operator can trust, set their own threshold against, and
+         , that an operator can trust, set their own threshold against, and
           re-tune as their fab&apos;s cost asymmetry shifts.
         </p>
 
@@ -95,8 +95,8 @@ function Overview() {
           value="Python 3.10 · scikit-learn · imbalanced-learn (SMOTE baselines) · Streamlit · joblib · matplotlib"
         />
         <p className="text-bone-muted">
-          A four-stage pipeline serialized to <Code>joblib</Code> artifacts —
-          imputer, scaler, L1 selector, Random Forest — plus a Streamlit UI
+          A four-stage pipeline serialized to <Code>joblib</Code> artifacts,
+          imputer, scaler, L1 selector, Random Forest, plus a Streamlit UI
           that loads the artifacts at boot and exposes the decision threshold
           as a live slider. Notebook for training; <Code>app.py</Code> for
           inference; nothing more.
@@ -136,7 +136,7 @@ function Highlights() {
       <p className="text-bone-muted text-[15px] leading-relaxed mb-10 max-w-2xl">
         On a dataset where{' '}
         <span className="text-bone">~6% of wafers fail</span> and 14 out of 15
-        are good ones, classifiers that look great on accuracy are useless —
+        are good ones, classifiers that look great on accuracy are useless,
         you can predict &ldquo;PASS&rdquo; for every wafer and hit 94%. The
         right question is{' '}
         <em>how many of the actual failures did you catch?</em> Final model
@@ -154,7 +154,7 @@ function Highlights() {
       {/* Real comparison table from the README */}
       <div className="rounded-xl overflow-hidden border border-ink-border bg-ink-raised mb-10">
         <div className="px-5 py-3 border-b border-ink-border text-bone-dim text-[11px] uppercase tracking-eyebrow font-mono">
-          Model comparison — README results table
+          Model comparison, README results table
         </div>
         <div className="p-5">
           <table className="w-full text-[13px]">
@@ -190,7 +190,7 @@ function Highlights() {
 
       <div className="space-y-5 text-[14.5px] leading-relaxed text-bone-muted max-w-2xl">
         <Point title="Recall is the metric that matches the cost.">
-          A missed defect escapes to downstream processes — rework, yield loss,
+          A missed defect escapes to downstream processes, rework, yield loss,
           field returns. A false alarm is one extra inspection. The metric, the
           threshold, and the loss are all chosen with this asymmetry in mind.
         </Point>
@@ -212,10 +212,10 @@ function Highlights() {
 }
 
 const COMPARISON_ROWS = [
-  { model: 'Naive Logistic Regression',           recall: '0.14', precision: '0.14', f1: '0.14', auc: '—',    winner: false },
-  { model: 'Cost-Sensitive Logistic Regression',  recall: '0.29', precision: '0.15', f1: '0.20', auc: '—',    winner: false },
-  { model: 'ROS Logistic Regression',             recall: '0.29', precision: '0.15', f1: '0.20', auc: '—',    winner: false },
-  { model: 'XGBoost + L1 + SMOTE',                recall: '0.57', precision: '0.15', f1: '0.24', auc: '—',    winner: false },
+  { model: 'Naive Logistic Regression',           recall: '0.14', precision: '0.14', f1: '0.14', auc: ', ',    winner: false },
+  { model: 'Cost-Sensitive Logistic Regression',  recall: '0.29', precision: '0.15', f1: '0.20', auc: ', ',    winner: false },
+  { model: 'ROS Logistic Regression',             recall: '0.29', precision: '0.15', f1: '0.20', auc: ', ',    winner: false },
+  { model: 'XGBoost + L1 + SMOTE',                recall: '0.57', precision: '0.15', f1: '0.24', auc: ', ',    winner: false },
   { model: 'Random Forest + L1 (Ours)',           recall: '0.76', precision: '0.23', f1: '0.35', auc: '0.81', winner: true  },
 ]
 
@@ -234,7 +234,7 @@ function Context() {
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
         Modern fabs run hundreds of sensor streams across every step of wafer
-        fabrication — etch, lithography, deposition, polishing. A failing wafer
+        fabrication, etch, lithography, deposition, polishing. A failing wafer
         usually leaves a fingerprint in the sensor data, but the fingerprint
         is buried inside{' '}
         <span className="text-bone">hundreds of correlated dimensions</span>{' '}
@@ -245,7 +245,7 @@ function Context() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
         <QuoteCard
           source="UCI ML Repository · SECOM dataset card"
-          quote="A typical wafer fabrication process is a complex sequence of operations. Continuous-valued sensor signals are collected throughout — but only a subset are useful for predicting yield."
+          quote="A typical wafer fabrication process is a complex sequence of operations. Continuous-valued sensor signals are collected throughout, but only a subset are useful for predicting yield."
           context="Why feature selection is non-optional"
         />
         <QuoteCard
@@ -297,12 +297,12 @@ function Problem() {
         <ConstraintCard
           n="3"
           title="SMOTE over-correction"
-          body="XGBoost + L1 + SMOTE pushed predicted failure rates to 80%+ — useful in a paper, useless in a fab. The class-imbalance fix can't be more aggressive than the imbalance itself."
+          body="XGBoost + L1 + SMOTE pushed predicted failure rates to 80%+, useful in a paper, useless in a fab. The class-imbalance fix can't be more aggressive than the imbalance itself."
         />
         <ConstraintCard
           n="4"
           title="No universal threshold"
-          body="A leading-edge logic fab has a different cost-of-missed-defect than a memory fab. The same model has to serve both — the threshold has to be exposed as a knob, not baked into the artifact."
+          body="A leading-edge logic fab has a different cost-of-missed-defect than a memory fab. The same model has to serve both, the threshold has to be exposed as a knob, not baked into the artifact."
         />
         <ConstraintCard
           n="5"
@@ -324,11 +324,11 @@ function Problem() {
         />
         <PrincipleCard
           title="Prune before you predict"
-          body="On a noisy high-dimensional dataset, L1 selection isn't a nice-to-have — it's the move that makes downstream training stable. Reduce signal-to-noise before you reach for the heavier model."
+          body="On a noisy high-dimensional dataset, L1 selection isn't a nice-to-have, it's the move that makes downstream training stable. Reduce signal-to-noise before you reach for the heavier model."
         />
         <PrincipleCard
           title="One artifact set, two surfaces"
-          body="The notebook trains and saves the artifacts; the Streamlit app loads and uses them. No re-training in the app, no separate preprocessing — both surfaces see the same model state."
+          body="The notebook trains and saves the artifacts; the Streamlit app loads and uses them. No re-training in the app, no separate preprocessing, both surfaces see the same model state."
         />
       </div>
     </section>
@@ -357,7 +357,7 @@ function Process() {
               First sprint was deliberately under-engineered: logistic regression,
               no class weighting, no oversampling. Got{' '}
               <span className="text-bone">14% recall</span> on the failure class.
-              The point wasn&apos;t to ship this — the point was to anchor the
+              The point wasn&apos;t to ship this, the point was to anchor the
               ceiling of &ldquo;what you get if you don&apos;t treat the
               imbalance.&rdquo;
             </>
@@ -366,13 +366,13 @@ function Process() {
 
         <Pivot
           version="V2"
-          title="Three imbalance fixes — all hit a wall."
+          title="Three imbalance fixes, all hit a wall."
           body={
             <>
               Cost-sensitive LogReg (class-weighted), ROS LogReg (random
-              over-sampling), and XGBoost + L1 + SMOTE. Recall climbed —{' '}
+              over-sampling), and XGBoost + L1 + SMOTE. Recall climbed,{' '}
               <span className="text-bone">0.29 / 0.29 / 0.57</span> respectively
-              — but each in a way that hurts production: XGBoost + SMOTE
+             , but each in a way that hurts production: XGBoost + SMOTE
               over-corrected and flagged 80%+ of wafers as failures. Useful
               recall, unusable precision floor.
             </>
@@ -390,7 +390,7 @@ function Process() {
               <Code>RandomForestClassifier(n_estimators=500,
               class_weight=&apos;balanced&apos;, max_depth=6)</Code>. Lands at{' '}
               <span className="text-bone">0.76 recall · 0.81 ROC-AUC</span> at
-              the 0.35 threshold. No SMOTE — the built-in class weighting
+              the 0.35 threshold. No SMOTE, the built-in class weighting
               handles the imbalance without over-correcting.
             </>
           }
@@ -405,7 +405,7 @@ function Process() {
             On a 14:1 imbalance, accuracy and recall pull in opposite
             directions. Lowering the threshold to{' '}
             <Code>0.35</Code> trades a few percentage points of precision for
-            a meaningful jump in recall — exactly the trade you want when a
+            a meaningful jump in recall, exactly the trade you want when a
             missed defect is more expensive than a false alarm. The Streamlit
             slider exposes this so the operator can move it themselves; 0.35
             is just the calibrated default.
@@ -417,10 +417,10 @@ function Process() {
         <BeforeAfter
           number="3.0"
           title="Recall on the failure class"
-          beforeLabel="Before — V1 naive LogReg"
+          beforeLabel="Before, V1 naive LogReg"
           before="0.14 recall. Model defaults to predicting PASS for every wafer. Useless in production."
-          afterLabel="After — V3 RF + L1"
-          after="0.76 recall at threshold 0.35. Catches ~3 of every 4 failing wafers — a 5.4× improvement over the naive baseline."
+          afterLabel="After, V3 RF + L1"
+          after="0.76 recall at threshold 0.35. Catches ~3 of every 4 failing wafers, a 5.4× improvement over the naive baseline."
         />
         <BeforeAfter
           number="3.1"
@@ -563,7 +563,7 @@ RF over XGBoost
   the 14:1 ratio gracefully at this dataset size.
 
 Adjustable threshold
-  no universal cutoff — costs differ per fab.
+  no universal cutoff, costs differ per fab.
   Streamlit slider lets the operator tune live.
 
 Recall as the primary metric
@@ -603,15 +603,15 @@ function FinalDesigns() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Figure
             src="/projects/semiconductor/01-streamlit-landing.png"
-            alt="Streamlit landing page — wafer input pane with 590 sensor values and FAIL verdict tile at threshold 0.35"
+            alt="Streamlit landing page, wafer input pane with 590 sensor values and FAIL verdict tile at threshold 0.35"
             number="7.0"
-            caption="Streamlit landing — slider + input pane."
+            caption="Streamlit landing, slider + input pane."
           />
           <Figure
             src="/projects/semiconductor/02-threshold-sweep.png"
             alt="Threshold sweep visualization showing live recall, precision, and false-alarm rate curves as the decision slider moves"
             number="7.1"
-            caption="Threshold sweep — live holdout-set tradeoffs."
+            caption="Threshold sweep, live holdout-set tradeoffs."
           />
           <Figure
             src="/projects/semiconductor/03-confusion-matrix.png"
@@ -622,9 +622,9 @@ function FinalDesigns() {
         </div>
         <Figure
           src="/projects/semiconductor/04-top-l1-features.png"
-          alt="Top L1-selected features ranked by coefficient magnitude — 113 sensors with sign of contribution and absolute coefficient value"
+          alt="Top L1-selected features ranked by coefficient magnitude, 113 sensors with sign of contribution and absolute coefficient value"
           number="7.3"
-          caption="Top L1 features — 113 sensors ranked by coefficient magnitude."
+          caption="Top L1 features, 113 sensors ranked by coefficient magnitude."
         />
       </div>
     </section>
@@ -663,7 +663,7 @@ function Retrospective() {
         <RetroColumn title="Didn't">
           <RetroItem
             head="Precision is still low."
-            body="At 0.76 recall the precision sits at 0.23 — for every real failure caught, ~3 false alarms get flagged. Acceptable when missed defects are the expensive failure mode, but it's still the obvious axis to improve."
+            body="At 0.76 recall the precision sits at 0.23, for every real failure caught, ~3 false alarms get flagged. Acceptable when missed defects are the expensive failure mode, but it's still the obvious axis to improve."
           />
           <RetroItem
             head="No probability calibration check."
@@ -671,7 +671,7 @@ function Retrospective() {
           />
           <RetroItem
             head="The artifact filename is a lie."
-            body="The serialized model file is named xgb_model.pkl but actually contains a RandomForestClassifier — a leftover from earlier iterations. Harmless but technically misleading. Worth renaming on the next pass."
+            body="The serialized model file is named xgb_model.pkl but actually contains a RandomForestClassifier, a leftover from earlier iterations. Harmless but technically misleading. Worth renaming on the next pass."
           />
         </RetroColumn>
 

@@ -9,7 +9,7 @@ import SmoothScroll from '@/components/SmoothScroll'
 import EasterEggsLayer from '@/components/easter/EasterEggsLayer'
 import NavigationOverlay from '@/components/NavigationOverlay'
 
-// Geist Sans + Mono (loaded from the `geist` package — official Vercel font)
+// Geist Sans + Mono (loaded from the `geist` package, official Vercel font)
 // expose them through CSS variables matched in tailwind.config.js
 const geistSans = GeistSans
 const geistMono = GeistMono
@@ -23,7 +23,7 @@ const gloock = Gloock({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mustakimshikalgar.dev'),
-  title: 'Mustakim Shikalgar — Software Engineer',
+  title: 'Mustakim Shikalgar',
   description:
     'I build distributed systems, intelligent agents & research. MS Software Engineering @ ASU. IEEE published researcher. Actively interviewing for SDE/MLE roles.',
   keywords: [
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: 'Mustakim Shikalgar' }],
   openGraph: {
-    title: 'Mustakim Shikalgar — Software Engineer',
+    title: 'Mustakim Shikalgar',
     description:
       'I build distributed systems, intelligent agents & research. MS @ ASU · IEEE published · Actively interviewing for SDE/MLE roles.',
     url: 'https://mustakimshikalgar.dev',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Mustakim Shikalgar — Software Engineer',
+    title: 'Mustakim Shikalgar',
     description: 'MS Software Engineering @ ASU · IEEE published',
   },
 }

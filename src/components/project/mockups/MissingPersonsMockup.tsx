@@ -1,5 +1,5 @@
 /**
- * Missing Persons KG — homepage card thumbnail.
+ * Missing Persons KG, homepage card thumbnail.
  *
  * The faux search-results table was screenshotted from the rendered mockup and
  * saved as a static PNG, so the card always looks exactly right without
@@ -10,7 +10,7 @@ export default function MissingPersonsMockup() {
   return (
     <img
       src="/projects/missing-persons/thumbnail.png"
-      alt="Missing Persons Tracker — knowledge graph search interface showing case table with filter pills"
+      alt="Missing Persons Tracker, knowledge graph search interface showing case table with filter pills"
       className="w-full block"
       loading="lazy"
     />
@@ -18,7 +18,7 @@ export default function MissingPersonsMockup() {
 }
 
 /**
- * Registered as the case-study hero mockup — the real landing screenshot,
+ * Registered as the case-study hero mockup, the real landing screenshot,
  * made clickable so the whole hero window opens the deployed app in a new
  * tab. The faux-browser chrome is supplied by the case-study page template.
  */
@@ -33,7 +33,7 @@ export function MissingPersonsHeroMockup() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/projects/missing-persons/landing.png"
-        alt="Missing Persons Tracker — search interface with ASU branding"
+        alt="Missing Persons Tracker, search interface with ASU branding"
         className="w-full block"
         loading="eager"
       />

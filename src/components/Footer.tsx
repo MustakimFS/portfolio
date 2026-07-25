@@ -3,7 +3,7 @@ import FluidLabel from './FluidLabel'
 import { PERSONAL } from '@/lib/data'
 
 /**
- * Site footer — minimal grid of MAIN + CONTACT links, copyright, and a
+ * Site footer, minimal grid of MAIN + CONTACT links, copyright, and a
  * personality line. External links are fluid-glass FluidLabels.
  */
 export default function Footer() {

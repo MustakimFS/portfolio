@@ -1,5 +1,5 @@
 /**
- * Zebradoodle — full case-study body.
+ * Zebradoodle, full case-study body.
  *
  * Real facts from the README at github.com/MustakimFS/zebradoodle:
  * 4 game modes (Wordle/Quordle/Sedecordle/Nerdle), React 17 + React Router 5
@@ -74,8 +74,8 @@ function Overview() {
           original lived in <Code>legacy/Zebradoodle.java</Code> and loaded
           26 per-letter dictionary files off disk. This rebuild brings the
           same engine into the browser as React + React Router and adds three
-          siblings — <span className="text-bone">Quordle, Sedecordle, and
-          Nerdle</span> — that share the original scoring core.
+          siblings, <span className="text-bone">Quordle, Sedecordle, and
+          Nerdle</span>, that share the original scoring core.
         </p>
 
         <Meta
@@ -119,7 +119,7 @@ function Highlights() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-10 max-w-2xl">
-        The interesting part isn&apos;t any single mode — it&apos;s how the
+        The interesting part isn&apos;t any single mode, it&apos;s how the
         same two-pass scoring engine drives all four. Wordle is one board.
         Quordle stacks four. Sedecordle stacks sixteen. Nerdle replaces the
         word with an 8-character arithmetic equation and the dictionary with
@@ -137,7 +137,7 @@ function Highlights() {
       </div>
 
       <div className="space-y-5 text-[14.5px] leading-relaxed text-bone-muted max-w-2xl">
-        <Point title="Two-pass scoring — ported from the Java compare().">
+        <Point title="Two-pass scoring, ported from the Java compare().">
           First pass marks position-correct letters as{' '}
           <span className="text-bone">correct</span>. Second pass walks the
           remaining guess letters; each one matches an answer letter at most
@@ -147,7 +147,7 @@ function Highlights() {
         </Point>
         <Point title="Deterministic daily seeding via FNV-32 of the date.">
           Every player gets the same puzzle on the same calendar day. The
-          seed is a stable hash of <Code>YYYY-MM-DD</Code> — no server, no
+          seed is a stable hash of <Code>YYYY-MM-DD</Code>, no server, no
           sync, no &ldquo;today&apos;s word&rdquo; endpoint. Practice mode
           rolls a fresh random puzzle on demand.
         </Point>
@@ -178,7 +178,7 @@ function Context() {
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
         The interesting question wasn&apos;t &ldquo;can I clone Wordle&rdquo;
-        — anyone can. It was &ldquo;<em>can the same engine drive a 1-board, a
+       , anyone can. It was &ldquo;<em>can the same engine drive a 1-board, a
         4-board, a 16-board, and a math-equation variant without forking the
         scoring logic four times.</em>&rdquo; The README&apos;s table shows
         the answer: yes, with one shared scoring function and per-mode
@@ -194,7 +194,7 @@ function Context() {
         <QuoteCard
           source="r/wordle · repeated-letter complaint threads"
           quote="My guess had two E's but only one got marked yellow! Is that a bug?"
-          context="What the two-pass algorithm exists to solve — and what gets it wrong if you implement naively"
+          context="What the two-pass algorithm exists to solve, and what gets it wrong if you implement naively"
         />
         <QuoteCard
           source="Nerdle · richardmann.com, 2022"
@@ -202,7 +202,7 @@ function Context() {
           context="The math-mode template this implementation follows"
         />
         <QuoteCard
-          source="Mustakim · Sep 2022 — Jan 2023"
+          source="Mustakim · Sep 2022, Jan 2023"
           quote="legacy/Zebradoodle.java: a CLI Wordle that read 26 per-letter dictionary files off disk and scored guesses with a two-pass compare() method."
           context="The undergrad prototype this 2026 build descends from"
           spanFull
@@ -230,7 +230,7 @@ function Problem() {
         <ConstraintCard
           n="1"
           title="One scoring function for all four modes"
-          body="Wordle, Quordle, and Sedecordle all use the same letter-comparison logic — Quordle just runs it against four answers per guess and Sedecordle against sixteen. Forking the scorer would mean four versions of the same repeated-letter bug to maintain."
+          body="Wordle, Quordle, and Sedecordle all use the same letter-comparison logic, Quordle just runs it against four answers per guess and Sedecordle against sixteen. Forking the scorer would mean four versions of the same repeated-letter bug to maintain."
         />
         <ConstraintCard
           n="2"
@@ -255,7 +255,7 @@ function Problem() {
         <ConstraintCard
           n="6"
           title="Static bundle, no backend"
-          body="The whole thing has to deploy as static files on GitHub Pages — no API, no auth, no analytics. Everything that needs to persist persists locally on the player's device."
+          body="The whole thing has to deploy as static files on GitHub Pages, no API, no auth, no analytics. Everything that needs to persist persists locally on the player's device."
         />
       </div>
 
@@ -263,7 +263,7 @@ function Problem() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
         <PrincipleCard
           title="The scorer is the contract"
-          body="Every mode dispatches to the same scoring function. New modes mean new dictionaries and new board layouts — never new scoring."
+          body="Every mode dispatches to the same scoring function. New modes mean new dictionaries and new board layouts, never new scoring."
         />
         <PrincipleCard
           title="Determinism over server"
@@ -271,7 +271,7 @@ function Problem() {
         />
         <PrincipleCard
           title="Validate before you score"
-          body="In Nerdle, an invalid equation isn't a wrong answer — it's a malformed input. The tokenizer + evaluator reject pre-score so the player gets a clear 'invalid equation' toast, not a misleading color row."
+          body="In Nerdle, an invalid equation isn't a wrong answer, it's a malformed input. The tokenizer + evaluator reject pre-score so the player gets a clear 'invalid equation' toast, not a misleading color row."
         />
       </div>
     </section>
@@ -294,7 +294,7 @@ function Process() {
       <div className="space-y-12">
         <Pivot
           version="V1"
-          title="Wordle in React — port the Java scorer."
+          title="Wordle in React, port the Java scorer."
           body={
             <>
               Started by porting <Code>Zebradoodle.java</Code>&apos;s two-pass
@@ -309,21 +309,21 @@ function Process() {
 
         <Pivot
           version="V2"
-          title="Multiply the board — Quordle and Sedecordle."
+          title="Multiply the board, Quordle and Sedecordle."
           body={
             <>
               Two new modes for the price of zero new scoring code. Quordle
               renders four parallel boards and dispatches each guess to the
               same scorer against four answers. Sedecordle does the same at
               16x with a 21-guess budget instead of 9. The scoring contract
-              didn&apos;t change — the layout and the budget did.
+              didn&apos;t change, the layout and the budget did.
             </>
           }
         />
 
         <Pivot
           version="V3"
-          title="Nerdle — change the alphabet entirely."
+          title="Nerdle, change the alphabet entirely."
           body={
             <>
               The math mode is the interesting one. Equations are 8
@@ -346,7 +346,7 @@ function Process() {
             First JS port of the scorer was a 20-line single-pass that walked
             the guess once. It worked on{' '}
             <span className="text-bone">95% of inputs</span> and silently
-            broke on the rest — most visibly on guesses like{' '}
+            broke on the rest, most visibly on guesses like{' '}
             <Code>EERIE</Code> against{' '}
             <Code>EATER</Code> where the second E got marked yellow when it
             shouldn&apos;t have. Rebuilt against the original Java two-pass
@@ -362,9 +362,9 @@ function Process() {
         <BeforeAfter
           number="3.0"
           title="Scoring function shape"
-          beforeLabel="Before — V1 single-pass"
+          beforeLabel="Before, V1 single-pass"
           before="One walk over the guess. Correct on most inputs, silently wrong on repeated letters (EERIE / BOOKS / SASSY)."
-          afterLabel="After — V3 two-pass, Java-faithful"
+          afterLabel="After, V3 two-pass, Java-faithful"
           after="First pass: position-correct → correct. Second pass: remaining guess letters can match remaining answer letters at most once each. Repeated-letter cases produce the same colors the original Java CLI emitted, on every regression test."
         />
         <BeforeAfter
@@ -475,7 +475,7 @@ function Architecture() {
   const colors  = Array(guess.length).fill('absent')
   const remaining = answer.split('')
 
-  // Pass 1 — mark correct, consume from remaining
+  // Pass 1, mark correct, consume from remaining
   for (let i = 0; i < guess.length; i++) {
     if (guess[i] === answer[i]) {
       colors[i] = 'correct'
@@ -483,14 +483,14 @@ function Architecture() {
     }
   }
 
-  // Pass 2 — for each non-correct letter,
+  // Pass 2, for each non-correct letter,
   // try to match against a still-remaining answer letter
   for (let i = 0; i < guess.length; i++) {
     if (colors[i] === 'correct') continue
     const j = remaining.indexOf(guess[i])
     if (j !== -1) {
       colors[i] = 'present'
-      remaining[j] = null  // consume — repeated letter safety
+      remaining[j] = null  // consume, repeated letter safety
     }
   }
 
@@ -548,7 +548,7 @@ function FinalDesigns() {
 
       <p className="text-bone-muted text-[15px] leading-relaxed max-w-2xl mb-10">
         The product is four pages and one home screen. Live at{' '}
-        <Code>mustakimfs.github.io/zebradoodle</Code> — no auth, no install,
+        <Code>mustakimfs.github.io/zebradoodle</Code>, no auth, no install,
         no permissions. Every mode has a Daily and a Practice button; stats
         persist per mode in <Code>localStorage</Code>.
       </p>
@@ -556,19 +556,19 @@ function FinalDesigns() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Figure
           src="/projects/zebradoodle/home.png"
-          alt="Zebradoodle home — Pick a puzzle, four mode cards"
+          alt="Zebradoodle home, Pick a puzzle, four mode cards"
           number="7.0"
-          caption="Home — mode select (Wordle · Quordle · Sedecordle · Nerdle)."
+          caption="Home, mode select (Wordle · Quordle · Sedecordle · Nerdle)."
         />
         <Figure
           src="/projects/zebradoodle/nerdle.png"
-          alt="Nerdle board mid-game — Daily #1370, equation 9+8-7=10"
+          alt="Nerdle board mid-game, Daily #1370, equation 9+8-7=10"
           number="7.1"
-          caption="Nerdle — Daily #1370, 8-tile equation board + numpad keyboard."
+          caption="Nerdle, Daily #1370, 8-tile equation board + numpad keyboard."
         />
       </div>
 
-      {/* Live preview — clickable browser window linking to the deployed game */}
+      {/* Live preview, clickable browser window linking to the deployed game */}
       <div className="mt-14">
         <a
           href="https://mustakimfs.github.io/zebradoodle/"
@@ -581,7 +581,7 @@ function FinalDesigns() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/projects/zebradoodle/home.png"
-                alt="Live app — Zebradoodle puzzle collection"
+                alt="Live app, Zebradoodle puzzle collection"
                 className="w-full block"
                 loading="lazy"
               />
@@ -593,7 +593,7 @@ function FinalDesigns() {
             </div>
           </BrowserWindow>
         </a>
-        <FigureCaption number="7.2" label="Live at mustakimfs.github.io/zebradoodle — click to play." kind="image" />
+        <FigureCaption number="7.2" label="Live at mustakimfs.github.io/zebradoodle, click to play." kind="image" />
       </div>
     </section>
   )
@@ -654,7 +654,7 @@ function Retrospective() {
           />
           <RetroItem
             head="Stats export / import code."
-            body="Encode the local stats blob to a copy-paste string. Paste it on another device to merge. No accounts, no server, no telemetry — just a string the player owns."
+            body="Encode the local stats blob to a copy-paste string. Paste it on another device to merge. No accounts, no server, no telemetry, just a string the player owns."
           />
         </RetroColumn>
       </div>

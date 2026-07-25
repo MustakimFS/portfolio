@@ -37,7 +37,7 @@ export interface Project {
   videoUrl?: string
 }
 
-/** Explicit overrides — pin a project to a specific window kind when it has a
+/** Explicit overrides, pin a project to a specific window kind when it has a
  *  custom mockup (e.g. a real screenshot) that only makes sense in that frame. */
 const KIND_OVERRIDES: Record<string, Project['mockupKind']> = {
   'mety-legal': 'browser',
@@ -65,7 +65,7 @@ export const FEATURED_PROJECTS: Project[] = (PROJECTS as unknown as Project[])
 
 export const ALL_PROJECTS: Project[] = (PROJECTS as unknown as Project[]).map(decorate)
 
-/** Projects not on the homepage hero — shown in the "More work" archive list. */
+/** Projects not on the homepage hero, shown in the "More work" archive list. */
 export const ARCHIVED_PROJECTS: Project[] = (PROJECTS as unknown as Project[])
   .filter(p => !p.featured)
   .map(decorate)

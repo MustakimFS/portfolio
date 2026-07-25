@@ -6,8 +6,8 @@ import Link from 'next/link'
 /**
  * Glass / Liquid-Glass pill. Two modes:
  *
- *   • Default (static)     — always shows icon + text + optional trailing icon.
- *   • Expand-on-hover      — `expand` prop: starts as a compact icon-only pill;
+ *   • Default (static)    , always shows icon + text + optional trailing icon.
+ *   • Expand-on-hover     , `expand` prop: starts as a compact icon-only pill;
  *                            on hover/focus, smoothly expands to reveal the text
  *                            (Spline-style). Uses the CSS grid-template-columns
  *                            0fr → 1fr trick.
@@ -99,7 +99,7 @@ export default function FluidLabel({
   if (href) {
     if (external || href.startsWith('http') || href.startsWith('mailto:')) {
       // Open in a new tab for everything that leaves the app (profiles,
-      // the resume PDF, etc.) so the visitor never loses the portfolio —
+      // the resume PDF, etc.) so the visitor never loses the portfolio,
       // except mailto:/tel: which hand off to the OS. This also keeps the
       // navigation overlay from intercepting same-tab asset links.
       const newTab = !(href.startsWith('mailto:') || href.startsWith('tel:'))

@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-// Favicon — generated via the edge runtime (@vercel/og). Warm-black tile
+// Favicon, generated via the edge runtime (@vercel/og). Warm-black tile
 // with a bone "M" monogram.
 export const runtime = 'edge'
 export const size = { width: 64, height: 64 }

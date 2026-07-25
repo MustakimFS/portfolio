@@ -3,7 +3,7 @@ import FluidLabel from '@/components/FluidLabel'
 
 /**
  * Placeholder mockup content shown inside a faux browser window on the
- * homepage. Each project will get its own custom mockup eventually — for now
+ * homepage. Each project will get its own custom mockup eventually, for now
  * we render a styled summary: tag pills, big title, blurb, metrics, and a
  * "mockup placeholder" badge.
  */
@@ -28,7 +28,7 @@ export default function ProjectMockup({
       />
 
       <div className="relative h-full flex flex-col items-center justify-center px-10 py-12 text-center">
-        {/* Tag pills — fluid glass */}
+        {/* Tag pills, fluid glass */}
         <div className="flex flex-wrap justify-center gap-1.5 mb-6 max-w-md">
           {project.tags.slice(0, 5).map(t => (
             <FluidLabel key={t} size="xs">

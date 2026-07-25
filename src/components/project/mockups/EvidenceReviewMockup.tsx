@@ -1,5 +1,5 @@
 /**
- * Multi-Modal Evidence Review — case-study hero mockup.
+ * Multi-Modal Evidence Review, case-study hero mockup.
  *
  * A faux terminal run of the adjudication pipeline (no screenshot yet). The
  * TerminalWindow chrome is supplied by the case-study hero via

@@ -40,7 +40,7 @@ export const PROJECTS = [
     title: 'METY Legal Chatbot',
     subtitle: 'LangGraph · FastAPI · Django · 5-node pipeline',
     blurb: "Personalized AI legal assistant that knows what you don't know.",
-    description: "A personalized legal chatbot with three modes — a guided chat that profiles each user's knowledge gaps and targets responses to their Most Critical Gap, a progressive course system across 20 legal topics at three difficulty levels, and a document generation mode that produces tailored legal PDFs through a lawyer-style conversational intake. METY builds an implicit knowledge profile from every conversation using a 4-dimension FSPR framework (Facts, Strategies, Procedures, Rationales) and targets every response to close the specific gap that matters most to that user. Architected as a privacy-first two-layer system: Django owns state and data, FastAPI is stateless and has zero database credentials. Rebuilt a 6-node LangGraph pipeline into a 5-node linear topology, dropped per-query LLM cost 82% ($0.024 → $0.0044), and added implicit FSPR inference on every message with zero user-facing latency via daemon-thread background work.",
+    description: "A personalized legal chatbot with three modes, a guided chat that profiles each user's knowledge gaps and targets responses to their Most Critical Gap, a progressive course system across 20 legal topics at three difficulty levels, and a document generation mode that produces tailored legal PDFs through a lawyer-style conversational intake. METY builds an implicit knowledge profile from every conversation using a 4-dimension FSPR framework (Facts, Strategies, Procedures, Rationales) and targets every response to close the specific gap that matters most to that user. Architected as a privacy-first two-layer system: Django owns state and data, FastAPI is stateless and has zero database credentials. Rebuilt a 6-node LangGraph pipeline into a 5-node linear topology, dropped per-query LLM cost 82% ($0.024 → $0.0044), and added implicit FSPR inference on every message with zero user-facing latency via daemon-thread background work.",
     metrics: [
       { label: 'LLM cost reduction', value: '82%' },
       { label: 'User modes', value: '3' },
@@ -61,8 +61,8 @@ export const PROJECTS = [
     id: 'aegisflow',
     title: 'AegisFlow',
     subtitle: 'Reliability infrastructure for LLM pipelines',
-    blurb: 'Reliability infrastructure for LLM pipelines — scoring, fallback, and chaos.',
-    description: "AegisFlow is a reliability and orchestration layer that sits between an application and any LLM provider. Every model output passes through a four-axis confidence scorer (structural validity + semantic grounding + validator critique + provider history) combined with a diminishing-returns anomaly penalty into a single [0, 1] score. Based on the score, the system decides whether to accept, repair, retry with the same provider, fall back to a different one, or reject outright — without the calling application needing to know any of it. Decomposed into seven independent microservices (gateway, orchestrator, reliability, guardrails, memory, replay, chaos) each with its own API surface, Dockerfile, and Prometheus metrics; full 14-service stack (custom + infra) boots in a single docker compose up. Includes a chaos service that injects six failure modes — latency spikes, timeouts, synthetic 5xx errors, malformed JSON, hallucinations, and refusals — on any provider, without touching provider code.",
+    blurb: 'Reliability infrastructure for LLM pipelines, scoring, fallback, and chaos.',
+    description: "AegisFlow is a reliability and orchestration layer that sits between an application and any LLM provider. Every model output passes through a four-axis confidence scorer (structural validity + semantic grounding + validator critique + provider history) combined with a diminishing-returns anomaly penalty into a single [0, 1] score. Based on the score, the system decides whether to accept, repair, retry with the same provider, fall back to a different one, or reject outright, without the calling application needing to know any of it. Decomposed into seven independent microservices (gateway, orchestrator, reliability, guardrails, memory, replay, chaos) each with its own API surface, Dockerfile, and Prometheus metrics; full 14-service stack (custom + infra) boots in a single docker compose up. Includes a chaos service that injects six failure modes, latency spikes, timeouts, synthetic 5xx errors, malformed JSON, hallucinations, and refusals, on any provider, without touching provider code.",
     metrics: [
       { label: 'Microservices', value: '7' },
       { label: 'Confidence model', value: '4-axis' },
@@ -80,7 +80,7 @@ export const PROJECTS = [
     id: 'missing-persons',
     title: 'Missing Persons Knowledge Graph',
     subtitle: 'OWL · RDFLib · SPARQL · FastAPI · React · IEEE COMPSAC 2025',
-    blurb: 'An OWL/SPARQL knowledge graph over 3,559 NamUs cases — published at IEEE COMPSAC 2025.',
+    blurb: 'An OWL/SPARQL knowledge graph over 3,559 NamUs cases, published at IEEE COMPSAC 2025.',
     description: 'Knowledge graph over 3,559 NamUs missing-persons cases across California, Texas, and Alaska, modeled in a custom OWL ontology and served via in-process rdflib. Replaced the original $50/month GraphDB/Azure backend with FastAPI + RDFLib achieving sub-100ms SPARQL queries at $0/month operating cost on Vercel + Render free tiers. Published at IEEE COMPSAC 2025 (Toronto, 27% acceptance rate) as "Enhanced Tracking and Reporting of Missing Persons Using Knowledge Graph and Ontology Engineering".',
     metrics: [
       { label: 'NamUs cases', value: '3,559' },
@@ -103,7 +103,7 @@ export const PROJECTS = [
     id: 'distributed-kv',
     title: 'Distributed Key-Value Store',
     subtitle: 'Raft · gRPC · Protocol Buffers · Java 17 · Docker Compose',
-    blurb: 'Paper-faithful Raft in Java — 17,857 ops/sec, sub-1 ms p99, survives 2-of-5 node failures.',
+    blurb: 'Paper-faithful Raft in Java, 17,857 ops/sec, sub-1 ms p99, survives 2-of-5 node failures.',
     description: 'Fault-tolerant 5-node KV store implementing Raft from the original paper. Tunable consistency via a single client argument (STRONG = linearizable / EVENTUAL = AP). Measured at 17,857 ops/sec throughput, p99 strong-read latency under 1 ms, leader election under 300 ms, and zero data loss with 2 of 5 nodes failed simultaneously. The whole 5-node cluster boots on Docker Compose with one shell call.',
     metrics: [
       { label: 'Throughput', value: '17,857 ops/s' },
@@ -122,8 +122,8 @@ export const PROJECTS = [
     id: 'semiconductor',
     title: 'Semiconductor Yield Predictor',
     subtitle: 'L1 + Random Forest · scikit-learn · Streamlit · UCI SECOM',
-    blurb: 'Catches 76% of wafer failures on a 14:1-imbalanced dataset — beats four baselines including XGBoost + SMOTE.',
-    description: 'Binary pass/fail prediction on UCI SECOM (1,567 wafers × 590 sensors, ~6% failure rate). Five-model comparison: from a naive logistic regression baseline (14% recall on the failure class) through cost-sensitive LogReg, random oversampling, and XGBoost + SMOTE — to the winning L1 + Random Forest pipeline at 76% recall and 0.81 ROC-AUC. Ships as a Streamlit operator UI with a live decision-threshold slider so the cost-asymmetry stays editable in the field.',
+    blurb: 'Catches 76% of wafer failures on a 14:1-imbalanced dataset, beats four baselines including XGBoost + SMOTE.',
+    description: 'Binary pass/fail prediction on UCI SECOM (1,567 wafers × 590 sensors, ~6% failure rate). Five-model comparison: from a naive logistic regression baseline (14% recall on the failure class) through cost-sensitive LogReg, random oversampling, and XGBoost + SMOTE, to the winning L1 + Random Forest pipeline at 76% recall and 0.81 ROC-AUC. Ships as a Streamlit operator UI with a live decision-threshold slider so the cost-asymmetry stays editable in the field.',
     metrics: [
       { label: 'Recall (failure class)', value: '76%' },
       { label: 'ROC-AUC', value: '0.81' },
@@ -143,8 +143,8 @@ export const PROJECTS = [
     id: 'pixeldrive',
     title: 'PixelDrive: Road Scene Segmentation',
     subtitle: 'U-Net · SegNet · DeepLabV3+ · TensorFlow · Hugging Face Spaces',
-    blurb: 'Three segmentation models compared honestly — U-Net wins 79.33% mIoU on Carla, live on Hugging Face.',
-    description: 'Semantic segmentation of road scenes for autonomous driving on the Lyft / Udacity Carla simulator dataset (13 classes). Trained and benchmarked three architectures end-to-end on identical pipelines — U-Net, SegNet, DeepLabV3+ — after first fixing 7 correctness bugs in the inherited baseline (broken mIoU implementation, softmax/logits mismatch, wrong-channel mask decode, et al). U-Net won at 79.33% mIoU and ships as a live Gradio Space at huggingface.co/spaces/mustakimfs/pixelDrive.',
+    blurb: 'Three segmentation models compared honestly, U-Net wins 79.33% mIoU on Carla, live on Hugging Face.',
+    description: 'Semantic segmentation of road scenes for autonomous driving on the Lyft / Udacity Carla simulator dataset (13 classes). Trained and benchmarked three architectures end-to-end on identical pipelines, U-Net, SegNet, DeepLabV3+, after first fixing 7 correctness bugs in the inherited baseline (broken mIoU implementation, softmax/logits mismatch, wrong-channel mask decode, et al). U-Net won at 79.33% mIoU and ships as a live Gradio Space at huggingface.co/spaces/mustakimfs/pixelDrive.',
     metrics: [
       { label: 'Mean IoU (U-Net)', value: '79.33%' },
       { label: 'Architectures', value: '3' },
@@ -164,8 +164,8 @@ export const PROJECTS = [
     id: 'genome-assembler',
     title: 'De Bruijn Genome Assembler',
     subtitle: "Java 17 · Spring Boot · Hierholzer's · React · Vite · phi X174",
-    blurb: 'De Bruijn graph + iterative Eulerian traversal — 33,609 reads → 5,396 bp at 99.9% coverage in ~2 seconds.',
-    description: 'Genome assembly toolkit implementing de Bruijn graph construction, iterative Hierholzer’s Eulerian-cycle traversal, tip removal, and bubble resolution — all hand-rolled in Java 17, no library shortcuts. Validates on the phi X174 bacteriophage (5,386 bp reference, 33,609 reads, ~111K-edge graph) at 99.9% coverage in ~2 seconds. Same jar drives a CLI and a Spring Boot REST API; a React + Vite frontend lets non-engineers drag-and-drop a FASTA file. Live at debruijn-genome-assembler.vercel.app.',
+    blurb: 'De Bruijn graph + iterative Eulerian traversal, 33,609 reads → 5,396 bp at 99.9% coverage in ~2 seconds.',
+    description: 'Genome assembly toolkit implementing de Bruijn graph construction, iterative Hierholzer’s Eulerian-cycle traversal, tip removal, and bubble resolution, all hand-rolled in Java 17, no library shortcuts. Validates on the phi X174 bacteriophage (5,386 bp reference, 33,609 reads, ~111K-edge graph) at 99.9% coverage in ~2 seconds. Same jar drives a CLI and a Spring Boot REST API; a React + Vite frontend lets non-engineers drag-and-drop a FASTA file. Live at debruijn-genome-assembler.vercel.app.',
     metrics: [
       { label: 'Coverage (phi X174)', value: '99.9%' },
       { label: 'Input reads', value: '33,609' },
@@ -205,8 +205,8 @@ export const PROJECTS = [
     id: 'job-hunt',
     title: 'Job Hunt Dashboard',
     subtitle: 'Electron 29 · Node 18+ · Gmail OAuth · Gemini / Claude / OpenAI · Wallpaper Engine',
-    blurb: 'Local-first Electron tray app — Gmail sync, BYOK multi-LLM classification, and a live Wallpaper Engine dashboard.',
-    description: "A local-first job-application tracker built for personal use during the spring 2026 search. Electron 29 desktop app that lives in the Windows tray, syncs Gmail every N minutes on a read-only OAuth scope, and optionally classifies job-related emails through a pluggable AI provider (Gemini / Anthropic / OpenAI — BYOK, raw HTTPS, no SDKs). Storage is a JSON file in app.getPath('userData') — nothing leaves the machine except the Gmail OAuth call and the opt-in subject + snippet sent to the active LLM. A Wallpaper Engine 'Web' wallpaper at wallpaper/wallpaper.html mirrors the app state over a local WebSocket (ws://127.0.0.1:49152) so daily tasks and sync status are visible even when the app is collapsed to tray.",
+    blurb: 'Local-first Electron tray app, Gmail sync, BYOK multi-LLM classification, and a live Wallpaper Engine dashboard.',
+    description: "A local-first job-application tracker built for personal use during the spring 2026 search. Electron 29 desktop app that lives in the Windows tray, syncs Gmail every N minutes on a read-only OAuth scope, and optionally classifies job-related emails through a pluggable AI provider (Gemini / Anthropic / OpenAI, BYOK, raw HTTPS, no SDKs). Storage is a JSON file in app.getPath('userData'), nothing leaves the machine except the Gmail OAuth call and the opt-in subject + snippet sent to the active LLM. A Wallpaper Engine 'Web' wallpaper at wallpaper/wallpaper.html mirrors the app state over a local WebSocket (ws://127.0.0.1:49152) so daily tasks and sync status are visible even when the app is collapsed to tray.",
     metrics: [
       { label: 'AI providers (BYOK)', value: '3' },
       { label: 'Servers', value: '0 · local-only' },
@@ -225,7 +225,7 @@ export const PROJECTS = [
     id: 'zebradoodle',
     title: 'Zebradoodle',
     subtitle: 'React 17 · React Router · Wordle / Quordle / Sedecordle / Nerdle',
-    blurb: 'Four daily puzzle modes sharing one two-pass scoring core — ported from a 2022 Java CLI to a static React bundle.',
+    blurb: 'Four daily puzzle modes sharing one two-pass scoring core, ported from a 2022 Java CLI to a static React bundle.',
     description: 'A browser word and math puzzle collection reconstructed from a 2022 Java CLI prototype I wrote in undergrad. Four game modes share one engine: Wordle (1 board), Quordle (4 boards), Sedecordle (16 boards, 21 guesses), and Nerdle (8-character math equation). Every day picks the same puzzle for everyone via a deterministic FNV-32 date hash; practice mode rolls a fresh puzzle on demand. Scoring is a JS port of the original Java compare() method, two-pass with proper repeated-letter handling. The Nerdle module ships its own tokenizer and evaluator that enforces operator precedence, exact integer division, and no-leading-zero rules. Stats, streaks, and daily-resume live in localStorage so the whole thing deploys as a static bundle.',
     metrics: [
       { label: 'Game modes', value: '4' },

@@ -1,5 +1,5 @@
 /**
- * Cascade — full case-study body.
+ * Cascade, full case-study body.
  *
  * Graph Intelligence Platform (in active development, June 2026). All numbers
  * below are real and verifiable from the project's evaluation harness, ADRs,

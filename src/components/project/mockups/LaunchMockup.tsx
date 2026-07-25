@@ -1,7 +1,7 @@
 /**
- * Launch Parameters — homepage card / case-study hero mockup.
+ * Launch Parameters, homepage card / case-study hero mockup.
  * Plays the earth-globe demo clip (muted, looping). The clip is pre-slowed
- * and recorded at 60fps, so it plays at native speed — no playbackRate hack.
+ * and recorded at 60fps, so it plays at native speed, no playbackRate hack.
  * Falls back to the default-globe screenshot if the video can't play.
  */
 export default function LaunchMockup() {

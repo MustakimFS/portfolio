@@ -3,7 +3,7 @@ import SectionLabel from '@/components/typography/SectionLabel'
 import { NOW_BUILDING, IDEAS } from '@/lib/now'
 
 /**
- * "Now" — a snapshot of what's actively being built + ideas being explored.
+ * "Now", a snapshot of what's actively being built + ideas being explored.
  * Lives on the homepage. Content comes from `src/lib/now.ts`.
  */
 export default function NowSection() {

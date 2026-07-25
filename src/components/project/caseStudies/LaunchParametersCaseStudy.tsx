@@ -1,7 +1,7 @@
 'use client'
 
 /**
- * Launch Parameters — full case-study body.
+ * Launch Parameters, full case-study body.
  *
  * Sections (each <section id="…"> matches an entry in `SECTIONS` below so the
  * sticky CaseStudySidebar can highlight the active one):
@@ -333,7 +333,7 @@ function Process() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/projects/launch-parameters/01-default-globe.png"
-              alt="Default globe state — rotating Earth, grating, labeled launch sites"
+              alt="Default globe state, rotating Earth, grating, labeled launch sites"
               className="w-full h-auto block"
               loading="lazy"
             />
@@ -587,33 +587,33 @@ function FinalDesigns() {
         and the interplanetary mode.
       </p>
 
-      {/* Frame 1 — trajectory close-up */}
+      {/* Frame 1, trajectory close-up */}
       <div className="max-w-2xl mx-auto">
         <img
           src="/projects/launch-parameters/03-trajectory-globe-detail.png"
-          alt="Launch Parameters — trajectory globe detail view"
+          alt="Launch Parameters, trajectory globe detail view"
           className="w-full h-auto block"
           loading="lazy"
         />
         <FigureCaption
           number="7.0"
-          label="Trajectory detail — orbit ring rendered on the rotated globe; pin stays screen-size stable."
+          label="Trajectory detail, orbit ring rendered on the rotated globe; pin stays screen-size stable."
           kind="screenshot"
         />
       </div>
 
-      {/* Frame 2 — interplanetary */}
+      {/* Frame 2, interplanetary */}
       <div className="mt-8 max-w-2xl mx-auto">
         <img
           src="/projects/launch-parameters/04-interplanetary-target.png"
-          alt="Launch Parameters — interplanetary target (Mars) selected"
+          alt="Launch Parameters, interplanetary target (Mars) selected"
           className="w-full h-auto block"
           loading="lazy"
         />
       </div>
       <FigureCaption
         number="7.1"
-        label="Interplanetary mode — Mars target: 13.04 km/s delta-v, 1,360,228 kg propellant, launch window Nov 2026."
+        label="Interplanetary mode, Mars target: 13.04 km/s delta-v, 1,360,228 kg propellant, launch window Nov 2026."
         kind="screenshot"
       />
 
@@ -629,7 +629,7 @@ function FinalDesigns() {
           />
           <EdgeCase
             title="Click vs drag detection."
-            body="The globe only drops a pin on a clean click — dragging to rotate does not accidentally change the launch point. Movement threshold is tracked per-pointer-down event."
+            body="The globe only drops a pin on a clean click, dragging to rotate does not accidentally change the launch point. Movement threshold is tracked per-pointer-down event."
           />
           <EdgeCase
             title="Unavailable live data."

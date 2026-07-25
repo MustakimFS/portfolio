@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────────────────────────
-   Window-portfolio palette — warm near-black inspired by Perry Wang's site.
+   Window-portfolio palette, warm near-black inspired by Perry Wang's site.
    Type pairing: Geist (sans) + Gloock (italic serif accent).
    ───────────────────────────────────────────────────────────────────────────── */
 
@@ -18,13 +18,13 @@
   --bone-dim: #666666;
   --bone-faint: #3a3a3a;
 
-  /* Aliases — the geist package exposes --font-geist-sans / --font-geist-mono.
+  /* Aliases, the geist package exposes --font-geist-sans / --font-geist-mono.
      Map them to the names referenced by tailwind.config.js and css below. */
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   /* --font-serif is set directly on <html> by next/font/google */
 
-  /* Legacy shadcn vars — kept so any leftover UI primitives still render */
+  /* Legacy shadcn vars, kept so any leftover UI primitives still render */
   --background: 0 0% 6%;
   --foreground: 0 0% 95%;
   --card: 0 0% 9%;
@@ -56,7 +56,7 @@
 html {
   background: var(--ink);
   /* `clip` (not `hidden`) prevents horizontal overflow WITHOUT turning the
-     element into a scroll container — `overflow-x: hidden` would force
+     element into a scroll container, `overflow-x: hidden` would force
      `overflow-y: auto`, which breaks `position: sticky` (the case-study
      Contents sidebar). `clip` keeps the vertical axis `visible`. */
   overflow-x: clip;
@@ -148,13 +148,13 @@ body {
   color: #8a66ff !important;
 }
 
-/* Webkit scrollbar — minimal, on-brand */
+/* Webkit scrollbar, minimal, on-brand */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { background: var(--ink); }
 ::-webkit-scrollbar-thumb { background: var(--ink-border); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: #3a3a3a; }
 
-/* ── Hero glow — subtle radial highlight behind the headline letters ────── */
+/* ── Hero glow, subtle radial highlight behind the headline letters ────── */
 .text-glow {
   text-shadow:
     0 0 36px rgba(242, 242, 242, 0.18),
@@ -170,7 +170,7 @@ body {
   filter: drop-shadow(0 0 28px rgba(242, 242, 242, 0.18));
 }
 
-/* ── Thin gradient divider — fades at both edges ────────────────────────── */
+/* ── Thin gradient divider, fades at both edges ────────────────────────── */
 .divider-fade {
   height: 1px;
   background: linear-gradient(
@@ -192,20 +192,20 @@ body {
   opacity: 0.6;
 }
 
-/* ── Window chrome — subtle gradient that simulates titlebar light ─────── */
+/* ── Window chrome, subtle gradient that simulates titlebar light ─────── */
 .window-chrome {
   background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
   border-bottom: 1px solid rgba(0, 0, 0, 0.4);
 }
 
-/* ── Lenis smooth scroll — required class hook ──────────────────────────── */
+/* ── Lenis smooth scroll, required class hook ──────────────────────────── */
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
 .lenis.lenis-stopped { overflow: hidden; }
 .lenis.lenis-smooth iframe { pointer-events: none; }
 
-/* ── Project tint backdrop — gentle radial in the corner of case studies ─ */
+/* ── Project tint backdrop, gentle radial in the corner of case studies ─ */
 .tint-stadia { background: radial-gradient(ellipse at top, #0d1f33 0%, #101010 60%); }
 .tint-forest { background: radial-gradient(ellipse at top, #0d1f17 0%, #101010 60%); }
 .tint-warm   { background: radial-gradient(ellipse at top, #1f1611 0%, #101010 60%); }
@@ -243,7 +243,7 @@ html.lenis, html.lenis body { height: auto; }
   animation: violent-shake 0.12s linear infinite;
 }
 
-/* shadcn base — only applies where shadcn components are still imported */
+/* shadcn base, only applies where shadcn components are still imported */
 @layer base {
   body { color: var(--bone); }
 }
@@ -254,7 +254,7 @@ html.lenis, html.lenis body { height: auto; }
    shadow so the chip "floats". Active state lowers it by 1px.
    ────────────────────────────────────────────────────────────────────────── */
 .fluid-label {
-  /* No position declaration here — each instance picks its own position
+  /* No position declaration here, each instance picks its own position
      via Tailwind utility classes (relative for cards-with-absolute-children,
      absolute for the nav center pill, etc.). Setting position: relative here
      would override `absolute` utilities due to source-order specificity. */
@@ -308,7 +308,7 @@ html.lenis, html.lenis body { height: auto; }
    Asymmetric timing: expanding is brisk (0.4s, no delay) so it feels
    responsive; collapsing is slower (0.55s) with a 0.18s delay before
    starting, so the pill doesn't snap shut the moment your cursor drifts
-   off — gives you a beat to come back.
+   off, gives you a beat to come back.
    ────────────────────────────────────────────────────────────────────────── */
 .fluid-label-expandable {
   /* Base / un-hovered (this is the transition the COLLAPSE runs through) */
@@ -322,7 +322,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 .fluid-label-expandable:hover,
 .fluid-label-expandable:focus-visible {
-  /* On hover — overrides the transition so EXPANSION is fast and immediate */
+  /* On hover, overrides the transition so EXPANSION is fast and immediate */
   grid-template-columns: auto 1fr;
   padding-left: 0.75rem;
   padding-right: 0.875rem;
@@ -335,7 +335,7 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 .fluid-label-expandable .fluid-label-reveal {
-  /* Base / un-hovered — fade-out takes its time and waits a beat */
+  /* Base / un-hovered, fade-out takes its time and waits a beat */
   opacity: 0;
   transition: opacity 0.4s ease 0.22s;
 }
@@ -503,7 +503,7 @@ html.lenis, html.lenis body { height: auto; }
   transform: translateY(0);
 }
 
-/* ── Placeholder badge — marks content we'll fill in later ──────────────── */
+/* ── Placeholder badge, marks content we'll fill in later ──────────────── */
 .placeholder-badge {
   display: inline-flex;
   align-items: center;

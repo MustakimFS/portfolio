@@ -176,7 +176,7 @@ export default async function InfoPage() {
         </div>
       </section>
 
-      {/* ── Innovation Showcase — wider/horizontal crop + text ─────────── */}
+      {/* ── Innovation Showcase, wider/horizontal crop + text ─────────── */}
       <section className="px-4 sm:px-8 pb-24">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-6 md:gap-10 items-center">
@@ -208,7 +208,7 @@ export default async function InfoPage() {
         </div>
       </section>
 
-      {/* ── Competitive coding — LIVE LeetCode stats ───────────────────── */}
+      {/* ── Competitive coding, LIVE LeetCode stats ───────────────────── */}
       <section className="px-4 sm:px-8 pb-24">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
@@ -277,7 +277,7 @@ export default async function InfoPage() {
         </div>
       </section>
 
-      {/* ── Philosophy as a code editor file — compact gutter ──────────── */}
+      {/* ── Philosophy as a code editor file, compact gutter ──────────── */}
       <section className="px-4 sm:px-8 pb-20">
         <div className="max-w-5xl mx-auto">
           <SectionLabel className="mb-6">How I work</SectionLabel>
@@ -335,7 +335,7 @@ export default async function InfoPage() {
         </div>
       </section>
 
-      {/* ── Live GitHub activity — recent commits terminal ─────────────── */}
+      {/* ── Live GitHub activity, recent commits terminal ─────────────── */}
       <section className="px-4 sm:px-8 pb-24">
         <div className="max-w-5xl mx-auto">
           <div className="flex items-center justify-between mb-6 flex-wrap gap-2">
@@ -374,7 +374,7 @@ export default async function InfoPage() {
           <div>
             <SectionLabel className="mb-4">Off the keyboard</SectionLabel>
             <p className="text-bone-muted text-[15px] leading-relaxed">
-              Off one keyboard I&apos;m usually on a different one — Valorant and
+              Off one keyboard I&apos;m usually on a different one, Valorant and
               Apex Legends are the games I keep coming back to. First esports
               love was{' '}
               <span className="italic font-serif text-bone">Sentinels</span> when
@@ -399,7 +399,7 @@ export default async function InfoPage() {
         </div>
       </section>
 
-      {/* ── Out exploring — smaller photos, nature text ────────────────── */}
+      {/* ── Out exploring, smaller photos, nature text ────────────────── */}
       <section className="px-4 sm:px-8 pb-24">
         <div className="max-w-5xl mx-auto">
           <SectionLabel className="mb-6">Out exploring</SectionLabel>
@@ -411,7 +411,7 @@ export default async function InfoPage() {
             />
           </div>
 
-          {/* Row 1 — small landscape photo on the left + text */}
+          {/* Row 1, small landscape photo on the left + text */}
           <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[220px_1fr] gap-4 sm:gap-10 items-center mb-10">
             <PhotoCard
               src="/projects/me/IMG-20251129-WA0082.jpg"
@@ -432,7 +432,7 @@ export default async function InfoPage() {
             </div>
           </div>
 
-          {/* Row 2 — text on left, Memphis Botanical Garden photo on right */}
+          {/* Row 2, text on left, Memphis Botanical Garden photo on right */}
           <div className="grid grid-cols-[1fr_110px] sm:grid-cols-[1fr_220px] gap-4 sm:gap-10 items-center mb-10">
             <div className="text-bone-muted text-[15px] leading-relaxed space-y-3">
               <p>
@@ -440,7 +440,7 @@ export default async function InfoPage() {
                 <span className="text-bone">Memphis Zoo</span> on a slow Sunday,
                 or the <span className="text-bone">Botanical Garden</span> when
                 whatever&apos;s in bloom is in bloom. Nothing about it is
-                aspirational — just walking around, taking too many photos of
+                aspirational, just walking around, taking too many photos of
                 the same flowers, eating something we&apos;ll regret later.
               </p>
               <p>
@@ -455,7 +455,7 @@ export default async function InfoPage() {
             />
           </div>
 
-          {/* Row 3 — small ski-slope photo on left, text on right */}
+          {/* Row 3, small ski-slope photo on left, text on right */}
           <div className="grid grid-cols-[110px_1fr] sm:grid-cols-[220px_1fr] gap-4 sm:gap-10 items-center">
             <PhotoCard
               src="/projects/me/IMG-20251129-WA0078.jpg"

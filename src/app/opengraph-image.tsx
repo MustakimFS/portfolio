@@ -1,9 +1,9 @@
 import { ImageResponse } from 'next/og'
 
-// Social-preview card — generated via the edge runtime (@vercel/og).
+// Social-preview card, generated via the edge runtime (@vercel/og).
 // Used for OpenGraph + Twitter.
 export const runtime = 'edge'
-export const alt = 'Mustakim Shikalgar — Software Engineer'
+export const alt = 'Mustakim Shikalgar, Software Engineer'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 

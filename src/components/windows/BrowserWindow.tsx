@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 /**
- * Faux macOS browser window — the central visual motif of the site.
+ * Faux macOS browser window, the central visual motif of the site.
  * Wraps any content in a chrome bar with traffic-light dots + URL bar.
  *
  * @example
@@ -14,7 +14,7 @@ export interface BrowserWindowProps {
   url?: string
   /** Tab title (small text in the tab pill). Defaults to a friendly host name from `url`. */
   tabTitle?: string
-  /** Visual tone — affects the chrome and inner background. */
+  /** Visual tone, affects the chrome and inner background. */
   tone?: 'dark' | 'darker' | 'light'
   /** Rounded corner radius. */
   radius?: 'md' | 'lg' | 'xl'

@@ -7,10 +7,10 @@ import { PERSONAL } from '@/lib/data'
 import FluidLabel from './FluidLabel'
 
 /**
- * Top navigation — three regions:
+ * Top navigation, three regions:
  *   left:   "Mustakim Shikalgar / Software Engineer" identity
- *   center: Work | Info — fluid-glass pill with sliding indicator
- *   right:  LinkedIn ↗  Resume ↗ — fluid-glass icon labels that expand on hover
+ *   center: Work | Info, fluid-glass pill with sliding indicator
+ *   right:  LinkedIn ↗  Resume ↗, fluid-glass icon labels that expand on hover
  *
  * Fixed top, transparent over content.
  */
@@ -22,7 +22,7 @@ export default function PillNav() {
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    const TOP_BAND = 200 // px — always show within this distance from top
+    const TOP_BAND = 200 // px, always show within this distance from top
     let lastY = window.scrollY
     let ticking = false
 
@@ -52,7 +52,7 @@ export default function PillNav() {
   return (
     <nav
       // z-[350] sits ABOVE the NavigationOverlay (z-300) so the Work | Info
-      // slide animation stays visible during route transitions — keeps visual
+      // slide animation stays visible during route transitions, keeps visual
       // continuity rather than hiding the pill behind the "Just a moment"
       // dim layer.
       className={`fixed top-0 left-0 right-0 z-[350] px-4 sm:px-8 py-4 pointer-events-none transition-all duration-300 ease-out ${
@@ -62,7 +62,7 @@ export default function PillNav() {
       }`}
       aria-label="Primary"
     >
-      {/* Identity (left) + external links (right) — flex with justify-between
+      {/* Identity (left) + external links (right), flex with justify-between
           handles ONLY these two so when the external pills expand they shrink
           the gap toward identity, leaving the absolutely-positioned center
           pill anchored to the viewport's horizontal center. */}
@@ -79,7 +79,7 @@ export default function PillNav() {
           <span className="text-bone-muted text-[12px] -mt-0.5 hidden sm:block">{PERSONAL.title}</span>
         </Link>
 
-        {/* Right external pills — placed in the flex flow so they don't overlap
+        {/* Right external pills, placed in the flex flow so they don't overlap
             anything else and stay at the right edge. Their expansion is
             contained to the right side of the bar. */}
         <div className={`${visible ? 'pointer-events-auto' : 'pointer-events-none'} flex items-center gap-2`}>
@@ -133,7 +133,7 @@ export default function PillNav() {
         </div>
       </div>
 
-      {/* Center pill — TWO layers:
+      {/* Center pill, TWO layers:
           1. Outer wrapper: pure positioning. Anchors at viewport center via
              -translate-x-1/2 -translate-y-1/2. Never receives :hover so its
              transform is stable.
@@ -149,7 +149,7 @@ export default function PillNav() {
           className="fluid-label relative inline-flex items-center rounded-full px-1 py-1"
           aria-label="Section toggle"
         >
-          {/* Active indicator — small line above active tab */}
+          {/* Active indicator, small line above active tab */}
           <span
             className="absolute -top-2 h-[3px] w-6 rounded-full bg-bone transition-all duration-300"
             style={{

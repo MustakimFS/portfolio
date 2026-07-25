@@ -10,7 +10,7 @@ import { PERSONAL } from '@/lib/data'
 import { FEATURED_PROJECTS, ARCHIVED_PROJECTS } from '@/lib/projects'
 
 /**
- * Homepage — hero-in-a-browser-window, intro line, selected work as
+ * Homepage, hero-in-a-browser-window, intro line, selected work as
  * project showcases (each in its own faux window), footer.
  */
 export default function HomePage() {
@@ -64,7 +64,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Now — actively building (above selected work) ─────────────── */}
+      {/* ── Now, actively building (above selected work) ─────────────── */}
       <NowSection />
 
       {/* ── Selected Work label ────────────────────────────────────────── */}
@@ -90,7 +90,7 @@ export default function HomePage() {
           <div className="max-w-6xl lg:max-w-[1340px] mx-auto">
             <SectionLabel className="mb-4">More work</SectionLabel>
             <p className="text-bone-muted text-[15px] leading-relaxed max-w-2xl mb-8">
-              Smaller builds and side projects — algorithms, tools, and games.
+              Smaller builds and side projects, algorithms, tools, and games.
               Each one still ships a full case study.
             </p>
             <ArchiveList projects={ARCHIVED_PROJECTS} />

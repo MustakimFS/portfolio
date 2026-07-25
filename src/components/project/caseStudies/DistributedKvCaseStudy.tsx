@@ -1,5 +1,5 @@
 /**
- * Distributed KV Store — full case-study body.
+ * Distributed KV Store, full case-study body.
  *
  * Real facts pulled from the project README + benchmark table at
  * github.com/MustakimFS/distributed-kv-store. Final Designs section uses
@@ -60,7 +60,7 @@ function Overview() {
     <section id="overview" className="scroll-mt-24">
       <SectionLabel className="mb-4">Overview</SectionLabel>
       <HeroHeading
-        sans="Raft from the paper —"
+        sans="Raft from the paper,"
         accent="implemented, not just read."
         size="md"
         className="mb-8"
@@ -124,7 +124,7 @@ function Highlights() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-10 max-w-2xl">
-        Hits every benchmark target by an order of magnitude — read latency
+        Hits every benchmark target by an order of magnitude, read latency
         comes in at <span className="text-bone">p99 &lt; 1 ms</span> against a
         10 ms target, throughput hits{' '}
         <span className="text-bone">17,857 ops/sec</span> against a 1,000 ops/sec
@@ -145,11 +145,11 @@ function Highlights() {
           Leader election, log replication, and safety are split into the same
           decomposed sub-problems Ongaro describes. Randomized election timeouts
           (150–300 ms), term-based monotonicity, majority quorum on commit, leader
-          completeness — all there.
+          completeness, all there.
         </Point>
         <Point title="Tunable consistency on the client side.">
-          A single argument switch on the client —{' '}
-          <Code>ConsistencyLevel.STRONG</Code> vs <Code>EVENTUAL</Code> — moves
+          A single argument switch on the client,{' '}
+          <Code>ConsistencyLevel.STRONG</Code> vs <Code>EVENTUAL</Code>, moves
           the system between linearizable reads (CP, leader-only) and
           highest-availability reads (AP, any node). The CAP trade-off is a flag,
           not a redeploy.
@@ -179,7 +179,7 @@ function Context() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        Every modern infrastructure stack has Raft in its core — etcd, Consul,
+        Every modern infrastructure stack has Raft in its core, etcd, Consul,
         CockroachDB, TiKV, MongoDB&apos;s replica sets, AWS&apos;s primary-elect
         components. You can read the paper a hundred times and still trip over
         the corner cases the first time you implement{' '}
@@ -242,7 +242,7 @@ function Problem() {
         <ConstraintCard
           n="3"
           title="Survive (N−1)/2 simultaneous failures"
-          body="In a 5-node cluster that means losing 2 nodes at once. The cluster must keep accepting writes — quorum is 3."
+          body="In a 5-node cluster that means losing 2 nodes at once. The cluster must keep accepting writes, quorum is 3."
         />
         <ConstraintCard
           n="4"
@@ -257,7 +257,7 @@ function Problem() {
         <ConstraintCard
           n="6"
           title="One command, full cluster"
-          body="The whole 5-node topology must come up via a single shell call so the system is demonstrable to anyone — no per-node manual setup."
+          body="The whole 5-node topology must come up via a single shell call so the system is demonstrable to anyone, no per-node manual setup."
         />
       </div>
 
@@ -296,7 +296,7 @@ function Process() {
       <div className="space-y-12">
         <Pivot
           version="V1"
-          title="Election only — prove a leader emerges."
+          title="Election only, prove a leader emerges."
           body={
             <>
               First milestone: stand up five gRPC servers that talk to each other
@@ -336,7 +336,7 @@ function Process() {
               leader. Added <Code>LatencyTracker</Code> to record p50/p99/avg per
               operation. Ran the benchmark suite end-to-end: 17,857 ops/sec
               throughput, sub-1 ms p99 strong reads, 0% data loss under a 2-of-5
-              partition. Numbers — not vibes — confirmed the build.
+              partition. Numbers, not vibes, confirmed the build.
             </>
           }
         />
@@ -362,16 +362,16 @@ function Process() {
         <BeforeAfter
           number="3.0"
           title="Read path"
-          beforeLabel="Before — V1 leader-only"
+          beforeLabel="Before, V1 leader-only"
           before="All reads went through the leader. Worked, but the leader bottlenecked at high read-traffic; followers sat idle."
-          afterLabel="After — V3 CP / AP knob"
+          afterLabel="After, V3 CP / AP knob"
           after="STRONG reads hit the leader (linearizable). EVENTUAL reads hit any node's local state machine (higher availability, possibly stale). Client picks per call."
         />
         <BeforeAfter
           number="3.1"
           title="Election stability"
           beforeLabel="Before"
-          before="Simultaneous timeouts caused two candidates per term — re-election storms on cold boot."
+          before="Simultaneous timeouts caused two candidates per term, re-election storms on cold boot."
           afterLabel="After"
           after="Randomized timeout range of 150–300 ms uniform. 99.5%+ of cluster starts settle a leader in a single term."
         />
@@ -394,7 +394,7 @@ function Architecture() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        Every request walks the same four-layer stack — client → gRPC → Raft →
+        Every request walks the same four-layer stack, client → gRPC → Raft →
         state machine. The Raft layer is the source of truth: writes only commit
         after a 3/5 quorum acks, and only committed entries reach the state
         machine. Followers never serve STRONG reads, and the leader never returns
@@ -497,7 +497,7 @@ message AppendRequest {
 
         <div className="bg-ink-raised border border-ink-border rounded-xl p-6">
           <div className="text-bone-dim text-[11px] uppercase tracking-eyebrow mb-3">
-            CP vs AP — same cluster, client-picked
+            CP vs AP, same cluster, client-picked
           </div>
           <pre className="text-[12.5px] leading-[1.6] text-bone-muted font-mono whitespace-pre-wrap">
 {`// CP path
@@ -537,13 +537,13 @@ function FinalDesigns() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed max-w-2xl mb-10">
-        The whole system is demoable from a fresh clone in two commands —
+        The whole system is demoable from a fresh clone in two commands,
         <Code>./scripts/start-cluster.sh</Code> to bring it up and{' '}
         <Code>./scripts/run-tests.sh</Code> to run the benchmark. Numbers below
         are the actual measurements from the README&apos;s benchmark table.
       </p>
 
-      {/* Benchmark facts — rendered as a real table from the README */}
+      {/* Benchmark facts, rendered as a real table from the README */}
       <div className="rounded-xl overflow-hidden border border-ink-border bg-ink-raised mb-10">
         <div className="px-5 py-3 border-b border-ink-border text-bone-dim text-[11px] uppercase tracking-eyebrow font-mono">
           Benchmark results · single-node baseline
@@ -569,32 +569,32 @@ function FinalDesigns() {
           </table>
         </div>
       </div>
-      <FigureCaption number="7.0" label="Benchmark table — README measurements." kind="diagram" />
+      <FigureCaption number="7.0" label="Benchmark table, README measurements." kind="diagram" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
         <Figure
           src="/projects/distributed-kv/01-docker-compose-5of5-healthy.png"
-          alt="docker compose up output — 5/5 containers running, all healthy, node3 elected leader in term 3"
+          alt="docker compose up output, 5/5 containers running, all healthy, node3 elected leader in term 3"
           number="7.1"
           caption="docker compose up · 5/5 serving gRPC."
         />
         <Figure
           src="/projects/distributed-kv/02-leader-failover-kill-node3.png"
-          alt="Leader failover — docker kill raft-node3, four re-elections across terms 4-9, leadership churn observed"
+          alt="Leader failover, docker kill raft-node3, four re-elections across terms 4-9, leadership churn observed"
           number="7.2"
-          caption="Leader failover — kill current leader."
+          caption="Leader failover, kill current leader."
         />
         <Figure
           src="/projects/distributed-kv/03-quorum-loss-recovery.png"
-          alt="Quorum boundary test — 3/5 alive (quorum available), then 2/5 alive (quorum unavailable), then full cluster restored"
+          alt="Quorum boundary test, 3/5 alive (quorum available), then 2/5 alive (quorum unavailable), then full cluster restored"
           number="7.3"
-          caption="Quorum loss — 3/5 then 2/5 alive."
+          caption="Quorum loss, 3/5 then 2/5 alive."
         />
         <Figure
           src="/projects/distributed-kv/04-latencytracker-output.png"
-          alt="LatencyTracker benchmark output — strong-read p99 under 1ms, write avg 0.04ms, PASS assertion"
+          alt="LatencyTracker benchmark output, strong-read p99 under 1ms, write avg 0.04ms, PASS assertion"
           number="7.4"
-          caption="LatencyTracker output — p50 / p99 / avg."
+          caption="LatencyTracker output, p50 / p99 / avg."
         />
       </div>
     </section>
@@ -662,7 +662,7 @@ function Retrospective() {
           />
           <RetroItem
             head="Snapshots + log compaction."
-            body="Periodic state-machine snapshot. New followers get the snapshot first, then catch up via incremental log entries — the standard etcd pattern."
+            body="Periodic state-machine snapshot. New followers get the snapshot first, then catch up via incremental log entries, the standard etcd pattern."
           />
           <RetroItem
             head="Sharded multi-Raft."

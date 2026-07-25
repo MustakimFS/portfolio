@@ -19,7 +19,7 @@ export default function CaseStudyBackButton() {
   const [visible, setVisible] = useState(true)
 
   useEffect(() => {
-    const TOP_BAND = 200 // px — always show within this distance from top
+    const TOP_BAND = 200 // px, always show within this distance from top
     let lastY = window.scrollY
     let ticking = false
 

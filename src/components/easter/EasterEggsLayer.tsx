@@ -80,7 +80,7 @@ export default function EasterEggsLayer() {
   }, [])
 
   // Pull live LeetCode + GitHub data once on mount. Client-side fetch of the
-  // same /api routes the Info page renders from — fails silently so the
+  // same /api routes the Info page renders from, fails silently so the
   // terminal still works (whoami / commits fall back to static text).
   useEffect(() => {
     let cancelled = false
@@ -229,7 +229,7 @@ export default function EasterEggsLayer() {
       }
       addLines(
         echo,
-        `drwxr-xr-x  projects/      ${ALL_PROJECTS.length} case studies — run "ls projects"`,
+        `drwxr-xr-x  projects/      ${ALL_PROJECTS.length} case studies, run "ls projects"`,
         '-rw-r--r--  about.md       run "open info"',
         '-rw-r--r--  resume.pdf     run "resume"',
         '-rw-r--r--  contact.txt    run "sudo hire-me"',
@@ -374,7 +374,7 @@ export default function EasterEggsLayer() {
 
   return (
     <>
-      {/* Terminal toggle — expand-on-hover fluid pill, bottom-right */}
+      {/* Terminal toggle, expand-on-hover fluid pill, bottom-right */}
       <div className="fixed bottom-4 right-4 z-50">
         <FluidLabel
           size="sm"
@@ -468,13 +468,13 @@ export default function EasterEggsLayer() {
         </div>
       )}
 
-      {/* Terminal overlay — real-terminal palette (no neon greens) */}
+      {/* Terminal overlay, real-terminal palette (no neon greens) */}
       {termOpen && (
         <div
           className="fixed bottom-20 right-4 z-[100] w-[28rem] h-80 bg-[#0c0c0d] border border-ink-border rounded-lg shadow-2xl shadow-black/70 flex flex-col font-mono text-[12.5px] overflow-hidden"
           onClick={() => termInputRef.current?.focus()}
         >
-          {/* Title bar — same macOS chrome as project windows */}
+          {/* Title bar, same macOS chrome as project windows */}
           <div className="window-chrome flex items-center gap-1.5 px-3 py-2 shrink-0 border-b border-black/40">
             <button
               onClick={e => {
@@ -565,7 +565,7 @@ export default function EasterEggsLayer() {
         </div>
       )}
 
-      {/* Subtle chaos-mode tint — only renders when secret word is typed */}
+      {/* Subtle chaos-mode tint, only renders when secret word is typed */}
       {chaosMode && (
         <div
           aria-hidden="true"

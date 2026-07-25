@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 
 /**
- * Faux terminal window. Used for sections that should feel like a shell —
+ * Faux terminal window. Used for sections that should feel like a shell,
  * "About me as `whoami`" style content, command listings, easter-egg hints, etc.
  */
 export interface TerminalWindowProps {

@@ -3,7 +3,7 @@ import { TerminalLine } from '@/components/windows'
 /**
  * De Bruijn Genome Assembler homepage / case-study hero mockup.
  *
- * Renders the *content* of a TerminalWindow — chrome supplied by
+ * Renders the *content* of a TerminalWindow, chrome supplied by
  * ProjectShowcase / the case-study page via `mockupWindow: 'terminal'`.
  *
  * Six-second vignette of the README's actual example output:

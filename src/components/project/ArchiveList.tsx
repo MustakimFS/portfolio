@@ -5,7 +5,7 @@ import type { Project } from '@/lib/projects'
 /**
  * Compact "More work" list for non-featured projects. Each row links to the
  * full case study at /projects/<slug> without the heavy windowed mockup the
- * homepage hero cards use — title + category·year + blurb + an expand arrow.
+ * homepage hero cards use, title + category·year + blurb + an expand arrow.
  */
 export default function ArchiveList({ projects }: { projects: Project[] }) {
   return (
@@ -24,7 +24,7 @@ export default function ArchiveList({ projects }: { projects: Project[] }) {
               <p className="text-bone-muted text-sm leading-relaxed">
                 <span className="text-bone/80">{project.category}</span>
                 {project.year ? <span>, &apos;{project.year.slice(-2)}</span> : null}
-                <span className="text-bone-dim"> — </span>
+                <span className="text-bone-dim"> · </span>
                 <span>{project.blurb}</span>
               </p>
             </div>

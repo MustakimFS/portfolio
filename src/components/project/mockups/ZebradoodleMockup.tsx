@@ -53,7 +53,7 @@ export default function ZebradoodleMockup() {
   )
 }
 
-/* ─── Game state — target word RAFTS, guesses CRANE → SLATE → RAFTS ──── */
+/* ─── Game state, target word RAFTS, guesses CRANE → SLATE → RAFTS ──── */
 
 type State = 'correct' | 'present' | 'absent' | 'empty'
 const CELL = (letter: string, state: State) => ({ letter, state })

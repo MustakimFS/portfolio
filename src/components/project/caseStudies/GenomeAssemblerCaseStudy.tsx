@@ -1,5 +1,5 @@
 /**
- * De Bruijn Genome Assembler — full case-study body.
+ * De Bruijn Genome Assembler, full case-study body.
  *
  * Real facts pulled from the README at
  * github.com/MustakimFS/debruijn-genome-assembler. Example output, benchmark
@@ -73,7 +73,7 @@ function Overview() {
           (backend) + Vercel (frontend). Implements{' '}
           <span className="text-bone">de Bruijn graph construction</span>,{' '}
           <span className="text-bone">Hierholzer&apos;s Eulerian cycle</span>,
-          and error correction via tip removal + bubble resolution — all from
+          and error correction via tip removal + bubble resolution, all from
           the bioinformatics primary literature, no library shortcuts.
         </p>
 
@@ -86,7 +86,7 @@ function Overview() {
           <Code>java -jar genome-toolkit-1.0.0.jar assemble ...</Code>) and the
           REST endpoint inside the Spring Boot service. The React frontend is a
           thin drag-and-drop client over the same API. Two assembly modes ship
-          — the de Bruijn pipeline as primary, and a greedy maximum
+         , the de Bruijn pipeline as primary, and a greedy maximum
           suffix-prefix overlap assembler as a baseline.
         </p>
 
@@ -94,8 +94,8 @@ function Overview() {
         <p className="text-bone-muted">
           Lives at{' '}
           <Code>debruijn-genome-assembler.vercel.app</Code>. Validates on the
-          phi X174 bacteriophage reference — the canonical small-bacteriophage
-          genome for sequencing tools —{' '}
+          phi X174 bacteriophage reference, the canonical small-bacteriophage
+          genome for sequencing tools,{' '}
           <span className="italic font-serif text-bone">
             reconstructing 5,396 bp from 33,609 reads in under two seconds.
           </span>
@@ -172,7 +172,7 @@ function Context() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        Modern sequencers don&apos;t produce genomes — they produce millions of
+        Modern sequencers don&apos;t produce genomes, they produce millions of
         short reads, each 100–300 bp, that have to be stitched back into the
         original sequence. The classic computer-science answer is the{' '}
         <span className="text-bone">de Bruijn graph</span>: every k-mer becomes
@@ -185,12 +185,12 @@ function Context() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
         <QuoteCard
           source="Compeau, Pevzner, Tesler · Nature Biotechnology, 2011"
-          quote="How to apply de Bruijn graphs to genome assembly — the canonical reference for the algorithmic approach this project implements."
+          quote="How to apply de Bruijn graphs to genome assembly, the canonical reference for the algorithmic approach this project implements."
           context="The paper this toolkit follows"
         />
         <QuoteCard
           source="Hierholzer, 1873"
-          quote="Construct an Eulerian circuit in a graph by depth-first edge traversal with backtracking on dead ends — used in iterative form here for memory safety on the 111K-edge graph."
+          quote="Construct an Eulerian circuit in a graph by depth-first edge traversal with backtracking on dead ends, used in iterative form here for memory safety on the 111K-edge graph."
           context="The traversal algorithm at the core"
         />
         <QuoteCard
@@ -199,8 +199,8 @@ function Context() {
           context="The blueprint this project follows on the toolkit side"
         />
         <QuoteCard
-          source="phi X174 — Sanger, 1977"
-          quote="First DNA-based genome ever sequenced — 5,386 bp. Still the canonical small benchmark for any new assembler."
+          source="phi X174, Sanger, 1977"
+          quote="First DNA-based genome ever sequenced, 5,386 bp. Still the canonical small benchmark for any new assembler."
           context="The reference this toolkit validates against"
           spanFull
         />
@@ -232,7 +232,7 @@ function Problem() {
         <ConstraintCard
           n="2"
           title="Memory safety on ~111K edges"
-          body="A recursive Hierholzer's blows the JVM stack on a graph this size. The traversal has to be iterative — explicit stack + edge-consumed bitmap."
+          body="A recursive Hierholzer's blows the JVM stack on a graph this size. The traversal has to be iterative, explicit stack + edge-consumed bitmap."
         />
         <ConstraintCard
           n="3"
@@ -294,7 +294,7 @@ function Process() {
           title="Greedy overlap baseline."
           body={
             <>
-              Started with the simpler algorithm — pairwise maximum
+              Started with the simpler algorithm, pairwise maximum
               suffix-prefix overlap merging. Works on short read sets and is
               easy to verify by hand, but scales{' '}
               <Code>O(n²)</Code> on the number of reads. Kept it in the jar
@@ -340,7 +340,7 @@ function Process() {
             The circular-trim gotcha
           </div>
           <p className="text-bone-muted text-[14.5px] leading-relaxed">
-            phi X174 is a circular genome — the assembled string starts and
+            phi X174 is a circular genome, the assembled string starts and
             ends with the same k-1 prefix because the Eulerian cycle closes on
             itself. The first version of the output left those duplicated
             bases in place and reported{' '}
@@ -356,16 +356,16 @@ function Process() {
         <BeforeAfter
           number="3.0"
           title="Hierholzer's implementation"
-          beforeLabel="Before — V2 recursive"
+          beforeLabel="Before, V2 recursive"
           before="Recursive depth-first traversal. Beautiful 12-line implementation that stack-overflows on any non-trivial graph. JVM gives up around 64K depth."
-          afterLabel="After — V3 iterative"
+          afterLabel="After, V3 iterative"
           after="Explicit Deque<Edge> stack + visited bitmap. Same algorithm, no recursion. Handles 111K-edge phi X174 graph in 1.8 seconds with stable memory footprint."
         />
         <BeforeAfter
           number="3.1"
           title="Reported genome length"
           beforeLabel="Before"
-          before="5,416 bp on phi X174. Algorithm correct, output wrong — duplicated head/tail bases from the circular topology."
+          before="5,416 bp on phi X174. Algorithm correct, output wrong, duplicated head/tail bases from the circular topology."
           afterLabel="After"
           after="5,396 bp at 99.9% coverage. Circular-trim detects the head/tail overlap and removes it. --no-trim flag for non-circular inputs."
         />
@@ -388,7 +388,7 @@ function Architecture() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed mb-8 max-w-2xl">
-        The de Bruijn pipeline is seven deterministic stages — every stage
+        The de Bruijn pipeline is seven deterministic stages, every stage
         consumes a typed input from the previous one and produces a typed
         output for the next. No hidden mutation, no global state. Same code
         powers the CLI and the REST endpoint.
@@ -502,11 +502,11 @@ genome-toolkit assemble <reads-file> [options]
 # Baseline mode
 genome-toolkit overlap <reads-file>
   # greedy maximum suffix-prefix overlap merging
-  # O(n²) on reads — for small-set comparison only
+  # O(n²) on reads, for small-set comparison only
 
 # Inputs
   reads.txt     one read per line
-  ref.fasta     FASTA — sliding-window simulated reads`}
+  ref.fasta     FASTA, sliding-window simulated reads`}
           </pre>
         </div>
       </div>
@@ -529,7 +529,7 @@ function FinalDesigns() {
       />
 
       <p className="text-bone-muted text-[15px] leading-relaxed max-w-2xl mb-10">
-        Two surfaces, one engine. The CLI is the truth-teller — every flag,
+        Two surfaces, one engine. The CLI is the truth-teller, every flag,
         every stat, full reproducibility. The web UI at{' '}
         <Code>debruijn-genome-assembler.vercel.app</Code> wraps the same jar
         behind a Spring Boot REST endpoint, accepts file drops, and renders
@@ -539,28 +539,28 @@ function FinalDesigns() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Figure
           src="/projects/genome-assembler/landing.png"
-          alt="Genome Assembler — drag-and-drop landing with k-mer size and demo data button"
+          alt="Genome Assembler, drag-and-drop landing with k-mer size and demo data button"
           number="7.0"
-          caption="Web UI — drag-and-drop landing."
+          caption="Web UI, drag-and-drop landing."
         />
         <Figure
           src="/projects/genome-assembler/demo-loaded.png"
-          alt="Demo data loaded — dataset1.txt, 0.02 KB, ready to assemble"
+          alt="Demo data loaded, dataset1.txt, 0.02 KB, ready to assemble"
           number="7.1"
-          caption="Demo data loaded — one click to assemble."
+          caption="Demo data loaded, one click to assemble."
         />
       </div>
 
       <div className="mt-8">
         <Figure
           src="/projects/genome-assembler/assembly-complete.png"
-          alt="Assembly complete — 5,396 bp, 33,609 reads, 26,455 ms, genome sequence preview"
+          alt="Assembly complete, 5,396 bp, 33,609 reads, 26,455 ms, genome sequence preview"
           number="7.2"
-          caption="Assembly complete — 5,396 bp from 33,609 reads, sequence preview + download."
+          caption="Assembly complete, 5,396 bp from 33,609 reads, sequence preview + download."
         />
       </div>
 
-      {/* Live preview — clickable browser window linking to deployed app */}
+      {/* Live preview, clickable browser window linking to deployed app */}
       <div className="mt-14">
         <a
           href="https://debruijn-genome-assembler.vercel.app/"
@@ -573,7 +573,7 @@ function FinalDesigns() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/projects/genome-assembler/landing.png"
-                alt="Live app — De Bruijn Genome Assembler"
+                alt="Live app, De Bruijn Genome Assembler"
                 className="w-full block"
                 loading="lazy"
               />
@@ -585,7 +585,7 @@ function FinalDesigns() {
             </div>
           </BrowserWindow>
         </a>
-        <FigureCaption number="7.3" label="Live at debruijn-genome-assembler.vercel.app — click to open." kind="image" />
+        <FigureCaption number="7.3" label="Live at debruijn-genome-assembler.vercel.app, click to open." kind="image" />
       </div>
     </section>
   )
@@ -623,11 +623,11 @@ function Retrospective() {
         <RetroColumn title="Didn't">
           <RetroItem
             head="Only validated on phi X174."
-            body="Small bacteriophage at ~5.4kb is the toy dataset. Anything closer to a real bacterial genome (~5 Mb) needs more careful memory management — and probably multi-k assembly."
+            body="Small bacteriophage at ~5.4kb is the toy dataset. Anything closer to a real bacterial genome (~5 Mb) needs more careful memory management, and probably multi-k assembly."
           />
           <RetroItem
             head="No paired-end support."
-            body="Real Illumina sequencing produces paired reads with known insert sizes — invaluable for resolving repeats. The current pipeline treats every read independently."
+            body="Real Illumina sequencing produces paired reads with known insert sizes, invaluable for resolving repeats. The current pipeline treats every read independently."
           />
           <RetroItem
             head="Render cold start hurts the demo."
@@ -638,7 +638,7 @@ function Retrospective() {
         <RetroColumn title="Next">
           <RetroItem
             head="Multi-k assembly."
-            body="SPAdes-style — assemble at several k values, merge results. Larger k for long unique stretches, smaller k where coverage drops. Standard move for scaling beyond toy genomes."
+            body="SPAdes-style, assemble at several k values, merge results. Larger k for long unique stretches, smaller k where coverage drops. Standard move for scaling beyond toy genomes."
           />
           <RetroItem
             head="Paired-read scaffolding."

@@ -22,19 +22,19 @@ import { getMockup, getMockupWindow } from './registry'
 /** Per-project glow palettes. Hover ambient lighting picks from these. */
 const GLOW_PALETTES: Record<string, { '--glow-1': string; '--glow-2': string; '--glow-3': string }> = {
   cascade: {
-    // Graph intelligence — violet → blue → teal, echoing the node-type legend
+    // Graph intelligence, violet → blue → teal, echoing the node-type legend
     '--glow-1': 'rgba(108, 140, 255, 0.55)',
     '--glow-2': 'rgba(179, 136, 255, 0.40)',
     '--glow-3': 'rgba(77, 208, 167, 0.25)',
   },
   'mety-legal': {
-    // Prismatic — matches the rainbow swirl on the landing page
+    // Prismatic, matches the rainbow swirl on the landing page
     '--glow-1': 'rgba(0, 212, 255, 0.55)',
     '--glow-2': 'rgba(255, 0, 170, 0.40)',
     '--glow-3': 'rgba(255, 140, 0, 0.30)',
   },
   aegisflow: {
-    // Cool blues — distributed systems / reliability vibe
+    // Cool blues, distributed systems / reliability vibe
     '--glow-1': 'rgba(64, 156, 255, 0.55)',
     '--glow-2': 'rgba(138, 102, 255, 0.40)',
     '--glow-3': 'rgba(40, 220, 200, 0.25)',
@@ -52,37 +52,37 @@ const GLOW_PALETTES: Record<string, { '--glow-1': string; '--glow-2': string; '-
     '--glow-3': 'rgba(200, 60, 40, 0.25)',
   },
   'launch-parameters': {
-    // Deep-space blue / orbit teal — matches the dark cosmos globe
+    // Deep-space blue / orbit teal, matches the dark cosmos globe
     '--glow-1': 'rgba(30, 120, 255, 0.55)',
     '--glow-2': 'rgba(0, 200, 220, 0.35)',
     '--glow-3': 'rgba(80, 60, 200, 0.25)',
   },
   'missing-persons': {
-    // ASU Gold & Maroon — matches the ASU project identity
+    // ASU Gold & Maroon, matches the ASU project identity
     '--glow-1': 'rgba(140, 29, 64, 0.55)',
     '--glow-2': 'rgba(255, 198, 39, 0.40)',
     '--glow-3': 'rgba(140, 29, 64, 0.25)',
   },
   pixeldrive: {
-    // Carla road colors — violet → pink → cyan, mirrors the tab20 mask palette
+    // Carla road colors, violet → pink → cyan, mirrors the tab20 mask palette
     '--glow-1': 'rgba(155, 108, 199, 0.50)',
     '--glow-2': 'rgba(255, 122, 144, 0.35)',
     '--glow-3': 'rgba(78, 195, 230, 0.25)',
   },
   'genome-assembler': {
-    // Lab-bench green / teal — DNA bases, agar plates, terminal feel
+    // Lab-bench green / teal, DNA bases, agar plates, terminal feel
     '--glow-1': 'rgba(80, 220, 130, 0.50)',
     '--glow-2': 'rgba(40, 200, 180, 0.35)',
     '--glow-3': 'rgba(120, 200, 80, 0.25)',
   },
   'job-hunt': {
-    // Hustle amber / desktop teal — productivity tool, tray-app vibe
+    // Hustle amber / desktop teal, productivity tool, tray-app vibe
     '--glow-1': 'rgba(255, 180, 60, 0.45)',
     '--glow-2': 'rgba(80, 200, 200, 0.30)',
     '--glow-3': 'rgba(120, 100, 220, 0.20)',
   },
   zebradoodle: {
-    // Wordle-tile palette — green / amber / soft slate
+    // Wordle-tile palette, green / amber / soft slate
     '--glow-1': 'rgba(90, 179, 106, 0.50)',
     '--glow-2': 'rgba(202, 168, 77, 0.35)',
     '--glow-3': 'rgba(160, 160, 200, 0.20)',
@@ -112,11 +112,11 @@ export default function ProjectShowcase({ project }: { project: Project }) {
               <p className="text-bone-muted text-sm leading-relaxed">
                 <span className="text-bone/85 font-medium">{project.category}</span>
                 {project.year ? <span>, '{project.year.slice(-2)}</span> : null}
-                <span className="text-bone-dim"> — </span>
+                <span className="text-bone-dim"> · </span>
                 <span>{project.blurb}</span>
               </p>
             </div>
-            {/* Decorative only — the whole card is already a <Link>. No href
+            {/* Decorative only, the whole card is already a <Link>. No href
                 here, so FluidLabel renders a <span> and we avoid nesting an
                 <a> inside an <a> (which is invalid HTML and breaks hydration). */}
             <div className="absolute right-0 top-1/2 -translate-y-1/2 sm:static sm:translate-y-0 shrink-0">

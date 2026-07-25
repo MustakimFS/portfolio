@@ -1,5 +1,5 @@
 /**
- * Cascade — homepage card + case-study hero mockup.
+ * Cascade, homepage card + case-study hero mockup.
  *
  * A faux "graph intelligence" workspace rendered entirely in SVG + DOM (no
  * screenshot yet): a force-directed influence graph on the left, a node
@@ -28,7 +28,7 @@ interface GNode {
   label?: boolean
 }
 
-// Hand-placed layout in a 400 × 250 viewBox — AMZN is the high-degree hub.
+// Hand-placed layout in a 400 × 250 viewBox, AMZN is the high-degree hub.
 const NODES: GNode[] = [
   { id: 'AMZN', x: 205, y: 128, r: 13, t: 'equity', label: true },
   { id: 'AAPL', x: 132, y: 86, r: 8, t: 'equity', label: true },
