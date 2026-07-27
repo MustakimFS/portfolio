@@ -602,26 +602,26 @@ function FinalDesigns() {
       <div className="space-y-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Figure
-            src="/projects/semiconductor/01-streamlit-landing.png"
+            src="/projects/semiconductor/01-streamlit-landing.webp"
             alt="Streamlit landing page, wafer input pane with 590 sensor values and FAIL verdict tile at threshold 0.35"
             number="7.0"
             caption="Streamlit landing, slider + input pane."
           />
           <Figure
-            src="/projects/semiconductor/02-threshold-sweep.png"
+            src="/projects/semiconductor/02-threshold-sweep.webp"
             alt="Threshold sweep visualization showing live recall, precision, and false-alarm rate curves as the decision slider moves"
             number="7.1"
             caption="Threshold sweep, live holdout-set tradeoffs."
           />
           <Figure
-            src="/projects/semiconductor/03-confusion-matrix.png"
+            src="/projects/semiconductor/03-confusion-matrix.webp"
             alt="Holdout confusion matrix at threshold 0.35: TN=238, FP=55, FN=5, TP=16 with recall 0.76 and ROC-AUC 0.81"
             number="7.2"
             caption="Confusion matrix at threshold 0.35."
           />
         </div>
         <Figure
-          src="/projects/semiconductor/04-top-l1-features.png"
+          src="/projects/semiconductor/04-top-l1-features.webp"
           alt="Top L1-selected features ranked by coefficient magnitude, 113 sensors with sign of contribution and absolute coefficient value"
           number="7.3"
           caption="Top L1 features, 113 sensors ranked by coefficient magnitude."

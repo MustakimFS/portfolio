@@ -249,7 +249,7 @@ export function Figure({
     <div className={maxW ? `${maxW} mx-auto` : ''}>
       <div className="rounded-xl overflow-hidden border border-ink-border bg-ink-raised">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt={alt} className="w-full block" loading="lazy" />
+        <img src={src} alt={alt} className="w-full block" loading="lazy" decoding="async" />
       </div>
       <FigureCaption number={number} label={caption} kind="image" />
     </div>

@@ -540,7 +540,7 @@ function FinalDesigns() {
       </p>
 
       <Figure
-        src="/projects/pixeldrive/landing.png"
+        src="/projects/pixeldrive/landing.webp"
         alt="PixelDrive Gradio Space, upload UI with sample images"
         number="7.0"
         caption="Landing, upload UI + five sample scenes from the Carla dataset."
@@ -548,13 +548,13 @@ function FinalDesigns() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
         <Figure
-          src="/projects/pixeldrive/output-1.png"
+          src="/projects/pixeldrive/output-1.webp"
           alt="PixelDrive three-panel output, input, segmentation mask, overlay + class breakdown"
           number="7.1"
           caption="Three-panel output + class-percent breakdown."
         />
         <Figure
-          src="/projects/pixeldrive/output-2.png"
+          src="/projects/pixeldrive/output-2.webp"
           alt="PixelDrive inference on a different Carla scene"
           number="7.2"
           caption="Second sample, different scene, same 13-class palette."
@@ -573,7 +573,7 @@ function FinalDesigns() {
             <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/projects/pixeldrive/output-1.png"
+                src="/projects/pixeldrive/output-1.webp"
                 alt="Live app, PixelDrive on Hugging Face Spaces"
                 className="w-full block"
                 loading="lazy"

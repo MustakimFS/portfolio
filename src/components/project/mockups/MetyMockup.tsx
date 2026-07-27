@@ -1,6 +1,6 @@
 /**
  * METY Legal Chatbot, real product screenshot rendered inside the project's
- * BrowserWindow. The image lives at /public/projects/mety-legal/landing.png.
+ * BrowserWindow. The image lives at /public/projects/mety-legal/landing.webp.
  *
  * We use a plain <img> rather than next/image because the Next.js image
  * optimizer endpoint can be slow/flaky in some dev/preview environments and
@@ -12,7 +12,7 @@ export default function MetyMockup() {
     <div className="relative w-full aspect-[16/9] bg-black overflow-hidden">
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/projects/mety-legal/landing.png"
+        src="/projects/mety-legal/landing.webp"
         alt="METY Legal Chatbot, landing page"
         className="absolute inset-0 w-full h-full object-cover object-top"
         loading="eager"

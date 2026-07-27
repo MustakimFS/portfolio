@@ -538,13 +538,13 @@ function FinalDesigns() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Figure
-          src="/projects/genome-assembler/landing.png"
+          src="/projects/genome-assembler/landing.webp"
           alt="Genome Assembler, drag-and-drop landing with k-mer size and demo data button"
           number="7.0"
           caption="Web UI, drag-and-drop landing."
         />
         <Figure
-          src="/projects/genome-assembler/demo-loaded.png"
+          src="/projects/genome-assembler/demo-loaded.webp"
           alt="Demo data loaded, dataset1.txt, 0.02 KB, ready to assemble"
           number="7.1"
           caption="Demo data loaded, one click to assemble."
@@ -553,7 +553,7 @@ function FinalDesigns() {
 
       <div className="mt-8">
         <Figure
-          src="/projects/genome-assembler/assembly-complete.png"
+          src="/projects/genome-assembler/assembly-complete.webp"
           alt="Assembly complete, 5,396 bp, 33,609 reads, 26,455 ms, genome sequence preview"
           number="7.2"
           caption="Assembly complete, 5,396 bp from 33,609 reads, sequence preview + download."
@@ -572,7 +572,7 @@ function FinalDesigns() {
             <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/projects/genome-assembler/landing.png"
+                src="/projects/genome-assembler/landing.webp"
                 alt="Live app, De Bruijn Genome Assembler"
                 className="w-full block"
                 loading="lazy"

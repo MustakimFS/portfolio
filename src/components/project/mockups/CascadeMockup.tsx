@@ -8,7 +8,7 @@
 export default function CascadeMockup() {
   return (
     <img
-      src="/projects/cascade/hero-graph.png"
+      src="/projects/cascade/hero-graph.webp"
       alt="Cascade Console: the markets knowledge graph (force-directed influence graph), a shock simulator, and a graph-aware forecast panel"
       className="w-full block"
       loading="lazy"

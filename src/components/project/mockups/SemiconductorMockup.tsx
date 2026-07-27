@@ -9,7 +9,7 @@
 export default function SemiconductorMockup() {
   return (
     <img
-      src="/projects/semiconductor/thumbnail.png"
+      src="/projects/semiconductor/thumbnail.webp"
       alt="Semiconductor Yield Predictor, threshold slider at 0.35, FAIL prediction tile with P(fail)=0.42, top L1 sensors sidebar"
       className="w-full block"
       loading="lazy"

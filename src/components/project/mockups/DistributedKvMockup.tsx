@@ -9,7 +9,7 @@
 export default function DistributedKvMockup() {
   return (
     <img
-      src="/projects/distributed-kv/thumbnail-distributed-kv-store.png"
+      src="/projects/distributed-kv/thumbnail-distributed-kv-store.webp"
       alt="Distributed KV Store, Raft cluster topology showing 5 nodes with node3 as leader"
       className="w-full block"
       loading="lazy"

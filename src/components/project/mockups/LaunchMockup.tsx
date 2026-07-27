@@ -10,11 +10,12 @@ export default function LaunchMockup() {
       {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
       <video
         src="/projects/launch-parameters/earth-globe-thumbnail-slow.mp4"
-        poster="/projects/launch-parameters/01-default-globe.png"
+        poster="/projects/launch-parameters/01-default-globe.webp"
         autoPlay
         muted
         loop
         playsInline
+        preload="metadata"
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
     </div>

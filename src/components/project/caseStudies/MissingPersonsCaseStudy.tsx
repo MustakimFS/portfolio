@@ -584,7 +584,7 @@ function FinalDesigns() {
         {/* Left column, case detail screenshot + two paragraphs below */}
         <div className="flex flex-col">
           <Figure
-            src="/projects/missing-persons/case-detail.png"
+            src="/projects/missing-persons/case-detail.webp"
             alt="Case detail, Maria Munoz, demographics, Google Maps embed, NamUs deep link"
             number="7.0"
             caption="Case detail view."
@@ -626,7 +626,7 @@ function FinalDesigns() {
           <div className="rounded-xl overflow-hidden border border-ink-border bg-ink-raised flex-1">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/projects/missing-persons/advanced-filter.png"
+              src="/projects/missing-persons/advanced-filter.webp"
               alt="Filter form, John, Male, White, 18-35, Santa Barbara, Suspicious circumstances"
               className="w-full h-full object-cover object-top block"
               loading="lazy"

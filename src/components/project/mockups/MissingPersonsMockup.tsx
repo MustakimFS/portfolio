@@ -9,7 +9,7 @@
 export default function MissingPersonsMockup() {
   return (
     <img
-      src="/projects/missing-persons/thumbnail.png"
+      src="/projects/missing-persons/thumbnail.webp"
       alt="Missing Persons Tracker, knowledge graph search interface showing case table with filter pills"
       className="w-full block"
       loading="lazy"
@@ -32,7 +32,7 @@ export function MissingPersonsHeroMockup() {
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
-        src="/projects/missing-persons/landing.png"
+        src="/projects/missing-persons/landing.webp"
         alt="Missing Persons Tracker, search interface with ASU branding"
         className="w-full block"
         loading="eager"

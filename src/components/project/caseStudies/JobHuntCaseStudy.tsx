@@ -544,7 +544,7 @@ function FinalDesigns() {
 
       {/* Dashboard, full-width establishing shot */}
       <Figure
-        src="/projects/jobhunt/dashboard.png"
+        src="/projects/jobhunt/dashboard.webp"
         alt="Job Hunt desktop app, Dashboard tab with stat cards, daily objectives, weekly progress, long-term goals"
         number="7.0"
         caption="Dashboard tab, 224 applications tracked, daily objectives + weekly progress + long-term goals."
@@ -553,7 +553,7 @@ function FinalDesigns() {
       {/* Wallpaper Engine live view, full width + text */}
       <div className="mt-14 grid grid-cols-1 md:grid-cols-[1.6fr_1fr] gap-6 md:gap-10 items-center">
         <Figure
-          src="/projects/jobhunt/wallpaper.png"
+          src="/projects/jobhunt/wallpaper.webp"
           alt="Job Hunt wallpaper, live dashboard painted onto the Windows desktop via Wallpaper Engine"
           number="7.1"
           caption="Wallpaper Engine live view."
@@ -578,13 +578,13 @@ function FinalDesigns() {
       {/* Settings, two detail shots side by side */}
       <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Figure
-          src="/projects/jobhunt/settings-gmail-ai.png"
+          src="/projects/jobhunt/settings-gmail-ai.webp"
           alt="Settings, Gmail connection, AI provider keys, general sync settings"
           number="7.2"
           caption="Settings, Gmail + AI provider + sync config."
         />
         <Figure
-          src="/projects/jobhunt/settings-tasks-goals.png"
+          src="/projects/jobhunt/settings-tasks-goals.webp"
           alt="Settings, editable daily tasks (count/binary) and long-term goals"
           number="7.3"
           caption="Settings, editable daily tasks + long-term goals."

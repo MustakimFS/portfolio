@@ -28,15 +28,15 @@ export default function PixelDriveMockup() {
       <div className="px-5 py-4 grid grid-cols-3 gap-2">
         <Panel
           label="Input"
-          src="/projects/pixeldrive/input.png"
+          src="/projects/pixeldrive/input.webp"
         />
         <Panel
           label="Mask"
-          src="/projects/pixeldrive/mask.png"
+          src="/projects/pixeldrive/mask.webp"
         />
         <Panel
           label="Overlay"
-          src="/projects/pixeldrive/overlay.png"
+          src="/projects/pixeldrive/overlay.webp"
         />
       </div>
 

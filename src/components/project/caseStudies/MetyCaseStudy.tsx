@@ -575,7 +575,7 @@ function FinalDesigns() {
       {/* Service hub, establishing shot */}
       <div className="w-full">
         <ZoomableImage
-          src="/projects/mety-legal/mode-select.png"
+          src="/projects/mety-legal/mode-select.webp"
           alt="METY service hub, three modes: tutoring, chat session, generate document"
         />
         <FigureCaption
@@ -589,14 +589,14 @@ function FinalDesigns() {
       <div className="mt-14">
         <div className="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-5 items-stretch">
           <Figure
-            src="/projects/mety-legal/doc-generation-ui.png"
+            src="/projects/mety-legal/doc-generation-ui.webp"
             alt="Document type + describe + jurisdiction form"
             number="7.1"
             caption="Intake form."
             imgHeightClass="h-[180px] sm:h-[240px] md:h-[280px]"
           />
           <Figure
-            src="/projects/mety-legal/generate-document.png"
+            src="/projects/mety-legal/generate-document.webp"
             alt="Split-panel document generation, chat on the left, formatted rental agreement on the right"
             number="7.2"
             caption="Split-panel draft."
@@ -626,7 +626,7 @@ function FinalDesigns() {
             loop
             muted
             playsInline
-            preload="auto"
+            preload="metadata"
           />
         </div>
         <FigureCaption

@@ -544,33 +544,33 @@ function FinalDesigns() {
 
       <div className="grid grid-cols-1 gap-10">
         <Figure
-          src="/projects/cascade/graph-canvas.png"
+          src="/projects/cascade/graph-canvas.webp"
           alt="Markets knowledge graph with the AMZN node inspector open, showing degree, news sentiment, and leading-edge causal metadata (SPY to AMZN, granger_p 0.0002, causal_support true)"
           number="7.0"
           caption="Markets graph (86 nodes), AMZN inspector with leading-edge causal metadata."
         />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <Figure
-            src="/projects/cascade/backtest-panel.png"
+            src="/projects/cascade/backtest-panel.webp"
             alt="FDX node inspector with 168-hour price history and the backtest tab showing the LightGBM plus deep GNN training panel"
             number="7.1"
             caption="Node inspector, price history, and the LightGBM + GNN training panel."
           />
           <Figure
-            src="/projects/cascade/reports-page.png"
+            src="/projects/cascade/reports-page.webp"
             alt="Analyst reports page: the autonomous expand-retrain-backtest-forecast-brief loop with a dated brief and an out-of-sample backtest table"
             number="7.2"
             caption="Autonomous analyst loop: dated brief, honest summary, out-of-sample backtest."
           />
         </div>
         <Figure
-          src="/projects/cascade/graph-expansion.gif"
+          src="/projects/cascade/graph-expansion.webp"
           alt="Expanding the influence graph: new nodes and edges animate into the force-directed canvas"
           number="7.3"
           caption="Expanding the graph: new nodes and edges animate onto the force-directed canvas."
         />
         <Figure
-          src="/projects/cascade/settings-drawer.png"
+          src="/projects/cascade/settings-drawer.webp"
           alt="Settings drawer with runtime LLM provider switching between Ollama, NVIDIA NIM, and Anthropic, and data connectors read from .env"
           number="7.4"
           caption="Runtime provider switching (Ollama / NVIDIA NIM / Anthropic); keys live in .env, never the browser."

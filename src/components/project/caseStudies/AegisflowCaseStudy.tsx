@@ -726,7 +726,7 @@ function FinalDesigns() {
 
       {/* 7.0, make up boot + docker ps */}
       <Figure
-        src="/projects/aegisflow/01-make-up-containers.png"
+        src="/projects/aegisflow/01-make-up-containers.webp"
         alt="make up, 14/14 aegisflow containers healthy, docker ps showing real ports"
         number="7.0"
         caption="make up → 14/14 containers healthy in 41.8s · docker ps with real port mappings."
@@ -735,7 +735,7 @@ function FinalDesigns() {
       {/* 7.1, Grafana overview dashboard */}
       <div className="mt-14">
         <Figure
-          src="/projects/aegisflow/04-aegisflow-overview-dashboard.png"
+          src="/projects/aegisflow/04-aegisflow-overview-dashboard.webp"
           alt="Grafana aegisflow-overview dashboard, throughput, fallback counter, confidence histogram, circuit breaker gauge, token counters"
           number="7.1"
           caption="Grafana aegisflow-overview, auto-provisioned from aegisflow-overview.json."
@@ -754,7 +754,7 @@ function FinalDesigns() {
       {/* 7.2, real workflow response */}
       <div className="mt-14">
         <Figure
-          src="/projects/aegisflow/02-make-demo-curl-response.png"
+          src="/projects/aegisflow/02-make-demo-curl-response.webp"
           alt="curl POST /v1/workflows, real response with run_id, trace_id, confidence 0.379, fallback true"
           number="7.2"
           caption="make demo → POST /v1/workflows, a real workflow response."
@@ -776,7 +776,7 @@ function FinalDesigns() {
       {/* 7.3, chaos + guardrails repair */}
       <div className="mt-14">
         <Figure
-          src="/projects/aegisflow/03-chaos-fallback-repair.png"
+          src="/projects/aegisflow/03-chaos-fallback-repair.webp"
           alt="Enable json-corruption chaos scenario, run demo, guardrails /v1/validate returns repaired=true with the exact repairs applied"
           number="7.3"
           caption="Chaos json-corruption enabled → guardrails /v1/validate exposes repaired=true + the exact repairs."

@@ -163,7 +163,7 @@ function Highlights() {
         <div className="rounded-xl overflow-hidden border border-ink-border bg-black">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/projects/launch-parameters/02-selected-location-dashboard.png"
+            src="/projects/launch-parameters/02-selected-location-dashboard.webp"
             alt="Launch Parameters: selected location with trajectory and full dashboard"
             className="w-full h-auto block"
             loading="lazy"
@@ -332,7 +332,7 @@ function Process() {
           <div className="rounded-xl overflow-hidden border border-ink-border bg-black">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/projects/launch-parameters/01-default-globe.png"
+              src="/projects/launch-parameters/01-default-globe.webp"
               alt="Default globe state, rotating Earth, grating, labeled launch sites"
               className="w-full h-auto block"
               loading="lazy"
@@ -590,7 +590,7 @@ function FinalDesigns() {
       {/* Frame 1, trajectory close-up */}
       <div className="max-w-2xl mx-auto">
         <img
-          src="/projects/launch-parameters/03-trajectory-globe-detail.png"
+          src="/projects/launch-parameters/03-trajectory-globe-detail.webp"
           alt="Launch Parameters, trajectory globe detail view"
           className="w-full h-auto block"
           loading="lazy"
@@ -605,7 +605,7 @@ function FinalDesigns() {
       {/* Frame 2, interplanetary */}
       <div className="mt-8 max-w-2xl mx-auto">
         <img
-          src="/projects/launch-parameters/04-interplanetary-target.png"
+          src="/projects/launch-parameters/04-interplanetary-target.webp"
           alt="Launch Parameters, interplanetary target (Mars) selected"
           className="w-full h-auto block"
           loading="lazy"

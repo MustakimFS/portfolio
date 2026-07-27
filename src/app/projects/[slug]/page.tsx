@@ -393,6 +393,7 @@ function FinalSection({ project }: { project: Project }) {
               loop
               muted
               playsInline
+              preload="metadata"
               className="w-full h-auto block"
             />
           </div>

@@ -555,13 +555,13 @@ function FinalDesigns() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <Figure
-          src="/projects/zebradoodle/home.png"
+          src="/projects/zebradoodle/home.webp"
           alt="Zebradoodle home, Pick a puzzle, four mode cards"
           number="7.0"
           caption="Home, mode select (Wordle · Quordle · Sedecordle · Nerdle)."
         />
         <Figure
-          src="/projects/zebradoodle/nerdle.png"
+          src="/projects/zebradoodle/nerdle.webp"
           alt="Nerdle board mid-game, Daily #1370, equation 9+8-7=10"
           number="7.1"
           caption="Nerdle, Daily #1370, 8-tile equation board + numpad keyboard."
@@ -580,7 +580,7 @@ function FinalDesigns() {
             <div className="relative">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/projects/zebradoodle/home.png"
+                src="/projects/zebradoodle/home.webp"
                 alt="Live app, Zebradoodle puzzle collection"
                 className="w-full block"
                 loading="lazy"

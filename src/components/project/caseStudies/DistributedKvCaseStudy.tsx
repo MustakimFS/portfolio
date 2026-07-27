@@ -573,25 +573,25 @@ function FinalDesigns() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12">
         <Figure
-          src="/projects/distributed-kv/01-docker-compose-5of5-healthy.png"
+          src="/projects/distributed-kv/01-docker-compose-5of5-healthy.webp"
           alt="docker compose up output, 5/5 containers running, all healthy, node3 elected leader in term 3"
           number="7.1"
           caption="docker compose up · 5/5 serving gRPC."
         />
         <Figure
-          src="/projects/distributed-kv/02-leader-failover-kill-node3.png"
+          src="/projects/distributed-kv/02-leader-failover-kill-node3.webp"
           alt="Leader failover, docker kill raft-node3, four re-elections across terms 4-9, leadership churn observed"
           number="7.2"
           caption="Leader failover, kill current leader."
         />
         <Figure
-          src="/projects/distributed-kv/03-quorum-loss-recovery.png"
+          src="/projects/distributed-kv/03-quorum-loss-recovery.webp"
           alt="Quorum boundary test, 3/5 alive (quorum available), then 2/5 alive (quorum unavailable), then full cluster restored"
           number="7.3"
           caption="Quorum loss, 3/5 then 2/5 alive."
         />
         <Figure
-          src="/projects/distributed-kv/04-latencytracker-output.png"
+          src="/projects/distributed-kv/04-latencytracker-output.webp"
           alt="LatencyTracker benchmark output, strong-read p99 under 1ms, write avg 0.04ms, PASS assertion"
           number="7.4"
           caption="LatencyTracker output, p50 / p99 / avg."
