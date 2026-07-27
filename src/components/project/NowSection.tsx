@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import HeroHeading from '@/components/typography/HeroHeading'
 import SectionLabel from '@/components/typography/SectionLabel'
 import { NOW_BUILDING, IDEAS } from '@/lib/now'
@@ -57,6 +58,14 @@ export default function NowSection() {
                       </span>
                     ))}
                   </div>
+                )}
+                {item.href && (
+                  <Link
+                    href={item.href}
+                    className="inline-flex items-center gap-1.5 text-bone-muted hover:text-bone text-[13px] font-medium mt-4 transition-colors w-fit"
+                  >
+                    View the case study <span aria-hidden="true">→</span>
+                  </Link>
                 )}
               </div>
             ))}

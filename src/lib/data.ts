@@ -30,7 +30,7 @@ export const PROJECTS = [
     featured: true,
     category: 'Graph Intelligence / ML',
     year: '2026',
-    note: 'In active development · no public launch yet · screenshots and demo videos coming soon',
+    note: 'In active development · no public launch yet',
     mockupKind: 'browser',
     mockupUrl: 'localhost:3000/graph/markets',
     tint: 'plum',

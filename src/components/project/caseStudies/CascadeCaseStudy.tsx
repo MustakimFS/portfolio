@@ -3,8 +3,8 @@
  *
  * Graph Intelligence Platform (in active development, June 2026). All numbers
  * below are real and verifiable from the project's evaluation harness, ADRs,
- * and persisted artifacts. Final Designs uses blank placeholders until
- * screenshots / video loops are captured.
+ * and persisted artifacts. Final Designs uses real captures of the live
+ * Cascade Console (public/projects/cascade/).
  */
 "use client"
 
@@ -25,6 +25,7 @@ import {
   BeforeAfter,
   RetroColumn,
   RetroItem,
+  Figure,
 } from './_helpers'
 
 export const CASCADE_SECTIONS = [
@@ -49,30 +50,6 @@ export default function CascadeCaseStudy() {
       <Architecture />
       <FinalDesigns />
       <Retrospective />
-    </div>
-  )
-}
-
-/** Blank figure slot used until real screenshots / video loops are captured. */
-function PlaceholderFigure({
-  number,
-  caption,
-  ratio = 'aspect-[16/9]',
-}: {
-  number: string
-  caption: string
-  ratio?: string
-}) {
-  return (
-    <div>
-      <div
-        className={`${ratio} rounded-xl border border-dashed border-ink-border bg-ink-raised/50 flex items-center justify-center`}
-      >
-        <span className="text-bone-dim text-[12px] font-mono">
-          screenshot / video coming soon
-        </span>
-      </div>
-      <FigureCaption number={number} label={caption} kind="placeholder" />
     </div>
   )
 }
@@ -554,25 +531,50 @@ function FinalDesigns() {
     <section id="final" className="scroll-mt-24">
       <SectionLabel className="mb-4">Final Designs</SectionLabel>
       <HeroHeading
-        sans="The workspace, once the"
-        accent="captures are in."
+        sans="The workspace,"
+        accent="end to end."
         size="md"
         className="mb-6"
       />
       <p className="text-bone-muted text-[15px] leading-relaxed mb-10 max-w-2xl">
-        Screenshots and video loops are still being captured. The slots below
-        mark exactly what will live here: the living graph canvas, the forecast
-        and model card, the autonomous reports page, and the provider settings
-        drawer.
+        The live Cascade Console: the influence graph, the node inspector with
+        causal edge metadata, the model and backtest panels, the autonomous
+        analyst loop, and the provider settings that keep it portable.
       </p>
 
       <div className="grid grid-cols-1 gap-10">
-        <PlaceholderFigure number="7.0" caption="Markets world, 86-node force-directed canvas with AMZN inspector open." />
+        <Figure
+          src="/projects/cascade/graph-canvas.png"
+          alt="Markets knowledge graph with the AMZN node inspector open, showing degree, news sentiment, and leading-edge causal metadata (SPY to AMZN, granger_p 0.0002, causal_support true)"
+          number="7.0"
+          caption="Markets graph (86 nodes), AMZN inspector with leading-edge causal metadata."
+        />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <PlaceholderFigure number="7.1" caption="FDX forecast band (q10/q50/q90) + model card." ratio="aspect-[4/3]" />
-          <PlaceholderFigure number="7.2" caption="Analyst-loop reports page, dated briefs + auto-run." ratio="aspect-[4/3]" />
+          <Figure
+            src="/projects/cascade/backtest-panel.png"
+            alt="FDX node inspector with 168-hour price history and the backtest tab showing the LightGBM plus deep GNN training panel"
+            number="7.1"
+            caption="Node inspector, price history, and the LightGBM + GNN training panel."
+          />
+          <Figure
+            src="/projects/cascade/reports-page.png"
+            alt="Analyst reports page: the autonomous expand-retrain-backtest-forecast-brief loop with a dated brief and an out-of-sample backtest table"
+            number="7.2"
+            caption="Autonomous analyst loop: dated brief, honest summary, out-of-sample backtest."
+          />
         </div>
-        <PlaceholderFigure number="7.3" caption="Graph expansion + shock-propagation video loop." />
+        <Figure
+          src="/projects/cascade/graph-expansion.gif"
+          alt="Expanding the influence graph: new nodes and edges animate into the force-directed canvas"
+          number="7.3"
+          caption="Expanding the graph: new nodes and edges animate onto the force-directed canvas."
+        />
+        <Figure
+          src="/projects/cascade/settings-drawer.png"
+          alt="Settings drawer with runtime LLM provider switching between Ollama, NVIDIA NIM, and Anthropic, and data connectors read from .env"
+          number="7.4"
+          caption="Runtime provider switching (Ollama / NVIDIA NIM / Anthropic); keys live in .env, never the browser."
+        />
       </div>
     </section>
   )
