@@ -5,12 +5,13 @@ import { useEffect, useRef } from 'react'
 /**
  * Launch Parameters, homepage card / case-study hero mockup.
  *
- * Plays the earth-globe demo clip (muted, looping). The clip is ~2.4 MB, so
- * `preload="none"` keeps it from downloading until it's first played, and an
- * IntersectionObserver plays it only while the card is on screen and pauses it
- * (freeing the decoder) when it scrolls off — so it stays smooth on the
- * card-heavy homepage without ever swapping the video out for a still. The clip
- * is pre-slowed at 60fps, so it plays at native speed.
+ * Plays the earth-globe demo clip (muted, looping). `preload="metadata"` fetches
+ * just the first frame up-front (tiny) so the card shows the video's own frame
+ * instead of a separate poster image (no swap/flash), while the full ~2.4 MB
+ * clip only downloads when it first plays. An IntersectionObserver plays it
+ * while the card is on (or near) screen and pauses it — freeing the decoder —
+ * when it scrolls off, keeping the card-heavy homepage smooth. The clip is
+ * pre-slowed at 60fps, so it plays at native speed.
  */
 const CLIP = '/projects/launch-parameters/earth-globe-thumbnail-slow.mp4'
 
@@ -25,7 +26,7 @@ export default function LaunchMockup() {
         if (entry.isIntersecting) el.play().catch(() => {})
         else el.pause()
       },
-      { threshold: 0.2 },
+      { rootMargin: '250px 0px' },
     )
     io.observe(el)
     return () => io.disconnect()
@@ -37,11 +38,10 @@ export default function LaunchMockup() {
       <video
         ref={ref}
         src={CLIP}
-        poster="/projects/launch-parameters/01-default-globe.webp"
         muted
         loop
         playsInline
-        preload="none"
+        preload="metadata"
         className="absolute inset-0 w-full h-full object-cover object-center"
       />
     </div>
