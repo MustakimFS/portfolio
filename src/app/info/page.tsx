@@ -112,7 +112,7 @@ export default async function InfoPage() {
                   <div className="space-y-5 mt-1">
                     <ExperienceEntry
                       role="Full Stack Developer · GenAI Team"
-                      org="Saayam for All · Volunteer"
+                      org="Saayam for All"
                       period="Jun '26 to present"
                       summary={
                         <>
@@ -129,15 +129,15 @@ export default async function InfoPage() {
                     />
                     <ExperienceEntry
                       role="Software Engineer"
-                      org="MyEdMaster · Volunteer (OPT)"
+                      org="MyEdMaster"
                       period="Sep '26 to present"
                       summary={
                         <>
                           Continuing the{' '}
                           <span className="text-bone">METY Legal AI chatbot</span>{' '}
                           (my ASU capstone) as a full-stack developer on Python
-                          and React, an unpaid OPT role building on the
-                          production architecture I shipped during the capstone.
+                          and React, building on the production architecture I
+                          shipped during the capstone.
                         </>
                       }
                     />
