@@ -112,7 +112,7 @@ export default async function InfoPage() {
                   <div className="space-y-5 mt-1">
                     <ExperienceEntry
                       role="Full Stack Developer · GenAI Team"
-                      org="Saayam for All"
+                      org="Saayam for All · Volunteer"
                       period="Jun '26 to present"
                       summary={
                         <>
@@ -124,6 +124,20 @@ export default async function InfoPage() {
                           Surfaced the security gaps that mattered, 33
                           unauthenticated API routes and provider keys stored in
                           plaintext outside rotation, and scoped their fix.
+                        </>
+                      }
+                    />
+                    <ExperienceEntry
+                      role="Software Engineer"
+                      org="MyEdMaster · Volunteer (OPT)"
+                      period="Sep '26 to present"
+                      summary={
+                        <>
+                          Continuing the{' '}
+                          <span className="text-bone">METY Legal AI chatbot</span>{' '}
+                          (my ASU capstone) as a full-stack developer on Python
+                          and React, an unpaid OPT role building on the
+                          production architecture I shipped during the capstone.
                         </>
                       }
                     />
@@ -142,7 +156,7 @@ export default async function InfoPage() {
                     <ExperienceEntry
                       role="AI Pipeline Architect"
                       org="METY Legal · Industry Capstone · MyEdMaster"
-                      period="Jan '26 to May '26 · Sep '26 to present"
+                      period="Jan '26 to May '26"
                       summary={
                         <>
                           Sole engineer on the QnA backend, FSPR knowledge
