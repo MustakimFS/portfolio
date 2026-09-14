@@ -2,7 +2,7 @@ export const PERSONAL = {
   name: 'Mustakim Shikalgar',
   title: 'Software Engineer',
   tagline: 'Building distributed systems and intelligent applications.',
-  bio: 'MS Software Engineering student at Arizona State University (GPA 3.75), graduating May 2026. Published IEEE researcher, Technical Architecture Lead, and top 3% LeetCode solver (Knight badge, 1900+ rating). I work at the intersection of distributed systems, machine learning, and full-stack engineering.',
+  bio: 'MS Software Engineering graduate from Arizona State University (GPA 3.77, May 2026). Published IEEE researcher, Software Engineer, and top 3% LeetCode solver (Knight badge, 2000+ rating). I work at the intersection of distributed systems, machine learning, and full-stack engineering.',
   email: 'shikalgar.mustakim@gmail.com',
   linkedin: 'https://www.linkedin.com/in/mustakim-shikalgar',
   github: 'https://github.com/MustakimFS',
@@ -317,6 +317,6 @@ export const SKILLS = [
 export const ACHIEVEMENTS = [
   { label: 'LeetCode Contest Rating', value: '1841', sub: 'Top 6.44% globally', href: 'https://leetcode.com/u/Mustakim_Shikalgar/' },
   { label: 'IEEE Paper', value: 'COMPSAC 2025', sub: '27% acceptance rate · Toronto', href: 'https://ieeexplore.ieee.org/document/11126748' },
-  { label: 'GPA', value: '3.75', sub: 'MS Software Engineering · ASU', href: '#about' },
+  { label: 'GPA', value: '3.77', sub: 'MS Software Engineering · ASU', href: '#about' },
   { label: 'LLM Cost Cut', value: '85%', sub: '$0.0008/query · METY Legal', href: '#projects' },
 ]

@@ -24,13 +24,13 @@ export interface LeetcodeStats {
 }
 
 const LEETCODE_DEFAULTS: LeetcodeStats = {
-  total: 881,
-  easy: 550,
-  medium: 201,
-  hard: 130,
-  ranking: 47287,
-  rating: 1900,
-  topPercentage: 6.44,
+  total: 897,
+  easy: 243,
+  medium: 515,
+  hard: 139,
+  ranking: 48115,
+  rating: 2059,
+  topPercentage: 1.91,
   lastSubmission: new Date().toISOString(),
   live: false,
 }

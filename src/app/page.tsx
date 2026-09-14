@@ -45,7 +45,7 @@ export default function HomePage() {
                   Software Engineer · MS @ ASU.
                 </p>
                 <p className="text-bone-muted text-sm sm:text-base mt-1">
-                  IEEE published. Top 3% on LeetCode (Knight, 1900+ rating).
+                  IEEE published. Top 3% on LeetCode (Knight, 2000+ rating).
                 </p>
               </div>
 

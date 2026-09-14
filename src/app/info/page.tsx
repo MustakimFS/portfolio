@@ -111,16 +111,19 @@ export default async function InfoPage() {
                 output={
                   <div className="space-y-5 mt-1">
                     <ExperienceEntry
-                      role="Full Stack Developer & GenAI Team Lead"
+                      role="Full Stack Developer · GenAI Team"
                       org="Saayam for All"
                       period="Jun '26 to present"
                       summary={
                         <>
-                          Leading architecture and roadmap for a{' '}
-                          <span className="text-bone">RAG-based conversational
-                          agent</span>. Currently building the subject-line
-                          optimization and answer-generation endpoints on the
-                          GenAI team.
+                          Reverse-engineered the as-built architecture of a{' '}
+                          <span className="text-bone">7-team serverless GenAI
+                          platform</span> (7 API gateways, 209 routes, 200
+                          Lambdas) straight from live infrastructure, after the
+                          existing docs described a system that was never built.
+                          Surfaced the security gaps that mattered, 33
+                          unauthenticated API routes and provider keys stored in
+                          plaintext outside rotation, and scoped their fix.
                         </>
                       }
                     />
@@ -130,7 +133,7 @@ export default async function InfoPage() {
                       period="Aug '24 to May '26"
                       summary={
                         <>
-                          MS Software Engineering · GPA 3.75. Coursework across
+                          MS Software Engineering · GPA 3.77. Coursework across
                           distributed systems, ML, AI engineering, and applied
                           research. Graduated May 2026.
                         </>
@@ -139,7 +142,7 @@ export default async function InfoPage() {
                     <ExperienceEntry
                       role="AI Pipeline Architect"
                       org="METY Legal · Industry Capstone · MyEdMaster"
-                      period="Jan '26 to May '26"
+                      period="Jan '26 to May '26 · Sep '26 to present"
                       summary={
                         <>
                           Sole engineer on the QnA backend, FSPR knowledge
